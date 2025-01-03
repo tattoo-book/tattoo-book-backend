@@ -1,0 +1,33 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tattoo-book-backend
+    volumes:
+      - .:/usr/src/app
+    env_file: .env
+    ports:
+      - '3000:3000'
+    depends_on:
+      - database
+    networks:
+      - tattoo-book-network
+
+  database:
+    image: postgres:latest
+    env_file: .env
+    container_name: tattoo-book-database
+    ports:
+      - '5433:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - tattoo-book-network
+
+networks:
+  tattoo-book-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
