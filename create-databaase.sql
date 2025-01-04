@@ -90,7 +90,18 @@ SET DEFAULT '{
 
 
 
-
+CREATE TABLE IF NOT EXISTS public.jobs(
+	id SERIAL NOT NULL,
+	tattoo_artist_id INTEGER NOT NULL,	
+	image BYTEA NOT NULL,
+	
+	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP,
+    deleted_at TIMESTAMP,
+    
+   	CONSTRAINT pk_jobs PRIMARY KEY (id),
+   	CONSTRAINT fk_tattoo_artist FOREIGN KEY (tattoo_artist_id) REFERENCES public.tattoo_artists(id)
+);
 
 
 

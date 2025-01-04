@@ -1,5 +1,16 @@
 import { SchedulingDTO } from 'src/common/classes/DTOs/schedulings/SchedulingDTO';
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { JobsEntity } from './JobsEntity';
 import { UsersEntity } from './UsersEntity';
 
 @Entity('tattoo_artists')
@@ -31,6 +42,9 @@ export class TattooArtistsEntity {
     default: () => '{"sunday": [], "monday": [], "tuesday": [], "wednesday": [], "thursday": [], "friday": [], "saturday": []}\'::jsonb',
   })
   schedulings: SchedulingDTO;
+
+  @OneToMany(() => JobsEntity, (job) => job.tattooArtist)
+  jobs: JobsEntity[];
 
   setSchedulings(schedulings: SchedulingDTO) {
     this.schedulings = schedulings;

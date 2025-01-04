@@ -6,16 +6,20 @@ import { DatabaseConfig } from 'src/common/configs/DatabaseConfig';
 import { JwtConfig } from 'src/common/configs/JwtConfig';
 import { AppController } from 'src/controllers/AppController';
 import { AuthController } from 'src/controllers/AuthController';
+import { JobController } from 'src/controllers/JobController';
 import { StudiosController } from 'src/controllers/StudiosController';
 import { TattooArtistsController } from 'src/controllers/TattooArtistsController';
 import { UsersController } from 'src/controllers/UsersController';
+import { JobsEntity } from 'src/entities/JobsEntity';
 import { StudiosEntity } from 'src/entities/StudiosSchema';
 import { TattooArtistsEntity } from 'src/entities/TattooArtistsEntity';
 import { UsersEntity } from 'src/entities/UsersEntity';
+import { JobRepository } from 'src/repositories/JobRepository';
 import { StudiosRepository } from 'src/repositories/StudiosRepository';
 import { TattooArtistsRepository } from 'src/repositories/TattooArtistsRepository';
 import { UserRepository } from 'src/repositories/UserRepository';
 import { AuthService } from 'src/services/AuthService';
+import { JobService } from 'src/services/JobService';
 import { StudiosService } from 'src/services/StudiosService';
 import { TattooArtistService } from 'src/services/TattooArtistService';
 import { UsersService } from 'src/services/UsersService';
@@ -25,9 +29,19 @@ import { UsersService } from 'src/services/UsersService';
     ConfigModule.forRoot(),
     JwtModule.register(JwtConfig.register()),
     TypeOrmModule.forRoot(DatabaseConfig.get()),
-    TypeOrmModule.forFeature([UsersEntity, TattooArtistsEntity, StudiosEntity]),
+    TypeOrmModule.forFeature([UsersEntity, TattooArtistsEntity, StudiosEntity, JobsEntity]),
   ],
-  controllers: [AppController, UsersController, AuthController, TattooArtistsController, StudiosController],
-  providers: [UsersService, UserRepository, AuthService, TattooArtistService, TattooArtistsRepository, StudiosService, StudiosRepository],
+  controllers: [AppController, UsersController, AuthController, TattooArtistsController, StudiosController, JobController],
+  providers: [
+    UsersService,
+    UserRepository,
+    AuthService,
+    TattooArtistService,
+    TattooArtistsRepository,
+    StudiosService,
+    StudiosRepository,
+    JobService,
+    JobRepository,
+  ],
 })
 export class AppModule {}
