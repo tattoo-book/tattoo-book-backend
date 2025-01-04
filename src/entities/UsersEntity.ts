@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { TattooArtistsEntity } from './TattooArtistsEntity';
 
 @Entity('users')
 export class UsersEntity {
@@ -26,8 +27,8 @@ export class UsersEntity {
   @DeleteDateColumn({ name: 'deleted_at', type: 'timestamp', nullable: true })
   deletedAt: Date;
 
-  // @OneToMany(() => BarberEntity, (Barber) => Barber.user)
-  // Barbers: BarberEntity[];
+  @OneToMany(() => TattooArtistsEntity, (TattoArtist) => TattoArtist.user)
+  tattooArtist: TattooArtistsEntity[];
 
   // @OneToMany(() => BarberShopsEntity, (BarberShop) => BarberShop.owner)
   // BarberShops: BarberShopsEntity[];

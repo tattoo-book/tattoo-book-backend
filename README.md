@@ -29,13 +29,13 @@ GET /users/:id # Listar um usuário pelo id
 DELETE /users/:id # Deletar usúario
 ```
 
-### Barbers
+### Tattoo Artists
 
 ```bash
-POST /barbers # Criar um novo barbeiro
-GET /barbers # Listar todos os barbeiros
-GET /barbers/:id # Listar um barbeiro pelo id
-DELETE /barbers/:id # Deletar barbeiro
+POST /tattoo-artists # Criar um novo barbeiro
+GET /tattoo-artists # Listar todos os barbeiros
+GET /tattoo-artists/:id # Listar um barbeiro pelo id
+DELETE /tattoo-artists/:id # Deletar barbeiro
 ```
 
 ### Barber Shops

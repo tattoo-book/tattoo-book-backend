@@ -64,7 +64,28 @@ CREATE TABLE IF NOT EXISTS public.studios (
 
 
 
-
+ALTER TABLE public.tattoo_artists ADD COLUMN schedulings JSONB;
+UPDATE tattoo_artists 
+SET schedulings = '{
+    "sunday": [],
+    "monday": [],
+    "tuesday": [],
+    "wednesday": [],
+    "thursday": [],
+    "friday": [],
+    "saturday": []
+}'::JSONB;
+ALTER TABLE tattoo_artists ALTER COLUMN schedulings SET NOT NULL;
+ALTER TABLE  tattoo_artists ALTER COLUMN schedulings
+SET DEFAULT '{
+    "sunday": [],
+    "monday": [],
+    "tuesday": [],
+    "wednesday": [],
+    "thursday": [],
+    "friday": [],
+    "saturday": []
+}'::JSONB;
 
 
 
