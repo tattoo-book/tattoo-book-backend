@@ -32,19 +32,19 @@ DELETE /users/:id # Deletar usúario
 ### Tattoo Artists
 
 ```bash
-POST /tattoo-artists # Criar um novo barbeiro
-GET /tattoo-artists # Listar todos os barbeiros
-GET /tattoo-artists/:id # Listar um barbeiro pelo id
-DELETE /tattoo-artists/:id # Deletar barbeiro
+POST /tattoo-artists # Criar um novo tatuador
+GET /tattoo-artists # Listar todos os tatuadors
+GET /tattoo-artists/:id # Listar um tatuador pelo id
+DELETE /tattoo-artists/:id # Deletar tatuador
 ```
 
-### Barber Shops
+### studio
 
 ```bash
-POST /barber-shops # Criar um novo barbearias
-GET /barber-shops # Listar todos os barbearias
-GET /barber-shops/:id # Listar um barbearias pelo id
-DELETE /barber-shops/:id # Deletar barbearias
+POST /studios # Criar um novo estudios
+GET /studios # Listar todos os estudios
+GET /studios/:id # Listar um estudios pelo id
+DELETE /studios/:id # Deletar estudios
 ```
 
 ## Como executar

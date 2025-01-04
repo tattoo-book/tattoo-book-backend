@@ -16,7 +16,7 @@ export class SchedulingSchema {
     const endDate = new Date(`1970-01-01T${endTime}:00`);
 
     if (startDate >= endDate) return helpers.error('any.invalid', { message: 'Start time must be less than end time' });
-    return value; // Return the value if validation passes
+    return value;
   });
   static daysWeek = Joi.array().items(SchedulingSchema.schedulingTimes);
 }
