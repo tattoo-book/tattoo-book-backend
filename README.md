@@ -12,40 +12,25 @@
 - Yarn
 - Docker
 
-## Rotas disponiveis
+## Routes
 
-### Auth
-
-```bash
-POST /auth # Para autenticar o usuario
-```
-
-### Users
-
-```bash
-POST /users # Criar um novo usuário
-GET /users # Listar todos os usuários
-GET /users/:id # Listar um usuário pelo id
-DELETE /users/:id # Deletar usúario
-```
-
-### Tattoo Artists
-
-```bash
-POST /tattoo-artists # Criar um novo tatuador
-GET /tattoo-artists # Listar todos os tatuadors
-GET /tattoo-artists/:id # Listar um tatuador pelo id
-DELETE /tattoo-artists/:id # Deletar tatuador
-```
-
-### studio
-
-```bash
-POST /studios # Criar um novo estudios
-GET /studios # Listar todos os estudios
-GET /studios/:id # Listar um estudios pelo id
-DELETE /studios/:id # Deletar estudios
-```
+| Method | Route               | Description                |
+| ------ | ------------------- | -------------------------- |
+| POST   | /auth               | Para autenticar o usuario  |
+|        |                     |                            |
+| POST   | /users              | Criar um novo usuário      |
+| GET    | /users              | Listar todos os usuários   |
+| GET    | /users/:id          | Listar um usuário pelo id  |
+| DELETE | /users/:id          | Deletar usúario            |
+|        |                     |                            |
+| POST   | /tattoo-artists     | Criar um novo tatuador     |
+| GET    | /tattoo-artists     | Listar todos os tatuadors  |
+| GET    | /tattoo-artists/:id | Listar um tatuador pelo id |
+| DELETE | /tattoo-artists/:id | Deletar tatuador           |
+|        |                     |                            |
+| POST   | /studios            | Criar um novo estudios     |
+| GET    | /studios            | Listar todos os estudios   |
+| GET    | /studios/:id        | Listar um estudios pelo id |
 
 ## Como executar
 
