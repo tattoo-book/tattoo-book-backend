@@ -10,7 +10,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { JobsEntity } from './JobsEntity';
+import { TattoosEntity } from './TattoosEntity';
 import { UsersEntity } from './UsersEntity';
 
 @Entity('tattoo_artists')
@@ -43,8 +43,8 @@ export class TattooArtistsEntity {
   })
   schedulings: SchedulingDTO;
 
-  @OneToMany(() => JobsEntity, (job) => job.tattooArtist)
-  jobs: JobsEntity[];
+  @OneToMany(() => TattoosEntity, (job) => job.tattooArtist)
+  jobs: TattoosEntity[];
 
   setSchedulings(schedulings: SchedulingDTO) {
     this.schedulings = schedulings;
