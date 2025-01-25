@@ -18,7 +18,7 @@ export class AuthService {
     if (user?.password !== pass) throw new UnauthorizedException('Password incorrect');
 
     const payload = { id: user.id, name: user.name };
-    const token = await this.jwtService.signAsync(payload);
+    const token = this.jwtService.sign(payload);
     return SignInResponseDTO.create(token);
   }
 }
