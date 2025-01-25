@@ -1,12 +1,13 @@
-import { Body, Controller, Delete, Get, Logger, Param, Post, Req, UseGuards, UsePipes } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Logger, Param, Patch, Post, Req, UseGuards, UsePipes } from '@nestjs/common';
 import { JoiPipe } from 'nestjs-joi';
 import { RequestDTO } from 'src/architecture/dtos/RequestDTO';
 import { ResponseDTO } from 'src/architecture/dtos/ResponseDTO';
 import { ResponseErrorDTO } from 'src/architecture/dtos/ResponseErrorDTO';
 import { AuthGuard } from 'src/architecture/guards/auth.guard';
 import { ErrorHandler } from 'src/architecture/handlers/error.handler';
-import { CreateStudioDTO } from 'src/domains/studios/dtos/CreateStudioDTO';
+import { CreateStudioDTO } from 'src/domains/studios/dtos/create-studio.dto';
 import { StudiosService } from 'src/domains/studios/studios.service';
+import { UpdateStudioDTO } from './dtos/update-studio.dto';
 
 @Controller('studios')
 @UseGuards(AuthGuard)
@@ -46,6 +47,17 @@ export class StudiosController {
     } catch (error) {
       const errorDescription = ErrorHandler.execute(StudiosController.logger, `Failed on find studio with id ${id}`, error);
       return new ResponseErrorDTO(error.status, `Failed on find studio with id ${id}`, errorDescription);
+    }
+  }
+
+  @Patch(':id')
+  async update(@Req() req: RequestDTO, @Param('id') id: string, @Body(JoiPipe) createStudioDTO: UpdateStudioDTO) {
+    try {
+      const studio = await this.studiosService.update(+id, req.user.id, createStudioDTO);
+      return ResponseDTO.OK(`Success on update studio with id ${id}`, studio);
+    } catch (error) {
+      const errorDescription = ErrorHandler.execute(StudiosController.logger, `Failed on update studio with id ${id}`, error);
+      return new ResponseErrorDTO(error.status, `Failed on update studio with id ${id}`, errorDescription);
     }
   }
 
