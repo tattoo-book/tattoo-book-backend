@@ -1,7 +1,7 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 export class DatabaseConfig {
-  static get(): TypeOrmModuleOptions {
+  static connect(): TypeOrmModuleOptions {
     return {
       type: 'postgres',
       host: process.env.DB_HOST,

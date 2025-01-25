@@ -3,7 +3,6 @@ import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtConfig } from 'src/architecture/configurations/jwt.config';
-import { AuthController } from 'src/domains/authentication/auth.controller';
 import { AuthService } from 'src/domains/authentication/auth.service';
 import { StudiosEntity } from 'src/domains/studios/entities/studios.entitty';
 import { StudiosRepository } from 'src/domains/studios/repositories/studios.repositories';
@@ -22,13 +21,14 @@ import { UserRepository } from 'src/domains/users/repositories/user.repository';
 import { UsersController } from 'src/domains/users/user.controller';
 import { UsersService } from 'src/domains/users/users.service';
 import { AppController } from './app.controller';
+import { AuthController } from './domains/authentication/auth.controller';
 import { DatabaseConfig } from './infra/database/database.config';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     JwtModule.register(JwtConfig.register()),
-    TypeOrmModule.forRoot(DatabaseConfig.get()),
+    TypeOrmModule.forRoot(DatabaseConfig.connect()),
     TypeOrmModule.forFeature([UsersEntity, TattooArtistsEntity, StudiosEntity, TattoosEntity]),
   ],
   controllers: [AppController, UsersController, AuthController, TattooArtistsController, StudiosController, TattooController],
