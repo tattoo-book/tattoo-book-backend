@@ -1,30 +1,39 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDTO } from 'src/domains/users/dtos/create-user.dto';
 import { UserRepository } from 'src/domains/users/repositories/user.repository';
+import { ListUserDTO } from './dtos/list-user.dto';
+import { UpdateUserDto } from './dtos/update-user.dto';
 
 @Injectable()
 export class UsersService {
   constructor(private readonly userRepository: UserRepository) {}
 
   async create(createUserDto: CreateUserDTO) {
-    return await this.userRepository.create(createUserDto);
+    const userExist = await this.userRepository.findOne({ where: { email: createUserDto.email } });
+    if (userExist) throw new ConflictException('Email alredy registered');
+
+    const user = this.userRepository.create(createUserDto);
+    return await this.userRepository.save(user);
   }
 
-  async findAll() {
-    return this.userRepository.findAll();
+  async find(query: ListUserDTO) {
+    return await this.userRepository.find(query);
   }
 
   async findOne(id: number) {
-    return this.userRepository.findOne(id);
+    return await this.userRepository.findOne({ where: { id } });
   }
 
-  //   update(id: number, updateUserDto: UpdateUserDto): User {
-  //     const userIndex = this.users.findIndex((user) => user.id === id);
-  //     this.users[userIndex] = { ...this.users[userIndex], ...updateUserDto };
-  //     return this.users[userIndex];
-  //   }
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    const user = await this.userRepository.findOne({ where: { id } });
+    if (!user) throw new NotFoundException(`User with id ${id} not found`);
+    this.userRepository.merge(user, updateUserDto);
+    return await this.userRepository.save(user);
+  }
 
   async delete(id: number) {
-    return await this.userRepository.delete(id);
+    const user = await this.userRepository.findOne({ where: { id } });
+    if (!user) throw new NotFoundException(`User with id ${id} not found`);
+    return await this.userRepository.softRemove(user);
   }
 }

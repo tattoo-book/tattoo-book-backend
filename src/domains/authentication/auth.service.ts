@@ -14,7 +14,7 @@ export class AuthService {
   ) {}
 
   async signIn({ email, password: pass }: SignInDTO) {
-    const user = await this.userRepository.findByEmail(email);
+    const user = await this.userRepository.findOne({ where: { email: email } });
     if (user?.password !== pass) throw new UnauthorizedException('Password incorrect');
 
     const payload = { id: user.id, name: user.name };
