@@ -4,7 +4,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtConfig } from 'src/architecture/configurations/jwt.config';
 import { StudiosEntity } from 'src/domains/studios/entities/studios.entitty';
-import { TattooArtistsEntity } from 'src/domains/tattoo-artist/entities/TattooArtistsEntity';
+import { TattooArtistsEntity } from 'src/domains/tattoo-artist/entities/tattoo-artist.entity';
 import { AppController } from './app.controller';
 import { AuthModule } from './domains/authentication/auth.module';
 import { StudiosModule } from './domains/studios/studios.module';

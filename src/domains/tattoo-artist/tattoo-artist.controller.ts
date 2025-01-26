@@ -28,9 +28,9 @@ export class TattooArtistsController {
   }
 
   @Get()
-  async findAll() {
+  async find() {
     try {
-      const tattooArtists = await this.tattooArtistService.findAll();
+      const tattooArtists = await this.tattooArtistService.find();
       return ResponseDTO.OK('Success on find all tattoo artist', tattooArtists);
     } catch (error) {
       const errorDescription = ErrorHandler.execute(TattooArtistsController.logger, 'Failed on find all tattoo artist', error);

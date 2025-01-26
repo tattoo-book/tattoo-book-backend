@@ -20,7 +20,7 @@ export class TattooService {
   }
 
   async find(query: ListTattoosDTO) {
-    return await this.tattooRepository.find({ ...query });
+    return await this.tattooRepository.find(query);
   }
 
   async findOne(id: number) {

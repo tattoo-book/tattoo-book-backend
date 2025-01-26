@@ -1,10 +1,10 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { RolesEnum } from 'src/architecture/enums/roles.enum';
 import { CreateTattooArtistDTO } from 'src/domains/tattoo-artist/dtos/CreateTattooArtistDTO';
-import { TattooArtistsRepository } from 'src/domains/tattoo-artist/repositories/TattooArtistsRepository';
+import { TattooArtistsRepository } from 'src/domains/tattoo-artist/repositories/tattoo-artist.repository';
 import { DataSource } from 'typeorm';
 import { UsersEntity } from '../users/entities/user.entity';
-import { TattooArtistsEntity } from './entities/TattooArtistsEntity';
+import { TattooArtistsEntity } from './entities/tattoo-artist.entity';
 
 @Injectable()
 export class TattooArtistService {
@@ -29,7 +29,7 @@ export class TattooArtistService {
     return result;
   }
 
-  async findAll() {
+  async find() {
     return await this.tattooArtistsRepository.find();
   }
 

@@ -6,11 +6,14 @@ import { TattooSchema } from '../schemas/tattoo.schema';
 @JoiSchemaOptions({ allowUnknown: false })
 export class ListTattoosDTO {
   @JoiSchema(TattooSchema.order.optional())
-  order: FindOptionsOrder<TattoosEntity>;
+  order?: FindOptionsOrder<TattoosEntity>;
 
   @JoiSchema(TattooSchema.where.optional())
-  where: FindOptionsWhere<TattoosEntity>;
+  where?: FindOptionsWhere<TattoosEntity>;
 
   @JoiSchema(TattooSchema.select.optional())
-  select: FindOptionsSelect<TattoosEntity>;
+  select?: FindOptionsSelect<TattoosEntity>;
+
+  @JoiSchema(TattooSchema.take.optional())
+  take?: number;
 }

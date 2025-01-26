@@ -1,6 +1,6 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { StudiosEntity } from '../../studios/entities/studios.entitty';
-import { TattooArtistsEntity } from '../../tattoo-artist/entities/TattooArtistsEntity';
+import { TattooArtistsEntity } from '../../tattoo-artist/entities/tattoo-artist.entity';
 
 @Entity('users')
 export class UsersEntity {

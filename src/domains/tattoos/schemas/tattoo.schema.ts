@@ -7,8 +7,14 @@ export class TattooSchema {
   static description = Joi.string().max(200);
   static imageName = Joi.string().max(255);
   static imageLink = Joi.string().uri();
+  static orderValuesValid = Joi.string().valid('asc', 'desc');
 
-  static order = Joi.object({ id: Joi.string().valid('asc', 'desc') });
+  static take = Joi.number().integer().positive();
+
+  static order = Joi.object({
+    id: this.orderValuesValid,
+    popularity: this.orderValuesValid,
+  });
 
   static where = Joi.object({
     id: this.id,

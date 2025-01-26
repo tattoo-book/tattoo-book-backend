@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { TattooArtistsEntity } from '../../tattoo-artist/entities/TattooArtistsEntity';
+import { TattooArtistsEntity } from '../../tattoo-artist/entities/tattoo-artist.entity';
 
 @Entity('tattoos')
 export class TattoosEntity {
@@ -23,6 +23,9 @@ export class TattoosEntity {
 
   @Column({ name: 'image_link' })
   imageLink: string;
+
+  @Column()
+  popularity: number;
 
   @ManyToOne(() => TattooArtistsEntity, (tattooArtist) => tattooArtist.jobs, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'tattoo_artist_id' })
