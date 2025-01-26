@@ -24,7 +24,7 @@ export class StudiosController {
       return ResponseDTO.OK('Success on create studio', studio);
     } catch (error) {
       const errorDescription = ErrorHandler.execute(StudiosController.logger, 'Failed on create studio', error);
-      return new ResponseErrorDTO(error.status, 'Failed on create studio', errorDescription);
+      throw new ResponseErrorDTO(error.status, 'Failed on create studio', errorDescription);
     }
   }
 
@@ -35,7 +35,7 @@ export class StudiosController {
       return ResponseDTO.OK('Success on find all studio', studios);
     } catch (error) {
       const errorDescription = ErrorHandler.execute(StudiosController.logger, 'Failed on find all studio', error);
-      return new ResponseErrorDTO(error.status, 'Failed on find all studio', errorDescription);
+      throw new ResponseErrorDTO(error.status, 'Failed on find all studio', errorDescription);
     }
   }
 
@@ -46,7 +46,7 @@ export class StudiosController {
       return ResponseDTO.OK(`Success on find studio with id ${id}`, studio);
     } catch (error) {
       const errorDescription = ErrorHandler.execute(StudiosController.logger, `Failed on find studio with id ${id}`, error);
-      return new ResponseErrorDTO(error.status, `Failed on find studio with id ${id}`, errorDescription);
+      throw new ResponseErrorDTO(error.status, `Failed on find studio with id ${id}`, errorDescription);
     }
   }
 
@@ -57,7 +57,7 @@ export class StudiosController {
       return ResponseDTO.OK(`Success on update studio with id ${id}`, studio);
     } catch (error) {
       const errorDescription = ErrorHandler.execute(StudiosController.logger, `Failed on update studio with id ${id}`, error);
-      return new ResponseErrorDTO(error.status, `Failed on update studio with id ${id}`, errorDescription);
+      throw new ResponseErrorDTO(error.status, `Failed on update studio with id ${id}`, errorDescription);
     }
   }
 
@@ -68,7 +68,7 @@ export class StudiosController {
       return ResponseDTO.OK(`Success on delete studio with id ${id}`, studio);
     } catch (error) {
       const errorDescription = ErrorHandler.execute(StudiosController.logger, `Failed on delete studio with id ${id}`, error);
-      return new ResponseErrorDTO(error.status, `Failed on delete studio with id ${id}`, errorDescription);
+      throw new ResponseErrorDTO(error.status, `Failed on delete studio with id ${id}`, errorDescription);
     }
   }
 }

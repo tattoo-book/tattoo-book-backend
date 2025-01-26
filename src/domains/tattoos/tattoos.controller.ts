@@ -24,7 +24,7 @@ export class TattooController {
       return ResponseDTO.OK('Success on create tattoo', null);
     } catch (error) {
       const errorDescription = ErrorHandler.execute(TattooController.logger, 'Failed on create tattoo', error);
-      return new ResponseErrorDTO(error.status, 'Failed on create tattoo', errorDescription);
+      throw new ResponseErrorDTO(error.status, 'Failed on create tattoo', errorDescription);
     }
   }
 
@@ -35,7 +35,7 @@ export class TattooController {
       return ResponseDTO.OK('Success on find all tattoos', tattoos);
     } catch (error) {
       const errorDescription = ErrorHandler.execute(TattooController.logger, 'Failed on find all tattoos', error);
-      return new ResponseErrorDTO(error.status, 'Failed on find all tattoos', errorDescription);
+      throw new ResponseErrorDTO(error.status, 'Failed on find all tattoos', errorDescription);
     }
   }
 
@@ -46,7 +46,7 @@ export class TattooController {
       return ResponseDTO.OK(`Success on find tattoo with id ${id}`, tattoo);
     } catch (error) {
       const errorDescription = ErrorHandler.execute(TattooController.logger, `Failed on find tattoo with id ${id}`, error);
-      return new ResponseErrorDTO(error.status, `Failed on find tattoo with id ${id}`, errorDescription);
+      throw new ResponseErrorDTO(error.status, `Failed on find tattoo with id ${id}`, errorDescription);
     }
   }
 
@@ -57,7 +57,7 @@ export class TattooController {
       return ResponseDTO.OK(`Success on delete tattoo with id ${id}`, null);
     } catch (error) {
       const errorDescription = ErrorHandler.execute(TattooController.logger, `Failed on delete tattoo with id ${id}`, error);
-      return new ResponseErrorDTO(error.status, `Failed on delete tattoo with id ${id}`, errorDescription);
+      throw new ResponseErrorDTO(error.status, `Failed on delete tattoo with id ${id}`, errorDescription);
     }
   }
 }

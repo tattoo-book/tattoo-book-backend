@@ -23,7 +23,7 @@ export class TattooArtistsController {
       return ResponseDTO.OK('Success on create tattoo artist', tattooArtist);
     } catch (error) {
       const errorDescription = ErrorHandler.execute(TattooArtistsController.logger, 'Failed on create tattoo artist', error);
-      return new ResponseErrorDTO(error.status, 'Failed on create tattoo artist', errorDescription);
+      throw new ResponseErrorDTO(error.status, 'Failed on create tattoo artist', errorDescription);
     }
   }
 
@@ -34,7 +34,7 @@ export class TattooArtistsController {
       return ResponseDTO.OK('Success on find all tattoo artist', tattooArtists);
     } catch (error) {
       const errorDescription = ErrorHandler.execute(TattooArtistsController.logger, 'Failed on find all tattoo artist', error);
-      return new ResponseErrorDTO(error.status, 'Failed on find all tattoo artist', errorDescription);
+      throw new ResponseErrorDTO(error.status, 'Failed on find all tattoo artist', errorDescription);
     }
   }
 
@@ -45,7 +45,7 @@ export class TattooArtistsController {
       return ResponseDTO.OK(`Success on find tattoo artist with id ${id}`, tattooArtist);
     } catch (error) {
       const errorDescription = ErrorHandler.execute(TattooArtistsController.logger, 'Failed in list tattoo artist', error);
-      return new ResponseErrorDTO(error.status, 'Failed on find all tattoo artist', errorDescription);
+      throw new ResponseErrorDTO(error.status, 'Failed on find all tattoo artist', errorDescription);
     }
   }
 
@@ -56,7 +56,7 @@ export class TattooArtistsController {
       return ResponseDTO.OK(`Success on delete tattoo artist with id ${id}`, tattooArtist);
     } catch (error) {
       const errorDescription = ErrorHandler.execute(TattooArtistsController.logger, `Failed on delete tattoo artist with id ${id}`, error);
-      return new ResponseErrorDTO(error.status, `Failed on delete tattoo artist with id ${id}`, errorDescription);
+      throw new ResponseErrorDTO(error.status, `Failed on delete tattoo artist with id ${id}`, errorDescription);
     }
   }
 }

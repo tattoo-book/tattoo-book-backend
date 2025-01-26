@@ -18,8 +18,9 @@ export class AuthController {
       const user = await this.authService.signIn(signInDto);
       return ResponseDTO.OK(`Success on sign in with email ${signInDto.email}`, user);
     } catch (error) {
+      console.log(error);
       const errorDescription = ErrorHandler.execute(AuthController.logger, `Failed on sign in with email ${signInDto.email}`, error);
-      return new ResponseErrorDTO(error.status, `Failed on sign in with email ${signInDto.email}`, errorDescription);
+      throw new ResponseErrorDTO(error.status, `Failed on sign in with email ${signInDto.email}`, errorDescription);
     }
   }
 }
