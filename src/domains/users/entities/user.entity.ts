@@ -16,16 +16,16 @@ export class UsersEntity {
   @Column('int', { array: true, default: () => 'ARRAY[2]', nullable: false })
   roles: number[];
 
-  @Column('text')
+  @Column({ name: 'text', select: false })
   password: string;
 
-  @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
+  @CreateDateColumn({ name: 'created_at', type: 'timestamp', select: false })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updated_at', type: 'timestamp', nullable: true })
+  @UpdateDateColumn({ name: 'updated_at', type: 'timestamp', nullable: true, select: false })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deleted_at', type: 'timestamp', nullable: true })
+  @DeleteDateColumn({ name: 'deleted_at', type: 'timestamp', nullable: true, select: false })
   deletedAt: Date;
 
   @OneToMany(() => TattooArtistsEntity, (TattoArtist) => TattoArtist.user)
