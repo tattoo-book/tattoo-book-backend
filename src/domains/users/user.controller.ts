@@ -1,4 +1,18 @@
-import { Body, Controller, Delete, Get, Logger, Param, Patch, Post, Query, Req, UseGuards, UsePipes } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Logger,
+  Param,
+  Patch,
+  Post,
+  Query,
+  Req,
+  UseGuards,
+  UsePipes,
+} from '@nestjs/common';
+import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JoiPipe } from 'nestjs-joi';
 import { RequestDTO } from 'src/architecture/dtos/RequestDTO';
 import { ResponseDTO } from 'src/architecture/dtos/ResponseDTO';
@@ -11,6 +25,7 @@ import { ListUserDTO } from './dtos/list-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 
 @Controller('users')
+@ApiTags('Usuários')
 export class UsersController {
   static logger = new Logger('UsersController');
 
@@ -18,6 +33,11 @@ export class UsersController {
 
   @Post()
   @UsePipes(new JoiPipe())
+  @ApiBody({ type: () => CreateUserDTO })
+  @ApiOperation({ summary: 'Criação de usuário', description: 'Cria um novo usuario padrão no sistema' })
+  @ApiResponse({ status: 200, description: 'Sucesso ao criar usuário' })
+  @ApiResponse({ status: 409, description: 'Email já cadastrado' })
+  @ApiResponse({ status: 500, description: 'Erro interno' })
   async create(@Body() createUserDto: CreateUserDTO) {
     try {
       const user = await this.usersService.create(createUserDto);
@@ -29,6 +49,10 @@ export class UsersController {
   }
 
   @Get()
+  @ApiBody({ type: () => ListUserDTO })
+  @ApiOperation({ summary: 'Listagem de usuários', description: 'Listagem de usuário, ordenação e seleção' })
+  @ApiResponse({ status: 200, description: 'Sucesso ao listar usuários' })
+  @ApiResponse({ status: 500, description: 'Erro interno' })
   async findAll(@Query(JoiPipe) query: ListUserDTO) {
     try {
       const users = await this.usersService.find(query);
@@ -40,6 +64,9 @@ export class UsersController {
   }
 
   @Get('me')
+  @ApiOperation({ summary: 'Listagem de perfil', description: 'Lista informações de perfil do usuário' })
+  @ApiResponse({ status: 200, description: 'Sucesso ao listar informações de perfil' })
+  @ApiResponse({ status: 500, description: 'Erro interno' })
   @UseGuards(AuthGuard)
   async getInfoMe(@Req() req: RequestDTO) {
     try {
@@ -52,6 +79,10 @@ export class UsersController {
   }
 
   @Get(':id')
+  @ApiParam({ name: 'id', description: 'Id do usuário desejado', type: 'string' })
+  @ApiOperation({ summary: 'Listagem de usuário', description: 'Lista usuário individualmente' })
+  @ApiResponse({ status: 200, description: 'Sucesso ao buscar usuário' })
+  @ApiResponse({ status: 500, description: 'Erro interno' })
   async findOne(@Param('id') id: string) {
     try {
       const users = await this.usersService.findOne(+id);
@@ -63,6 +94,10 @@ export class UsersController {
   }
 
   @Patch(':id')
+  @ApiBody({ description: 'Campos do usuário que serão modificados', type: UpdateUserDto })
+  @ApiOperation({ summary: 'Atualizar de usuário', description: 'Atualiza determinados campos de um usuário' })
+  @ApiResponse({ status: 200, description: 'Sucesso ao atualizar usuário' })
+  @ApiResponse({ status: 500, description: 'Erro interno' })
   async update(@Param('id') id: string, @Body(JoiPipe) updateUserDto: UpdateUserDto) {
     try {
       const user = await this.usersService.update(+id, updateUserDto);
@@ -74,6 +109,10 @@ export class UsersController {
   }
 
   @Delete(':id')
+  @ApiParam({ name: 'id', description: 'Id do usuário que será deletado' })
+  @ApiOperation({ summary: 'Deleta de usuário', description: 'Faz soft delete do usuário' })
+  @ApiResponse({ status: 200, description: 'Sucesso ao deletar usuário' })
+  @ApiResponse({ status: 500, description: 'Erro interno' })
   async delete(@Param('id') id: string) {
     try {
       const user = await this.usersService.delete(+id);
