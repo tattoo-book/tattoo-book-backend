@@ -1,4 +1,19 @@
-import { Controller, Delete, Get, Logger, Param, Post, Req, UploadedFile, UseGuards, UseInterceptors, UsePipes } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Logger,
+  Param,
+  Patch,
+  Post,
+  Query,
+  Req,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
+  UsePipes,
+} from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { JoiPipe } from 'nestjs-joi';
 import { RequestDTO } from 'src/architecture/dtos/RequestDTO';
@@ -7,6 +22,8 @@ import { ResponseErrorDTO } from 'src/architecture/dtos/ResponseErrorDTO';
 import { AuthGuard } from 'src/architecture/guards/auth.guard';
 import { ErrorHandler } from 'src/architecture/handlers/error.handler';
 import { TattooService } from 'src/domains/tattoos/tattoo.service';
+import { ListTattoosDTO } from './dtos/list-tattoo.dto';
+import { UpdateTatttooDTO } from './dtos/update-tattoo.dto';
 
 @Controller('tattoos')
 @UseGuards(AuthGuard)
@@ -29,9 +46,9 @@ export class TattooController {
   }
 
   @Get()
-  async findAll() {
+  async find(@Query(JoiPipe) query: ListTattoosDTO) {
     try {
-      const tattoos = await this.tattooService.findAll();
+      const tattoos = await this.tattooService.find(query);
       return ResponseDTO.OK('Success on find all tattoos', tattoos);
     } catch (error) {
       const errorDescription = ErrorHandler.execute(TattooController.logger, 'Failed on find all tattoos', error);
@@ -47,6 +64,17 @@ export class TattooController {
     } catch (error) {
       const errorDescription = ErrorHandler.execute(TattooController.logger, `Failed on find tattoo with id ${id}`, error);
       throw new ResponseErrorDTO(error.status, `Failed on find tattoo with id ${id}`, errorDescription);
+    }
+  }
+
+  @Patch(':id')
+  async update(@Req() req: RequestDTO, @Param('id') id: string, @Body() updateTattooDTO: UpdateTatttooDTO) {
+    try {
+      const tattoo = await this.tattooService.update(+id, req.user.id, updateTattooDTO);
+      return ResponseDTO.OK(`Success on update tattoo with id ${id}`, tattoo);
+    } catch (error) {
+      const errorDescription = ErrorHandler.execute(TattooController.logger, `Failed on update tattoo with id ${id}`, error);
+      throw new ResponseErrorDTO(error.status, `Failed on update tattoo with id ${id}`, errorDescription);
     }
   }
 

@@ -1,5 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { TattoosRepository } from 'src/domains/tattoos/repositories/tattoos.repository';
+import { ListTattoosDTO } from './dtos/list-tattoo.dto';
+import { UpdateTatttooDTO } from './dtos/update-tattoo.dto';
 
 @Injectable()
 export class TattooService {
@@ -17,12 +19,21 @@ export class TattooService {
     return await this.tattooRepository.save(tattooEntity);
   }
 
-  async findAll() {
-    return await this.tattooRepository.find();
+  async find(query: ListTattoosDTO) {
+    return await this.tattooRepository.find({ ...query });
   }
 
   async findOne(id: number) {
     return await this.tattooRepository.findOne({ where: { id } });
+  }
+
+  async update(id: number, userId: number, updateTattooDTO: UpdateTatttooDTO) {
+    const tattoo = await this.tattooRepository.findOneBy({ id });
+    if (!tattoo) throw new NotFoundException(`Tattoo with id ${id} not found`);
+    if (tattoo.tattooArtistId !== userId) throw new Error('User is not authorized to update this tattoo');
+
+    this.tattooRepository.merge(tattoo, updateTattooDTO);
+    return await this.tattooRepository.save(tattoo);
   }
 
   async delete(id: number) {
