@@ -4,6 +4,7 @@ import { CreateTattooArtistDTO } from 'src/domains/tattoo-artist/dtos/CreateTatt
 import { TattooArtistsRepository } from 'src/domains/tattoo-artist/repositories/tattoo-artist.repository';
 import { DataSource } from 'typeorm';
 import { UsersEntity } from '../users/entities/user.entity';
+import { UpdateTattooArtistDTO } from './dtos/update.tattoo.artist';
 import { TattooArtistsEntity } from './entities/tattoo-artist.entity';
 
 @Injectable()
@@ -35,6 +36,12 @@ export class TattooArtistService {
 
   async findOne(id: number) {
     return await this.tattooArtistsRepository.findOneBy({ id });
+  }
+
+  async update(id: number, updateTattooArtistDTO: UpdateTattooArtistDTO) {
+    const user = await this.tattooArtistsRepository.findOneBy({ id });
+    if (!user) throw new NotFoundException(`User ${id} not found`);
+    return await this.tattooArtistsRepository.save({ ...user, ...updateTattooArtistDTO });
   }
 
   async delete(id: number) {

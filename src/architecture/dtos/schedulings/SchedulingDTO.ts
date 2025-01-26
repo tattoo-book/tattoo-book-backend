@@ -1,7 +1,8 @@
-import { JoiSchema } from 'nestjs-joi';
+import { JoiSchema, JoiSchemaOptions } from 'nestjs-joi';
 import { SchedulingSchema } from 'src/architecture/schemas/schedulings/SchedulingSchema';
 import { SchedulingTimes } from './SchedulingTimes';
 
+@JoiSchemaOptions({ allowUnknown: false })
 export class SchedulingDTO {
   @JoiSchema(SchedulingSchema.daysWeek.required())
   sunday: SchedulingTimes[];

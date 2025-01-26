@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Logger, Param, Post, Req, UseGuards, UsePipes } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Logger, Param, Patch, Post, Req, UseGuards, UsePipes } from '@nestjs/common';
 import { JoiPipe } from 'nestjs-joi';
 import { RequestDTO } from 'src/architecture/dtos/RequestDTO';
 import { ResponseDTO } from 'src/architecture/dtos/ResponseDTO';
@@ -7,6 +7,7 @@ import { AuthGuard } from 'src/architecture/guards/auth.guard';
 import { ErrorHandler } from 'src/architecture/handlers/error.handler';
 import { CreateTattooArtistDTO } from 'src/domains/tattoo-artist/dtos/CreateTattooArtistDTO';
 import { TattooArtistService } from 'src/domains/tattoo-artist/tattoo-artist.service';
+import { UpdateTattooArtistDTO } from './dtos/update.tattoo.artist';
 
 @Controller('tattoo-artists')
 @UseGuards(AuthGuard)
@@ -46,6 +47,17 @@ export class TattooArtistsController {
     } catch (error) {
       const errorDescription = ErrorHandler.execute(TattooArtistsController.logger, 'Failed in list tattoo artist', error);
       throw new ResponseErrorDTO(error.status, 'Failed on find all tattoo artist', errorDescription);
+    }
+  }
+
+  @Patch(':id')
+  async update(@Param('id') id: string, @Body(JoiPipe) updateTattooArtistDTO: UpdateTattooArtistDTO) {
+    try {
+      const tattooArtist = await this.tattooArtistService.update(+id, updateTattooArtistDTO);
+      return ResponseDTO.OK(`Success on update tattoo artist with id ${id}`, tattooArtist);
+    } catch (error) {
+      const errorDescription = ErrorHandler.execute(TattooArtistsController.logger, `Failed on update tattoo artist with id ${id}`, error);
+      throw new ResponseErrorDTO(error.status, `Failed on update tattoo artist with id ${id}`, errorDescription);
     }
   }
 
