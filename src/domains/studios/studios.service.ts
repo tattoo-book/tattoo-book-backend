@@ -1,6 +1,7 @@
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateStudioDTO } from 'src/domains/studios/dtos/create-studio.dto';
 import { StudiosRepository } from 'src/domains/studios/repositories/studios.repositories';
+import { ListStudiosDTO } from './dtos/list-studio.dto';
 
 @Injectable()
 export class StudiosService {
@@ -8,17 +9,19 @@ export class StudiosService {
 
   async create(createStudioDTO: CreateStudioDTO, userId: number) {
     const studioEntity = this.studiosRepository.create({ ...createStudioDTO, ownerId: userId });
-    return await this.studiosRepository.save(studioEntity);
+    const studio = await this.studiosRepository.save(studioEntity);
+    return studio.toModel();
   }
 
-  async findAll() {
-    return await this.studiosRepository.find();
+  async findAll(query: ListStudiosDTO) {
+    const studios = await this.studiosRepository.findMany(query);
+    return studios.map((studio) => studio.toModel());
   }
 
   async findOne(id: number) {
     const studio = await this.studiosRepository.findOneBy({ id });
     if (!studio) throw new NotFoundException(`Studio with id ${id} not found`);
-    return studio;
+    return studio.toModel();
   }
 
   async update(id: number, userId: number, updateStudioDTO: CreateStudioDTO) {
@@ -26,8 +29,9 @@ export class StudiosService {
     if (!studio) throw new NotFoundException(`Studio ${id} not found`);
 
     if (studio.ownerId !== userId) throw new ForbiddenException('Only owners can update Studio');
-    const studioEntity = this.studiosRepository.create({ ...updateStudioDTO });
-    return await this.studiosRepository.save({ ...studio, ...studioEntity });
+    const studioMerged = this.studiosRepository.merge(studio, updateStudioDTO);
+    const studioUpdated = await this.studiosRepository.save(studioMerged);
+    return studioUpdated.toModel();
   }
 
   async delete(id: number, userId: number) {

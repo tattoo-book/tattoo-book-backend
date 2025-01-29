@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Logger, Param, Patch, Post, Req, UseGuards, UsePipes } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Logger, Param, Patch, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { JoiPipe } from 'nestjs-joi';
 import { RequestDTO } from 'src/architecture/dtos/RequestDTO';
 import { ResponseDTO } from 'src/architecture/dtos/ResponseDTO';
@@ -7,6 +7,7 @@ import { AuthGuard } from 'src/architecture/guards/auth.guard';
 import { ErrorHandler } from 'src/architecture/handlers/error.handler';
 import { CreateStudioDTO } from 'src/domains/studios/dtos/create-studio.dto';
 import { StudiosService } from 'src/domains/studios/studios.service';
+import { ListStudiosDTO } from './dtos/list-studio.dto';
 import { UpdateStudioDTO } from './dtos/update-studio.dto';
 
 @Controller('studios')
@@ -17,8 +18,7 @@ export class StudiosController {
   constructor(private studiosService: StudiosService) {}
 
   @Post()
-  @UsePipes(new JoiPipe())
-  async create(@Req() req: RequestDTO, @Body() createStudioDTO: CreateStudioDTO) {
+  async create(@Req() req: RequestDTO, @Body(JoiPipe) createStudioDTO: CreateStudioDTO) {
     try {
       const studio = await this.studiosService.create(createStudioDTO, req.user.id);
       return ResponseDTO.OK('Success on create studio', studio);
@@ -29,9 +29,9 @@ export class StudiosController {
   }
 
   @Get()
-  async findAll() {
+  async findAll(@Query(JoiPipe) query: ListStudiosDTO) {
     try {
-      const studios = await this.studiosService.findAll();
+      const studios = await this.studiosService.findAll(query);
       return ResponseDTO.OK('Success on find all studio', studios);
     } catch (error) {
       const errorDescription = ErrorHandler.execute(StudiosController.logger, 'Failed on find all studio', error);
@@ -45,12 +45,8 @@ export class StudiosController {
       const studio = await this.studiosService.findOne(+id);
       return ResponseDTO.OK(`Success on find studio with id ${id}`, studio);
     } catch (error) {
-      const errorDescription = ErrorHandler.execute(
-        StudiosController.logger,
-        `Failed on find studio with id ${id}`,
-        error,
-      );
-      throw new ExceptionDTO(error.status, `Failed on find studio with id ${id}`, errorDescription);
+      const desc = ErrorHandler.execute(StudiosController.logger, `Failed on find studio with id ${id}`, error);
+      throw new ExceptionDTO(error.status, `Failed on find studio with id ${id}`, desc);
     }
   }
 
@@ -60,12 +56,8 @@ export class StudiosController {
       const studio = await this.studiosService.update(+id, req.user.id, createStudioDTO);
       return ResponseDTO.OK(`Success on update studio with id ${id}`, studio);
     } catch (error) {
-      const errorDescription = ErrorHandler.execute(
-        StudiosController.logger,
-        `Failed on update studio with id ${id}`,
-        error,
-      );
-      throw new ExceptionDTO(error.status, `Failed on update studio with id ${id}`, errorDescription);
+      const desc = ErrorHandler.execute(StudiosController.logger, `Failed on update studio with id ${id}`, error);
+      throw new ExceptionDTO(error.status, `Failed on update studio with id ${id}`, desc);
     }
   }
 
@@ -75,12 +67,8 @@ export class StudiosController {
       const studio = await this.studiosService.delete(+id, req.user.id);
       return ResponseDTO.OK(`Success on delete studio with id ${id}`, studio);
     } catch (error) {
-      const errorDescription = ErrorHandler.execute(
-        StudiosController.logger,
-        `Failed on delete studio with id ${id}`,
-        error,
-      );
-      throw new ExceptionDTO(error.status, `Failed on delete studio with id ${id}`, errorDescription);
+      const desc = ErrorHandler.execute(StudiosController.logger, `Failed on delete studio with id ${id}`, error);
+      throw new ExceptionDTO(error.status, `Failed on delete studio with id ${id}`, desc);
     }
   }
 }

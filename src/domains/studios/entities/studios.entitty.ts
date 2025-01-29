@@ -1,4 +1,13 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { UsersEntity } from '../../users/entities/user.entity';
 
 @Entity('studios')
@@ -24,4 +33,12 @@ export class StudiosEntity {
   @ManyToOne(() => UsersEntity, (user) => user.studios)
   @JoinColumn({ name: 'owner_id' })
   owner: UsersEntity;
+
+  toModel<T extends Partial<StudiosEntity>>() {
+    return Object.assign(this, {
+      createdAt: undefined,
+      updatedAt: undefined,
+      deletedAt: undefined,
+    });
+  }
 }
