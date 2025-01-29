@@ -4,11 +4,11 @@ import { ExceptionDTO } from '@architecture/dtos/ResponseErrorDTO';
 import { AuthGuard } from '@architecture/guards/auth.guard';
 import { ErrorHandler } from '@architecture/handlers/error.handler';
 import { Body, Controller, Delete, Get, Logger, Param, Patch, Post, Query, Req, UseGuards } from '@nestjs/common';
+import { CreateStudioDTO } from '@studios/dtos/create-studio.dto';
+import { ListStudiosDTO } from '@studios/dtos/list-studio.dto';
+import { UpdateStudioDTO } from '@studios/dtos/update-studio.dto';
+import { StudiosService } from '@studios/studios.service';
 import { JoiPipe } from 'nestjs-joi';
-import { CreateStudioDTO } from 'src/domains/studios/dtos/create-studio.dto';
-import { StudiosService } from 'src/domains/studios/studios.service';
-import { ListStudiosDTO } from './dtos/list-studio.dto';
-import { UpdateStudioDTO } from './dtos/update-studio.dto';
 
 @Controller('studios')
 @UseGuards(AuthGuard)

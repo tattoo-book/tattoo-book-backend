@@ -1,7 +1,7 @@
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
-import { CreateStudioDTO } from 'src/domains/studios/dtos/create-studio.dto';
-import { StudiosRepository } from 'src/domains/studios/repositories/studios.repositories';
-import { ListStudiosDTO } from './dtos/list-studio.dto';
+import { CreateStudioDTO } from '@studios/dtos/create-studio.dto';
+import { ListStudiosDTO } from '@studios/dtos/list-studio.dto';
+import { StudiosRepository } from '@studios/repositories/studios.repositories';
 
 @Injectable()
 export class StudiosService {

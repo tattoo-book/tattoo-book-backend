@@ -1,5 +1,5 @@
+import { StudiosSchema } from '@studios/schemas/studios.schema';
 import { JoiSchema, JoiSchemaOptions } from 'nestjs-joi';
-import { StudiosSchema } from '../schemas/studios.schema';
 
 @JoiSchemaOptions({ allowUnknown: false })
 export class UpdateStudioDTO {

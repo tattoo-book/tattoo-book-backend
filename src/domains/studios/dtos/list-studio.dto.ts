@@ -1,9 +1,9 @@
 import { CommonSchema } from '@architecture/schemas/CommomSchema';
 import { ApiProperty } from '@nestjs/swagger';
+import { StudiosEntity } from '@studios/entities/studios.entitty';
+import { StudiosSchema } from '@studios/schemas/studios.schema';
 import { JoiSchema, JoiSchemaOptions } from 'nestjs-joi';
 import { FindOptionsOrder, FindOptionsSelect, FindOptionsWhere } from 'typeorm';
-import { StudiosEntity } from '../entities/studios.entitty';
-import { StudiosSchema } from '../schemas/studios.schema';
 
 @JoiSchemaOptions({ allowUnknown: false })
 export class ListStudiosDTO {

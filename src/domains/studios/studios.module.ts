@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { StudiosEntity } from './entities/studios.entitty';
-import { StudiosRepository } from './repositories/studios.repositories';
-import { StudiosController } from './studios.controller';
-import { StudiosService } from './studios.service';
+import { StudiosEntity } from '@studios/entities/studios.entitty';
+import { StudiosRepository } from '@studios/repositories/studios.repositories';
+import { StudiosController } from '@studios/studios.controller';
+import { StudiosService } from '@studios/studios.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([StudiosEntity])],
