@@ -19,11 +19,11 @@ import {
   UsePipes,
 } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { CreateUserDTO } from '@users/dtos/create-user.dto';
+import { ListUserDTO } from '@users/dtos/list-user.dto';
+import { UpdateUserDto } from '@users/dtos/update-user.dto';
+import { UsersService } from '@users/users.service';
 import { JoiPipe } from 'nestjs-joi';
-import { CreateUserDTO } from 'src/domains/users/dtos/create-user.dto';
-import { UsersService } from 'src/domains/users/users.service';
-import { ListUserDTO } from './dtos/list-user.dto';
-import { UpdateUserDto } from './dtos/update-user.dto';
 
 @Controller('users')
 @ApiTags('Usuários')
