@@ -1,7 +1,7 @@
+import { TattoosEntity } from '@tattoos/entities/tattoos.entity';
+import { TattooSchema } from '@tattoos/schemas/tattoo.schema';
 import { JoiSchema, JoiSchemaOptions } from 'nestjs-joi';
 import { FindOptionsOrder, FindOptionsSelect, FindOptionsWhere } from 'typeorm';
-import { TattoosEntity } from '../entities/tattoos.entity';
-import { TattooSchema } from '../schemas/tattoo.schema';
 
 @JoiSchemaOptions({ allowUnknown: false })
 export class ListTattoosDTO {

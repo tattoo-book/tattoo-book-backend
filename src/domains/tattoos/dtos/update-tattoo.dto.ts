@@ -1,5 +1,5 @@
+import { TattooSchema } from '@tattoos/schemas/tattoo.schema';
 import { JoiSchema, JoiSchemaOptions } from 'nestjs-joi';
-import { TattooSchema } from '../schemas/tattoo.schema';
 
 @JoiSchemaOptions({ allowUnknown: false })
 export class UpdateTatttooDTO {

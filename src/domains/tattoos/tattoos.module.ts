@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TattoosEntity } from './entities/tattoos.entity';
-import { TattoosRepository } from './repositories/tattoos.repository';
-import { TattooService } from './tattoo.service';
-import { TattooController } from './tattoos.controller';
+import { TattoosEntity } from '@tattoos/entities/tattoos.entity';
+import { TattoosRepository } from '@tattoos/repositories/tattoos.repository';
+import { TattooService } from '@tattoos/tattoo.service';
+import { TattooController } from '@tattoos/tattoos.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([TattoosEntity])],

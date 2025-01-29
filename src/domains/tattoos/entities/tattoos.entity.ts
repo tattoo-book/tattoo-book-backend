@@ -1,5 +1,14 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { TattooArtistsEntity } from '../../tattoo-artist/entities/tattoo-artist.entity';
+import { TattooArtistsEntity } from 'src/domains/tattoo-artist/entities/tattoo-artist.entity';
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity('tattoos')
 export class TattoosEntity {

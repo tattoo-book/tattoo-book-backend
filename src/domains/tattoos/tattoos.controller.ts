@@ -20,10 +20,10 @@ import {
   UsePipes,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { ListTattoosDTO } from '@tattoos/dtos/list-tattoo.dto';
+import { UpdateTatttooDTO } from '@tattoos/dtos/update-tattoo.dto';
+import { TattooService } from '@tattoos/tattoo.service';
 import { JoiPipe } from 'nestjs-joi';
-import { TattooService } from 'src/domains/tattoos/tattoo.service';
-import { ListTattoosDTO } from './dtos/list-tattoo.dto';
-import { UpdateTatttooDTO } from './dtos/update-tattoo.dto';
 
 @Controller('tattoos')
 @UseGuards(AuthGuard)

@@ -19,6 +19,7 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@architecture/*": ["src/architecture/*"],
+      "@tattoos/*": ["src/domains/tattoos/*"],
       "@users/*": ["src/domains/users/*"]
     }
   }

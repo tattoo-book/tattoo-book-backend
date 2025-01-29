@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { TattoosRepository } from 'src/domains/tattoos/repositories/tattoos.repository';
-import { ListTattoosDTO } from './dtos/list-tattoo.dto';
-import { UpdateTatttooDTO } from './dtos/update-tattoo.dto';
+import { ListTattoosDTO } from '@tattoos/dtos/list-tattoo.dto';
+import { UpdateTatttooDTO } from '@tattoos/dtos/update-tattoo.dto';
+import { TattoosRepository } from '@tattoos/repositories/tattoos.repository';
 
 @Injectable()
 export class TattooService {
