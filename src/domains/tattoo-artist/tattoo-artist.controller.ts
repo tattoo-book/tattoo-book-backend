@@ -1,10 +1,10 @@
+import { RequestDTO } from '@architecture/dtos/RequestDTO';
+import { ResponseDTO } from '@architecture/dtos/ResponseDTO';
+import { ExceptionDTO } from '@architecture/dtos/ResponseErrorDTO';
+import { AuthGuard } from '@architecture/guards/auth.guard';
+import { ErrorHandler } from '@architecture/handlers/error.handler';
 import { Body, Controller, Delete, Get, Logger, Param, Patch, Post, Req, UseGuards, UsePipes } from '@nestjs/common';
 import { JoiPipe } from 'nestjs-joi';
-import { RequestDTO } from 'src/architecture/dtos/RequestDTO';
-import { ResponseDTO } from 'src/architecture/dtos/ResponseDTO';
-import { ExceptionDTO } from 'src/architecture/dtos/ResponseErrorDTO';
-import { AuthGuard } from 'src/architecture/guards/auth.guard';
-import { ErrorHandler } from 'src/architecture/handlers/error.handler';
 import { CreateTattooArtistDTO } from 'src/domains/tattoo-artist/dtos/CreateTattooArtistDTO';
 import { TattooArtistService } from 'src/domains/tattoo-artist/tattoo-artist.service';
 import { UpdateTattooArtistDTO } from './dtos/update.tattoo.artist';

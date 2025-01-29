@@ -1,6 +1,6 @@
+import { BaseRepository } from '@architecture/repositories/base.repository';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { BaseRepository } from 'src/architecture/repositories/base.repository';
 import { StudiosEntity } from 'src/domains/studios/entities/studios.entitty';
 import { Repository } from 'typeorm';
 

@@ -1,3 +1,9 @@
+import { JWT } from '@architecture/decorators/jwt';
+import { RequestDTO } from '@architecture/dtos/RequestDTO';
+import { ResponseDTO } from '@architecture/dtos/ResponseDTO';
+import { ExceptionDTO } from '@architecture/dtos/ResponseErrorDTO';
+import { AuthGuard } from '@architecture/guards/auth.guard';
+import { ErrorHandler } from '@architecture/handlers/error.handler';
 import {
   Body,
   Controller,
@@ -14,12 +20,6 @@ import {
 } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JoiPipe } from 'nestjs-joi';
-import { JWT } from 'src/architecture/decorators/jwt';
-import { RequestDTO } from 'src/architecture/dtos/RequestDTO';
-import { ResponseDTO } from 'src/architecture/dtos/ResponseDTO';
-import { ExceptionDTO } from 'src/architecture/dtos/ResponseErrorDTO';
-import { AuthGuard } from 'src/architecture/guards/auth.guard';
-import { ErrorHandler } from 'src/architecture/handlers/error.handler';
 import { CreateUserDTO } from 'src/domains/users/dtos/create-user.dto';
 import { UsersService } from 'src/domains/users/users.service';
 import { ListUserDTO } from './dtos/list-user.dto';

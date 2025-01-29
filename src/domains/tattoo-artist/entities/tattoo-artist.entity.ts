@@ -1,4 +1,4 @@
-import { SchedulingDTO } from 'src/architecture/dtos/schedulings/SchedulingDTO';
+import { SchedulingDTO } from '@architecture/dtos/schedulings/SchedulingDTO';
 import {
   Column,
   CreateDateColumn,
@@ -39,7 +39,8 @@ export class TattooArtistsEntity {
 
   @Column('jsonb', {
     nullable: true,
-    default: () => '{"sunday": [], "monday": [], "tuesday": [], "wednesday": [], "thursday": [], "friday": [], "saturday": []}\'::jsonb',
+    default: () =>
+      '{"sunday": [], "monday": [], "tuesday": [], "wednesday": [], "thursday": [], "friday": [], "saturday": []}\'::jsonb',
   })
   schedulings: SchedulingDTO;
 

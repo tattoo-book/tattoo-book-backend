@@ -1,6 +1,6 @@
+import { CommonSchema } from '@architecture/schemas/CommomSchema';
 import { ApiProperty } from '@nestjs/swagger';
 import { JoiSchema, JoiSchemaOptions } from 'nestjs-joi';
-import { CommonSchema } from 'src/architecture/schemas/CommomSchema';
 import { FindOptionsOrder, FindOptionsSelect, FindOptionsWhere } from 'typeorm';
 import { UsersEntity } from '../entities/user.entity';
 import { UserSchema } from '../schemas/user.schema';

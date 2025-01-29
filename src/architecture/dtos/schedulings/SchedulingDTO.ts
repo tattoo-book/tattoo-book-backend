@@ -1,5 +1,5 @@
+import { SchedulingSchema } from '@architecture/schemas/schedulings/SchedulingSchema';
 import { JoiSchema, JoiSchemaOptions } from 'nestjs-joi';
-import { SchedulingSchema } from 'src/architecture/schemas/schedulings/SchedulingSchema';
 import { SchedulingTimes } from './SchedulingTimes';
 
 @JoiSchemaOptions({ allowUnknown: false })

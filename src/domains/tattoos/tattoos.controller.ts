@@ -1,3 +1,8 @@
+import { RequestDTO } from '@architecture/dtos/RequestDTO';
+import { ResponseDTO } from '@architecture/dtos/ResponseDTO';
+import { ExceptionDTO } from '@architecture/dtos/ResponseErrorDTO';
+import { AuthGuard } from '@architecture/guards/auth.guard';
+import { ErrorHandler } from '@architecture/handlers/error.handler';
 import {
   Body,
   Controller,
@@ -16,11 +21,6 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { JoiPipe } from 'nestjs-joi';
-import { RequestDTO } from 'src/architecture/dtos/RequestDTO';
-import { ResponseDTO } from 'src/architecture/dtos/ResponseDTO';
-import { ExceptionDTO } from 'src/architecture/dtos/ResponseErrorDTO';
-import { AuthGuard } from 'src/architecture/guards/auth.guard';
-import { ErrorHandler } from 'src/architecture/handlers/error.handler';
 import { TattooService } from 'src/domains/tattoos/tattoo.service';
 import { ListTattoosDTO } from './dtos/list-tattoo.dto';
 import { UpdateTatttooDTO } from './dtos/update-tattoo.dto';

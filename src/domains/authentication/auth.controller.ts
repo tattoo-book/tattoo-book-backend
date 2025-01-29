@@ -1,9 +1,9 @@
+import { JWT } from '@architecture/decorators/jwt';
+import { ResponseDTO } from '@architecture/dtos/ResponseDTO';
+import { ExceptionDTO } from '@architecture/dtos/ResponseErrorDTO';
+import { ErrorHandler } from '@architecture/handlers/error.handler';
 import { Body, Controller, Logger, Post } from '@nestjs/common';
 import { JoiPipe } from 'nestjs-joi';
-import { JWT } from 'src/architecture/decorators/jwt';
-import { ResponseDTO } from 'src/architecture/dtos/ResponseDTO';
-import { ExceptionDTO } from 'src/architecture/dtos/ResponseErrorDTO';
-import { ErrorHandler } from 'src/architecture/handlers/error.handler';
 import { AuthService } from 'src/domains/authentication/auth.service';
 import { SignInDTO } from 'src/domains/authentication/dtos/SignInDTO';
 

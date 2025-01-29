@@ -1,5 +1,5 @@
+import { CommonSchema } from '@architecture/schemas/CommomSchema';
 import * as Joi from 'joi';
-import { CommonSchema } from 'src/architecture/schemas/CommomSchema';
 
 export class StudiosSchema {
   static studioName = Joi.string().min(1);

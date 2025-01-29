@@ -1,5 +1,5 @@
+import { RolesEnum } from '@architecture/enums/roles.enum';
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
-import { RolesEnum } from 'src/architecture/enums/roles.enum';
 import { CreateTattooArtistDTO } from 'src/domains/tattoo-artist/dtos/CreateTattooArtistDTO';
 import { TattooArtistsRepository } from 'src/domains/tattoo-artist/repositories/tattoo-artist.repository';
 import { DataSource } from 'typeorm';

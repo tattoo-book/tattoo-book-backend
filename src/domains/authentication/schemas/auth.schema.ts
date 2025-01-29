@@ -1,4 +1,4 @@
-import { CommonSchema } from 'src/architecture/schemas/CommomSchema';
+import { CommonSchema } from '@architecture/schemas/CommomSchema';
 
 export class AuthSchema {
   static email = CommonSchema.email;
