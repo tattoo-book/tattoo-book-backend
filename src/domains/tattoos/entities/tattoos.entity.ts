@@ -1,4 +1,4 @@
-import { TattooArtistsEntity } from 'src/domains/tattoo-artist/entities/tattoo-artist.entity';
+import { TattooArtistsEntity } from '@tattoo-artist/entities/tattoo-artist.entity';
 import {
   Column,
   CreateDateColumn,

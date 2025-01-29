@@ -1,5 +1,5 @@
+import { TattooArtistsSchema } from '@tattoo-artist/schemas/TattooArtistsSchema';
 import { JoiSchema } from 'nestjs-joi';
-import { TattooArtistsSchema } from 'src/domains/tattoo-artist/schemas/TattooArtistsSchema';
 
 export class CreateTattooArtistDTO {
   @JoiSchema(TattooArtistsSchema.artistName.required())

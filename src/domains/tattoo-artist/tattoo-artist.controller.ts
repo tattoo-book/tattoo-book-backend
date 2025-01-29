@@ -4,10 +4,10 @@ import { ExceptionDTO } from '@architecture/dtos/ResponseErrorDTO';
 import { AuthGuard } from '@architecture/guards/auth.guard';
 import { ErrorHandler } from '@architecture/handlers/error.handler';
 import { Body, Controller, Delete, Get, Logger, Param, Patch, Post, Req, UseGuards, UsePipes } from '@nestjs/common';
+import { CreateTattooArtistDTO } from '@tattoo-artist/dtos/CreateTattooArtistDTO';
+import { UpdateTattooArtistDTO } from '@tattoo-artist/dtos/update.tattoo.artist';
+import { TattooArtistService } from '@tattoo-artist/tattoo-artist.service';
 import { JoiPipe } from 'nestjs-joi';
-import { CreateTattooArtistDTO } from 'src/domains/tattoo-artist/dtos/CreateTattooArtistDTO';
-import { TattooArtistService } from 'src/domains/tattoo-artist/tattoo-artist.service';
-import { UpdateTattooArtistDTO } from './dtos/update.tattoo.artist';
 
 @Controller('tattoo-artists')
 @UseGuards(AuthGuard)
