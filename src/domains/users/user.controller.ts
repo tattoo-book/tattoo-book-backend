@@ -14,9 +14,10 @@ import {
 } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JoiPipe } from 'nestjs-joi';
+import { JWT } from 'src/architecture/decorators/jwt';
 import { RequestDTO } from 'src/architecture/dtos/RequestDTO';
 import { ResponseDTO } from 'src/architecture/dtos/ResponseDTO';
-import { ResponseErrorDTO } from 'src/architecture/dtos/ResponseErrorDTO';
+import { ExceptionDTO } from 'src/architecture/dtos/ResponseErrorDTO';
 import { AuthGuard } from 'src/architecture/guards/auth.guard';
 import { ErrorHandler } from 'src/architecture/handlers/error.handler';
 import { CreateUserDTO } from 'src/domains/users/dtos/create-user.dto';
@@ -32,6 +33,7 @@ export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Post()
+  @JWT(false)
   @UsePipes(new JoiPipe())
   @ApiBody({ type: () => CreateUserDTO })
   @ApiOperation({ summary: 'Criação de usuário', description: 'Cria um novo usuario padrão no sistema' })
@@ -44,7 +46,7 @@ export class UsersController {
       return ResponseDTO.OK('Success on create user', user);
     } catch (error) {
       const errorDescription = ErrorHandler.execute(UsersController.logger, 'Failed on create user', error);
-      throw new ResponseErrorDTO(error.status, 'Failed on create user', errorDescription);
+      throw new ExceptionDTO(error.status, 'Failed on create user', errorDescription);
     }
   }
 
@@ -59,7 +61,7 @@ export class UsersController {
       return ResponseDTO.OK('Success on find all user', users);
     } catch (error) {
       const errorDescription = ErrorHandler.execute(UsersController.logger, 'Failed on find all user', error);
-      throw new ResponseErrorDTO(error.status, 'Failed on find all user', errorDescription);
+      throw new ExceptionDTO(error.status, 'Failed on find all user', errorDescription);
     }
   }
 
@@ -74,7 +76,7 @@ export class UsersController {
       return ResponseDTO.OK(`Success on find user with id ${req.user.id}`, users);
     } catch (error) {
       const errorDescription = ErrorHandler.execute(UsersController.logger, `Failed on find user`, error);
-      throw new ResponseErrorDTO(error.status, `Failed on find user`, errorDescription);
+      throw new ExceptionDTO(error.status, `Failed on find user`, errorDescription);
     }
   }
 
@@ -89,7 +91,7 @@ export class UsersController {
       return ResponseDTO.OK(`Success on find user with id ${id}`, users);
     } catch (error) {
       const errorDescription = ErrorHandler.execute(UsersController.logger, `Failed on find user`, error);
-      throw new ResponseErrorDTO(error.status, `Failed on find user`, errorDescription);
+      throw new ExceptionDTO(error.status, `Failed on find user`, errorDescription);
     }
   }
 
@@ -104,7 +106,7 @@ export class UsersController {
       return ResponseDTO.OK(`Success on update user with id ${id}`, { id: +id, ...updateUserDto });
     } catch (error) {
       const errorDescription = ErrorHandler.execute(UsersController.logger, `Failed on update`, error);
-      throw new ResponseErrorDTO(error.status, `Failed on update`, errorDescription);
+      throw new ExceptionDTO(error.status, `Failed on update`, errorDescription);
     }
   }
 
@@ -119,7 +121,7 @@ export class UsersController {
       return ResponseDTO.OK(`Success on delete user with id ${id}`, user);
     } catch (error) {
       const errorDescription = ErrorHandler.execute(UsersController.logger, `Failed on delete`, error);
-      throw new ResponseErrorDTO(error.status, `Failed on delete`, errorDescription);
+      throw new ExceptionDTO(error.status, `Failed on delete`, errorDescription);
     }
   }
 }

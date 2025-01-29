@@ -1,4 +1,4 @@
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { CreateUserDTO } from 'src/domains/users/dtos/create-user.dto';
 import { UserRepository } from 'src/domains/users/repositories/user.repository';
 import { ListUserDTO } from './dtos/list-user.dto';
@@ -17,23 +17,23 @@ export class UsersService {
   }
 
   async find(query: ListUserDTO) {
-    return await this.userRepository.find(query);
+    const users = await this.userRepository.findMany(query);
+    return users.map((user) => user.toModel());
   }
 
   async findOne(id: number) {
-    return await this.userRepository.findOne({ where: { id } });
+    const user = await this.userRepository.findOne({ where: { id } });
+    return user.toModel();
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-    const user = await this.userRepository.findOne({ where: { id } });
-    if (!user) throw new NotFoundException(`User with id ${id} not found`);
+    const user = await this.userRepository.findOneOrFail({ where: { id } });
     this.userRepository.merge(user, updateUserDto);
     return await this.userRepository.save(user);
   }
 
   async delete(id: number) {
-    const user = await this.userRepository.findOne({ where: { id } });
-    if (!user) throw new NotFoundException(`User with id ${id} not found`);
+    const user = await this.userRepository.findOneOrFail({ where: { id } });
     return await this.userRepository.softRemove(user);
   }
 }

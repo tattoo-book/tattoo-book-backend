@@ -10,7 +10,7 @@ export class UserSchema {
     createdAt: CommonSchema.order,
   });
 
-  static where = Joi.object({
+  static filter = Joi.object({
     name: Joi.string(),
     email: Joi.string(),
   });

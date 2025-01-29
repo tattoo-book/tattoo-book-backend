@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Logger, Param, Patch, Post, Req, UseGuar
 import { JoiPipe } from 'nestjs-joi';
 import { RequestDTO } from 'src/architecture/dtos/RequestDTO';
 import { ResponseDTO } from 'src/architecture/dtos/ResponseDTO';
-import { ResponseErrorDTO } from 'src/architecture/dtos/ResponseErrorDTO';
+import { ExceptionDTO } from 'src/architecture/dtos/ResponseErrorDTO';
 import { AuthGuard } from 'src/architecture/guards/auth.guard';
 import { ErrorHandler } from 'src/architecture/handlers/error.handler';
 import { CreateTattooArtistDTO } from 'src/domains/tattoo-artist/dtos/CreateTattooArtistDTO';
@@ -23,8 +23,8 @@ export class TattooArtistsController {
       const tattooArtist = await this.tattooArtistService.create(createTattooArtistDTO, req.user.id);
       return ResponseDTO.OK('Success on create tattoo artist', tattooArtist);
     } catch (error) {
-      const errorDescription = ErrorHandler.execute(TattooArtistsController.logger, 'Failed on create tattoo artist', error);
-      throw new ResponseErrorDTO(error.status, 'Failed on create tattoo artist', errorDescription);
+      const desc = ErrorHandler.execute(TattooArtistsController.logger, 'Failed on create tattoo artist', error);
+      throw new ExceptionDTO(error.status, 'Failed on create tattoo artist', desc);
     }
   }
 
@@ -34,8 +34,8 @@ export class TattooArtistsController {
       const tattooArtists = await this.tattooArtistService.find();
       return ResponseDTO.OK('Success on find all tattoo artist', tattooArtists);
     } catch (error) {
-      const errorDescription = ErrorHandler.execute(TattooArtistsController.logger, 'Failed on find all tattoo artist', error);
-      throw new ResponseErrorDTO(error.status, 'Failed on find all tattoo artist', errorDescription);
+      const desc = ErrorHandler.execute(TattooArtistsController.logger, 'Failed on find tattoo artist', error);
+      throw new ExceptionDTO(error.status, 'Failed on find all tattoo artist', desc);
     }
   }
 
@@ -45,8 +45,8 @@ export class TattooArtistsController {
       const tattooArtist = await this.tattooArtistService.findOne(+id);
       return ResponseDTO.OK(`Success on find tattoo artist with id ${id}`, tattooArtist);
     } catch (error) {
-      const errorDescription = ErrorHandler.execute(TattooArtistsController.logger, 'Failed in list tattoo artist', error);
-      throw new ResponseErrorDTO(error.status, 'Failed on find all tattoo artist', errorDescription);
+      const desc = ErrorHandler.execute(TattooArtistsController.logger, 'Failed in list tattoo artist', error);
+      throw new ExceptionDTO(error.status, 'Failed on find all tattoo artist', desc);
     }
   }
 
@@ -56,8 +56,8 @@ export class TattooArtistsController {
       const tattooArtist = await this.tattooArtistService.update(+id, updateTattooArtistDTO);
       return ResponseDTO.OK(`Success on update tattoo artist with id ${id}`, tattooArtist);
     } catch (error) {
-      const errorDescription = ErrorHandler.execute(TattooArtistsController.logger, `Failed on update tattoo artist with id ${id}`, error);
-      throw new ResponseErrorDTO(error.status, `Failed on update tattoo artist with id ${id}`, errorDescription);
+      const desc = ErrorHandler.execute(TattooArtistsController.logger, `Failed on update tattoo artist ${id}`, error);
+      throw new ExceptionDTO(error.status, `Failed on update tattoo artist with id ${id}`, desc);
     }
   }
 
@@ -67,8 +67,8 @@ export class TattooArtistsController {
       const tattooArtist = await this.tattooArtistService.delete(+id);
       return ResponseDTO.OK(`Success on delete tattoo artist with id ${id}`, tattooArtist);
     } catch (error) {
-      const errorDescription = ErrorHandler.execute(TattooArtistsController.logger, `Failed on delete tattoo artist with id ${id}`, error);
-      throw new ResponseErrorDTO(error.status, `Failed on delete tattoo artist with id ${id}`, errorDescription);
+      const desc = ErrorHandler.execute(TattooArtistsController.logger, `Failed on delete tattoo artist ${id}`, error);
+      throw new ExceptionDTO(error.status, `Failed on delete tattoo artist with id ${id}`, desc);
     }
   }
 }

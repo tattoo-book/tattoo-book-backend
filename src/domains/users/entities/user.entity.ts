@@ -1,4 +1,12 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { StudiosEntity } from '../../studios/entities/studios.entitty';
 import { TattooArtistsEntity } from '../../tattoo-artist/entities/tattoo-artist.entity';
 
@@ -16,16 +24,16 @@ export class UsersEntity {
   @Column('int', { array: true, default: () => 'ARRAY[2]', nullable: false })
   roles: number[];
 
-  @Column({ name: 'text', select: false })
+  @Column({ name: 'password' })
   password: string;
 
-  @CreateDateColumn({ name: 'created_at', type: 'timestamp', select: false })
+  @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updated_at', type: 'timestamp', nullable: true, select: false })
+  @UpdateDateColumn({ name: 'updated_at', type: 'timestamp', nullable: true })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deleted_at', type: 'timestamp', nullable: true, select: false })
+  @DeleteDateColumn({ name: 'deleted_at', type: 'timestamp', nullable: true })
   deletedAt: Date;
 
   @OneToMany(() => TattooArtistsEntity, (TattoArtist) => TattoArtist.user)
@@ -33,6 +41,15 @@ export class UsersEntity {
 
   @OneToMany(() => StudiosEntity, (Studios) => Studios.owner)
   studios: StudiosEntity[];
+
+  toModel<T extends Partial<UsersEntity>>() {
+    return Object.assign(this, {
+      password: undefined,
+      createdAt: undefined,
+      updatedAt: undefined,
+      deletedAt: undefined,
+    });
+  }
 
   setRoles(roles: number[]) {
     this.roles = roles;

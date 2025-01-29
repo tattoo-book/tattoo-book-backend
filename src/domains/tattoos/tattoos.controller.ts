@@ -18,7 +18,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { JoiPipe } from 'nestjs-joi';
 import { RequestDTO } from 'src/architecture/dtos/RequestDTO';
 import { ResponseDTO } from 'src/architecture/dtos/ResponseDTO';
-import { ResponseErrorDTO } from 'src/architecture/dtos/ResponseErrorDTO';
+import { ExceptionDTO } from 'src/architecture/dtos/ResponseErrorDTO';
 import { AuthGuard } from 'src/architecture/guards/auth.guard';
 import { ErrorHandler } from 'src/architecture/handlers/error.handler';
 import { TattooService } from 'src/domains/tattoos/tattoo.service';
@@ -40,8 +40,8 @@ export class TattooController {
       await this.tattooService.create(file, req.user.id);
       return ResponseDTO.OK('Success on create tattoo', null);
     } catch (error) {
-      const errorDescription = ErrorHandler.execute(TattooController.logger, 'Failed on create tattoo', error);
-      throw new ResponseErrorDTO(error.status, 'Failed on create tattoo', errorDescription);
+      const desc = ErrorHandler.execute(TattooController.logger, 'Failed on create tattoo', error);
+      throw new ExceptionDTO(error.status, 'Failed on create tattoo', desc);
     }
   }
 
@@ -51,8 +51,8 @@ export class TattooController {
       const tattoos = await this.tattooService.find(query);
       return ResponseDTO.OK('Success on find all tattoos', tattoos);
     } catch (error) {
-      const errorDescription = ErrorHandler.execute(TattooController.logger, 'Failed on find all tattoos', error);
-      throw new ResponseErrorDTO(error.status, 'Failed on find all tattoos', errorDescription);
+      const desc = ErrorHandler.execute(TattooController.logger, 'Failed on find all tattoos', error);
+      throw new ExceptionDTO(error.status, 'Failed on find all tattoos', desc);
     }
   }
 
@@ -62,8 +62,8 @@ export class TattooController {
       const tattoo = await this.tattooService.findOne(+id);
       return ResponseDTO.OK(`Success on find tattoo with id ${id}`, tattoo);
     } catch (error) {
-      const errorDescription = ErrorHandler.execute(TattooController.logger, `Failed on find tattoo with id ${id}`, error);
-      throw new ResponseErrorDTO(error.status, `Failed on find tattoo with id ${id}`, errorDescription);
+      const desc = ErrorHandler.execute(TattooController.logger, `Failed on find tattoo with id ${id}`, error);
+      throw new ExceptionDTO(error.status, `Failed on find tattoo with id ${id}`, desc);
     }
   }
 
@@ -73,8 +73,8 @@ export class TattooController {
       const tattoo = await this.tattooService.update(+id, req.user.id, updateTattooDTO);
       return ResponseDTO.OK(`Success on update tattoo with id ${id}`, tattoo);
     } catch (error) {
-      const errorDescription = ErrorHandler.execute(TattooController.logger, `Failed on update tattoo with id ${id}`, error);
-      throw new ResponseErrorDTO(error.status, `Failed on update tattoo with id ${id}`, errorDescription);
+      const desc = ErrorHandler.execute(TattooController.logger, `Failed on update tattoo with id ${id}`, error);
+      throw new ExceptionDTO(error.status, `Failed on update tattoo with id ${id}`, desc);
     }
   }
 
@@ -84,8 +84,8 @@ export class TattooController {
       await this.tattooService.delete(+id);
       return ResponseDTO.OK(`Success on delete tattoo with id ${id}`, null);
     } catch (error) {
-      const errorDescription = ErrorHandler.execute(TattooController.logger, `Failed on delete tattoo with id ${id}`, error);
-      throw new ResponseErrorDTO(error.status, `Failed on delete tattoo with id ${id}`, errorDescription);
+      const desc = ErrorHandler.execute(TattooController.logger, `Failed on delete tattoo with id ${id}`, error);
+      throw new ExceptionDTO(error.status, `Failed on delete tattoo with id ${id}`, desc);
     }
   }
 }
