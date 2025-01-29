@@ -1,8 +1,8 @@
+import { SignInDTO } from '@authentication/dtos/SignInDTO';
+import { SignInResponseDTO } from '@authentication/dtos/SignInResponseDTO';
 import { Injectable, Logger, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserRepository } from '@users/repositories/user.repository';
-import { SignInDTO } from 'src/domains/authentication/dtos/SignInDTO';
-import { SignInResponseDTO } from 'src/domains/authentication/dtos/SignInResponseDTO';
 
 @Injectable()
 export class AuthService {
