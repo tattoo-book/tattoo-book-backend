@@ -1,7 +1,7 @@
 import { StreamableFile } from '@nestjs/common';
 
 export class DocumentTXT {
-  private content: string;
+  protected content: string;
 
   constructor() {}
 

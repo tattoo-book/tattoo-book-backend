@@ -2,30 +2,22 @@ import { SchedulingDTO } from '@architecture/dtos/schedulings/SchedulingDTO';
 import { SchedulingTimes } from '@architecture/dtos/schedulings/SchedulingTimes';
 import { DocumentXLSX } from '../document.xlsx';
 
-type DayWeekSigle = 'DOM' | 'SEG' | 'TER' | 'QUA' | 'QUI' | 'SEX' | 'SAB';
-
-export interface IHorariosDocument {
-  build();
-}
-
-export class HorariosXLSX implements IHorariosDocument {
-  private document: DocumentXLSX;
+export class HorariosXLSX extends DocumentXLSX {
   private schedulings: SchedulingDTO;
 
   constructor(schedulings: SchedulingDTO) {
-    this.document = new DocumentXLSX();
+    super();
     this.schedulings = schedulings;
   }
 
   public build() {
-    const sheet = this.document.addWorksheet('Agendamentos');
-    this.document.addHeaders(sheet, [
+    const sheet = this.addWorksheet('Agendamentos');
+    this.addHeaders(sheet, [
       { header: 'Dias da Semana', key: 'daysWeek', width: 'Dias da Semana'.length + 5 },
       { header: 'Horarios', key: 'scheduling', width: '08:00 as 12:00 - 13:00 as 18:00'.length + 5 },
     ]);
-    this.document.addRows(sheet, this.makeRows());
-
-    return this.document;
+    this.addRows(sheet, this.makeRows());
+    return this;
   }
 
   private makeRows() {
