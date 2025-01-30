@@ -25,6 +25,17 @@ services:
     networks:
       - tattoo-book-network
 
+  database-test:
+    image: postgres:latest
+    env_file: .env
+    container_name: tattoo-book-database-test
+    ports:
+      - '5434:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - tattoo-book-network
+
 networks:
   tattoo-book-network:
     driver: bridge

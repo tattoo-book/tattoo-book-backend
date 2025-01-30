@@ -1,4 +1,5 @@
 import { NestFactory } from '@nestjs/core';
+import 'module-alias/register';
 import { AppModule } from './app.module';
 import { LoggingInterceptor } from './architecture/interceptors/logging.interceptor';
 import { Swagger } from './architecture/swagger/swagger';

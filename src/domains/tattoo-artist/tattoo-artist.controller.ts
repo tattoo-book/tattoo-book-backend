@@ -8,6 +8,7 @@ import { CreateTattooArtistDTO } from '@tattoo-artist/dtos/CreateTattooArtistDTO
 import { UpdateTattooArtistDTO } from '@tattoo-artist/dtos/update.tattoo.artist';
 import { TattooArtistService } from '@tattoo-artist/tattoo-artist.service';
 import { JoiPipe } from 'nestjs-joi';
+import { HorariosFileType } from './document/horarios/horarios.document';
 
 @Controller('tattoo-artists')
 @UseGuards(AuthGuard)
@@ -36,6 +37,16 @@ export class TattooArtistsController {
     } catch (error) {
       const desc = ErrorHandler.execute(TattooArtistsController.logger, 'Failed on find tattoo artist', error);
       throw new ExceptionDTO(error.status, 'Failed on find all tattoo artist', desc);
+    }
+  }
+
+  @Get('download/:type')
+  async download(@Param('type') type: HorariosFileType) {
+    try {
+      return await this.tattooArtistService.download(type);
+    } catch (error) {
+      const desc = ErrorHandler.execute(TattooArtistsController.logger, 'Failed on download', error);
+      throw new ExceptionDTO(error.status, 'Failed on download', desc);
     }
   }
 

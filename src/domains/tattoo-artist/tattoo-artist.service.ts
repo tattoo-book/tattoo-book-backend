@@ -6,6 +6,7 @@ import { TattooArtistsEntity } from '@tattoo-artist/entities/tattoo-artist.entit
 import { TattooArtistsRepository } from '@tattoo-artist/repositories/tattoo-artist.repository';
 import { DataSource } from 'typeorm';
 import { UsersEntity } from '../users/entities/user.entity';
+import { HorariosDocument, HorariosFileType } from './document/horarios/horarios.document';
 
 @Injectable()
 export class TattooArtistService {
@@ -28,6 +29,12 @@ export class TattooArtistService {
     });
 
     return result;
+  }
+
+  async download(type: HorariosFileType) {
+    const schedulings = await this.tattooArtistsRepository.findOne({ where: { id: 2 } });
+    const document = HorariosDocument.create(type, schedulings.schedulings);
+    return document.build().export();
   }
 
   async find() {
