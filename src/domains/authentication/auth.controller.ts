@@ -20,7 +20,7 @@ export class AuthController {
       return ResponseDTO.OK(`Success on sign in with email ${signInDto.email}`, user);
     } catch (error) {
       const desc = ErrorHandler.execute(AuthController.logger, `Failed on sign in with  ${signInDto.email}`, error);
-      throw new ExceptionDTO(error.status, `Failed on sign in with email ${signInDto.email}`, desc);
+      throw new ExceptionDTO(error.status, `Failed on sign in with email ${signInDto.email}`, error.message, desc);
     }
   }
 }

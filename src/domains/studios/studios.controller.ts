@@ -24,7 +24,7 @@ export class StudiosController {
       return ResponseDTO.OK('Success on create studio', studio);
     } catch (error) {
       const errorDescription = ErrorHandler.execute(StudiosController.logger, 'Failed on create studio', error);
-      throw new ExceptionDTO(error.status, 'Failed on create studio', errorDescription);
+      throw new ExceptionDTO(error.status, 'Failed on create studio', errorDescription, errorDescription);
     }
   }
 
@@ -35,7 +35,7 @@ export class StudiosController {
       return ResponseDTO.OK('Success on find all studio', studios);
     } catch (error) {
       const errorDescription = ErrorHandler.execute(StudiosController.logger, 'Failed on find all studio', error);
-      throw new ExceptionDTO(error.status, 'Failed on find all studio', errorDescription);
+      throw new ExceptionDTO(error.status, 'Failed on find all studio', errorDescription, errorDescription);
     }
   }
 
@@ -46,7 +46,7 @@ export class StudiosController {
       return ResponseDTO.OK(`Success on find studio with id ${id}`, studio);
     } catch (error) {
       const desc = ErrorHandler.execute(StudiosController.logger, `Failed on find studio with id ${id}`, error);
-      throw new ExceptionDTO(error.status, `Failed on find studio with id ${id}`, desc);
+      throw new ExceptionDTO(error.status, `Failed on find studio with id ${id}`, desc, desc);
     }
   }
 
@@ -57,7 +57,7 @@ export class StudiosController {
       return ResponseDTO.OK(`Success on update studio with id ${id}`, studio);
     } catch (error) {
       const desc = ErrorHandler.execute(StudiosController.logger, `Failed on update studio with id ${id}`, error);
-      throw new ExceptionDTO(error.status, `Failed on update studio with id ${id}`, desc);
+      throw new ExceptionDTO(error.status, `Failed on update studio with id ${id}`, desc, desc);
     }
   }
 
@@ -68,7 +68,7 @@ export class StudiosController {
       return ResponseDTO.OK(`Success on delete studio with id ${id}`, studio);
     } catch (error) {
       const desc = ErrorHandler.execute(StudiosController.logger, `Failed on delete studio with id ${id}`, error);
-      throw new ExceptionDTO(error.status, `Failed on delete studio with id ${id}`, desc);
+      throw new ExceptionDTO(error.status, `Failed on delete studio with id ${id}`, desc, desc);
     }
   }
 }
