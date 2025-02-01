@@ -1,3 +1,4 @@
+import { Logger } from '@nestjs/common';
 import { FindOptionsSelect, FindOptionsSelectByString, FindOptionsWhere, Like, Repository } from 'typeorm';
 
 type FindManyOptions<T> = {
@@ -13,26 +14,34 @@ export class BaseRepository<T> extends Repository<T> {
     super(target, manager, queryRunner);
   }
 
-  async findMany(query: FindManyOptions<T>) {
-    const search: FindOptionsWhere<T> = {};
+  private formatSearch(search) {
+    const searchFormatted: FindOptionsWhere<T> = {};
 
-    for (const chave in query.search) {
-      if (query.search.hasOwnProperty(chave)) {
-        const valor = query.search[chave];
+    for (const chave in search) {
+      if (search.hasOwnProperty(chave)) {
+        const valor = search[chave];
         if (typeof valor === 'string') {
-          search[chave] = Like(`%${valor}%`);
+          searchFormatted[chave] = Like(`%${valor.toLowerCase()}%`);
         } else {
-          search[chave] = valor;
+          searchFormatted[chave] = valor;
         }
       }
     }
+
+    return searchFormatted;
+  }
+
+  async findMany(query: FindManyOptions<T>) {
+    Logger.log(`Find many with query: ${JSON.stringify(query)}`);
+    const search: FindOptionsWhere<T> = this.formatSearch(query.search);
+
+    const whereFormated = { ...query.filter, ...search };
     return this.find({
       select: query.select,
       take: query.pageSize,
       skip: query.page,
       relations: query.includes,
-      // where: { ...query.filter, ...search },
-      where: { ...query.filter, ...search },
+      where: whereFormated,
     });
   }
 }

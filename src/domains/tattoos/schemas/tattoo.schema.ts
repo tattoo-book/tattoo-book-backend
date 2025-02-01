@@ -9,7 +9,7 @@ export class TattooSchema {
   static imageLink = Joi.string().uri();
   static orderValuesValid = Joi.string().valid('asc', 'desc');
 
-  static take = Joi.number().integer().positive();
+  static pageSize = Joi.number().integer().positive();
 
   static order = Joi.object({
     id: this.orderValuesValid,

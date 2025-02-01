@@ -20,7 +20,6 @@ export class TattooService {
   }
 
   async find(query: ListTattoosDTO) {
-    console.log('FIND MANY TATTOO: ', query);
     return await this.tattooRepository.findMany(query);
   }
 

@@ -17,6 +17,6 @@ export class ListTattoosDTO {
   @JoiSchema(TattooSchema.select.optional())
   select?: FindOptionsSelect<TattoosEntity>;
 
-  @JoiSchema(TattooSchema.take.optional())
-  take?: number;
+  @JoiSchema(TattooSchema.pageSize.optional())
+  pageSize?: number;
 }
