@@ -16,11 +16,20 @@ export class TattooSchema {
     popularity: this.orderValuesValid,
   });
 
-  static where = Joi.object({
+  static filter = Joi.object({
     id: this.id,
     title: Joi.string(),
     description: Joi.string(),
     imageName: Joi.string(),
+    tattooArtistId: this.tattooArtistId,
+  });
+
+  static search = Joi.object({
+    id: this.id,
+    title: Joi.string(),
+    description: Joi.string(),
+    imageName: Joi.string(),
+    searchValues: Joi.string(),
     tattooArtistId: this.tattooArtistId,
   });
 

@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { ListTattoosDTO } from '@tattoos/dtos/list-tattoo.dto';
 import { UpdateTatttooDTO } from '@tattoos/dtos/update-tattoo.dto';
 import { TattoosRepository } from '@tattoos/repositories/tattoos.repository';
@@ -20,7 +20,8 @@ export class TattooService {
   }
 
   async find(query: ListTattoosDTO) {
-    return await this.tattooRepository.find(query);
+    console.log('FIND MANY TATTOO: ', query);
+    return await this.tattooRepository.findMany(query);
   }
 
   async findOne(id: number) {
@@ -30,10 +31,10 @@ export class TattooService {
   async update(id: number, userId: number, updateTattooDTO: UpdateTatttooDTO) {
     const tattoo = await this.tattooRepository.findOneBy({ id });
     if (!tattoo) throw new NotFoundException(`Tattoo with id ${id} not found`);
-    if (tattoo.tattooArtistId !== userId) throw new Error('User is not authorized to update this tattoo');
+    if (tattoo.tattooArtistId !== userId) throw new UnauthorizedException('Apenas o dono pode editar essa tatuagem');
 
-    this.tattooRepository.merge(tattoo, updateTattooDTO);
-    return await this.tattooRepository.save(tattoo);
+    const tattooUpdated = this.tattooRepository.merge(tattoo, updateTattooDTO);
+    return await this.tattooRepository.save(tattooUpdated);
   }
 
   async delete(id: number) {

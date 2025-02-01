@@ -8,8 +8,11 @@ export class ListTattoosDTO {
   @JoiSchema(TattooSchema.order.optional())
   order?: FindOptionsOrder<TattoosEntity>;
 
-  @JoiSchema(TattooSchema.where.optional())
-  where?: FindOptionsWhere<TattoosEntity>;
+  @JoiSchema(TattooSchema.filter.optional())
+  filter?: FindOptionsWhere<TattoosEntity>;
+
+  @JoiSchema(TattooSchema.search.optional())
+  search?: FindOptionsWhere<TattoosEntity>;
 
   @JoiSchema(TattooSchema.select.optional())
   select?: FindOptionsSelect<TattoosEntity>;

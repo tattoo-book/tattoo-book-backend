@@ -33,6 +33,9 @@ export class TattoosEntity {
   @Column({ name: 'image_link' })
   imageLink: string;
 
+  @Column({ name: 'search_values', type: 'text' })
+  searchValues: string;
+
   @Column()
   popularity: number;
 
