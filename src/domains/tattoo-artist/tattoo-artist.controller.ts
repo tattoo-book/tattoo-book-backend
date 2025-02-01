@@ -25,7 +25,7 @@ export class TattooArtistsController {
       return ResponseDTO.OK('Success on create tattoo artist', tattooArtist);
     } catch (error) {
       const desc = ErrorHandler.execute(TattooArtistsController.logger, 'Failed on create tattoo artist', error);
-      throw new ExceptionDTO(error.status, 'Failed on create tattoo artist', desc.message, desc);
+      throw new ExceptionDTO(error.status, 'Failed on create tattoo artist', desc);
     }
   }
 
@@ -36,7 +36,7 @@ export class TattooArtistsController {
       return ResponseDTO.OK('Success on find all tattoo artist', tattooArtists);
     } catch (error) {
       const desc = ErrorHandler.execute(TattooArtistsController.logger, 'Failed on find tattoo artist', error);
-      throw new ExceptionDTO(error.status, 'Failed on find all tattoo artist', desc.message, desc);
+      throw new ExceptionDTO(error.status, 'Failed on find all tattoo artist', desc);
     }
   }
 
@@ -46,7 +46,7 @@ export class TattooArtistsController {
       return await this.tattooArtistService.download(type);
     } catch (error) {
       const desc = ErrorHandler.execute(TattooArtistsController.logger, 'Failed on download', error);
-      throw new ExceptionDTO(error.status, 'Failed on download', desc.message, desc);
+      throw new ExceptionDTO(error.status, 'Failed on download', desc);
     }
   }
 
@@ -57,7 +57,7 @@ export class TattooArtistsController {
       return ResponseDTO.OK(`Success on find tattoo artist with id ${id}`, tattooArtist);
     } catch (error) {
       const desc = ErrorHandler.execute(TattooArtistsController.logger, 'Failed in list tattoo artist', error);
-      throw new ExceptionDTO(error.status, 'Failed on find all tattoo artist', desc.message, desc);
+      throw new ExceptionDTO(error.status, 'Failed on find all tattoo artist', desc);
     }
   }
 
@@ -68,7 +68,7 @@ export class TattooArtistsController {
       return ResponseDTO.OK(`Success on update tattoo artist with id ${id}`, tattooArtist);
     } catch (error) {
       const desc = ErrorHandler.execute(TattooArtistsController.logger, `Failed on update tattoo artist ${id}`, error);
-      throw new ExceptionDTO(error.status, `Failed on update tattoo artist with id ${id}`, desc.message, desc);
+      throw new ExceptionDTO(error.status, `Failed on update tattoo artist with id ${id}`, desc);
     }
   }
 
@@ -79,7 +79,7 @@ export class TattooArtistsController {
       return ResponseDTO.OK(`Success on delete tattoo artist with id ${id}`, tattooArtist);
     } catch (error) {
       const desc = ErrorHandler.execute(TattooArtistsController.logger, `Failed on delete tattoo artist ${id}`, error);
-      throw new ExceptionDTO(error.status, `Failed on delete tattoo artist with id ${id}`, desc.message, desc);
+      throw new ExceptionDTO(error.status, `Failed on delete tattoo artist with id ${id}`, desc);
     }
   }
 }

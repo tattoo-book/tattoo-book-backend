@@ -41,7 +41,7 @@ export class TattooController {
       return ResponseDTO.OK('Success on create tattoo', null);
     } catch (error) {
       const desc = ErrorHandler.execute(TattooController.logger, 'Failed on create tattoo', error);
-      throw new ExceptionDTO(error.status, 'Failed on create tattoo', desc.message, desc);
+      throw new ExceptionDTO(error.status, 'Failed on create tattoo', desc);
     }
   }
 
@@ -52,7 +52,7 @@ export class TattooController {
       return ResponseDTO.OK('Success on find all tattoos', tattoos);
     } catch (error) {
       const desc = ErrorHandler.execute(TattooController.logger, 'Failed on find all tattoos', error);
-      throw new ExceptionDTO(error.status, 'Failed on find all tattoos', desc.message, desc);
+      throw new ExceptionDTO(error.status, 'Failed on find all tattoos', desc);
     }
   }
 
@@ -63,7 +63,7 @@ export class TattooController {
       return ResponseDTO.OK(`Success on find tattoo with id ${id}`, tattoo);
     } catch (error) {
       const desc = ErrorHandler.execute(TattooController.logger, `Failed on find tattoo with id ${id}`, error);
-      throw new ExceptionDTO(error.status, `Failed on find tattoo with id ${id}`, desc.message, desc);
+      throw new ExceptionDTO(error.status, `Failed on find tattoo with id ${id}`, desc);
     }
   }
 
@@ -74,7 +74,7 @@ export class TattooController {
       return ResponseDTO.OK(`Success on update tattoo with id ${id}`, tattoo);
     } catch (error) {
       const desc = ErrorHandler.execute(TattooController.logger, `Failed on update tattoo with id ${id}`, error);
-      throw new ExceptionDTO(error.status, `Failed on update tattoo with id ${id}`, desc.message, desc);
+      throw new ExceptionDTO(error.status, `Failed on update tattoo with id ${id}`, desc);
     }
   }
 
@@ -85,7 +85,7 @@ export class TattooController {
       return ResponseDTO.OK(`Success on delete tattoo with id ${id}`, null);
     } catch (error) {
       const desc = ErrorHandler.execute(TattooController.logger, `Failed on delete tattoo with id ${id}`, error);
-      throw new ExceptionDTO(error.status, `Failed on delete tattoo with id ${id}`, desc.message, desc);
+      throw new ExceptionDTO(error.status, `Failed on delete tattoo with id ${id}`, desc);
     }
   }
 }

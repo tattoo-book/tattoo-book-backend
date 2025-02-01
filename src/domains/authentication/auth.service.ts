@@ -15,8 +15,8 @@ export class AuthService {
 
   async signIn({ email, password: pass }: SignInDTO) {
     const user = await this.userRepository.findOne({ where: { email: email } });
-    if (!user) throw new NotFoundException('Email no registered');
-    if (user.password !== pass) throw new UnauthorizedException('Password incorrect');
+    if (!user) throw new NotFoundException('Email não cadastrado.');
+    if (user.password !== pass) throw new UnauthorizedException('Senha incorreta.');
 
     const payload = { id: user.id, name: user.name };
     const token = this.jwtService.sign(payload);
