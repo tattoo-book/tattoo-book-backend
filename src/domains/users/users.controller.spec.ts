@@ -1,10 +1,10 @@
 import { BaseRepository } from '@architecture/repositories/base.repository';
 import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersEntity } from '@users/entities/user.entity';
 import { UserRepository } from '@users/repositories/user.repository';
 import { UsersController } from '@users/user.controller';
 import { UsersService } from '@users/users.service';
+import { UsersEntity } from 'src/core/entities/user.entity';
 
 describe('User Controller', () => {
   // create variables to userModule

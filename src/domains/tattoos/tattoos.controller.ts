@@ -46,9 +46,9 @@ export class TattooController {
   }
 
   @Get()
-  async find(@Query(JoiPipe) query: ListTattoosDTO) {
+  async find(@Req() req: RequestDTO, @Query(JoiPipe) query: ListTattoosDTO) {
     try {
-      const tattoos = await this.tattooService.find(query);
+      const tattoos = await this.tattooService.find(query, req.user.id);
       return ResponseDTO.OK('Success on find all tattoos', tattoos);
     } catch (error) {
       const desc = ErrorHandler.execute(TattooController.logger, 'Failed on find all tattoos', error);
@@ -64,6 +64,28 @@ export class TattooController {
     } catch (error) {
       const desc = ErrorHandler.execute(TattooController.logger, `Failed on find tattoo with id ${id}`, error);
       throw new ExceptionDTO(error.status, `Failed on find tattoo with id ${id}`, desc);
+    }
+  }
+
+  @Post(':id/like')
+  async like(@Req() req: RequestDTO, @Param('id') id: string) {
+    try {
+      await this.tattooService.like(+id, req.user.id);
+      return ResponseDTO.OK(`Success on like tattoo with id ${id}`, null);
+    } catch (error) {
+      const desc = ErrorHandler.execute(TattooController.logger, `Failed on like tattoo with id ${id}`, error);
+      throw new ExceptionDTO(error.status, `Failed on like tattoo with id ${id}`, desc);
+    }
+  }
+
+  @Delete(':id/unlike')
+  async unlike(@Req() req: RequestDTO, @Param('id') id: string) {
+    try {
+      await this.tattooService.unlike(+id, req.user.id);
+      return ResponseDTO.OK(`Success on unlike tattoo with id ${id}`, null);
+    } catch (error) {
+      const desc = ErrorHandler.execute(TattooController.logger, `Failed on unlike tattoo with id ${id}`, error);
+      throw new ExceptionDTO(error.status, `Failed on unlike tattoo with id ${id}`, desc);
     }
   }
 

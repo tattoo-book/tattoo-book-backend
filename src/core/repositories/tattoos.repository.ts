@@ -1,12 +1,12 @@
 import { BaseRepository } from '@architecture/repositories/base.repository';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { TattooArtistsEntity } from 'src/core/entities/tattoo-artist.entity';
+import { TattoosEntity } from 'src/core/entities/tattoos.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class TattooArtistsRepository extends BaseRepository<TattooArtistsEntity> {
-  constructor(@InjectRepository(TattooArtistsEntity) private repository: Repository<TattooArtistsEntity>) {
+export class TattoosRepository extends BaseRepository<TattoosEntity> {
+  constructor(@InjectRepository(TattoosEntity) private readonly repository: Repository<TattoosEntity>) {
     super(repository.target, repository.manager, repository.queryRunner);
   }
 }

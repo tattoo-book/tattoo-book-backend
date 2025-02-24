@@ -4,11 +4,13 @@ import {
   DeleteDateColumn,
   Entity,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { StudiosEntity } from '../../studios/entities/studios.entitty';
-import { TattooArtistsEntity } from '../../tattoo-artist/entities/tattoo-artist.entity';
+import { StudiosEntity } from './studios.entitty';
+import { TattooArtistsEntity } from './tattoo-artist.entity';
+import { TattoosLikesEntity } from './tattoos-likes';
 
 @Entity('users')
 export class UsersEntity {
@@ -36,11 +38,14 @@ export class UsersEntity {
   @DeleteDateColumn({ name: 'deleted_at', type: 'timestamp', nullable: true })
   deletedAt: Date;
 
-  @OneToMany(() => TattooArtistsEntity, (TattoArtist) => TattoArtist.user)
-  tattooArtist: TattooArtistsEntity[];
+  @OneToOne(() => TattooArtistsEntity, (TattoArtist) => TattoArtist.user)
+  tattooArtist: TattooArtistsEntity;
 
   @OneToMany(() => StudiosEntity, (Studios) => Studios.owner)
   studios: StudiosEntity[];
+
+  @OneToMany(() => TattoosLikesEntity, (tattooLike) => tattooLike.user)
+  likes: TattoosLikesEntity[];
 
   toModel<T extends Partial<UsersEntity>>() {
     return Object.assign(this, {

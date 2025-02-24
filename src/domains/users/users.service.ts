@@ -3,10 +3,14 @@ import { CreateUserDTO } from '@users/dtos/create-user.dto';
 import { ListUserDTO } from '@users/dtos/list-user.dto';
 import { UpdateUserDto } from '@users/dtos/update-user.dto';
 import { UserRepository } from '@users/repositories/user.repository';
+import { TattooLikeRepository } from 'src/core/repositories/tattoo-likes.repository';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(
+    private readonly userRepository: UserRepository,
+    private tattooLikeRepository: TattooLikeRepository,
+  ) {}
 
   async create(createUserDto: CreateUserDTO) {
     const userExist = await this.userRepository.findOne({ where: { email: createUserDto.email } });
@@ -22,8 +26,14 @@ export class UsersService {
   }
 
   async findOne(id: number) {
-    const user = await this.userRepository.findOne({ where: { id } });
-    return user.toModel();
+    const user = await this.userRepository.findOne({ relations: { tattooArtist: { tattoos: true } }, where: { id } });
+    const userModel = user.toModel();
+    const userLikes = await this.tattooLikeRepository.find({ where: { userId: id } });
+    const likedTattooIds = userLikes.map((like) => like.tattooId);
+    userModel.tattooArtist.tattoos = userModel.tattooArtist.tattoos.map((item) => {
+      return { ...item, liked: likedTattooIds.includes(item.id) };
+    });
+    return userModel;
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {

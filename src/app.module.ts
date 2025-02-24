@@ -4,8 +4,9 @@ import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { StudiosEntity } from '@studios/entities/studios.entitty';
-import { TattooArtistsEntity } from '@tattoo-artist/entities/tattoo-artist.entity';
+import { StudiosEntity } from 'src/core/entities/studios.entitty';
+import { TattooArtistsEntity } from 'src/core/entities/tattoo-artist.entity';
+import { TattoosLikesEntity } from 'src/core/entities/tattoos-likes';
 import { AppController } from './app.controller';
 import { AuthGuard } from './architecture/guards/auth.guard';
 import { AuthModule } from './domains/authentication/auth.module';
@@ -19,7 +20,7 @@ import { DatabaseModule } from './infra/database/database.module';
   imports: [
     ConfigModule.forRoot(),
     JwtModule.register(JwtConfig.register()),
-    TypeOrmModule.forFeature([TattooArtistsEntity, StudiosEntity]),
+    TypeOrmModule.forFeature([TattooArtistsEntity, StudiosEntity, TattoosLikesEntity]),
     DatabaseModule,
     UserModule,
     TattoosModule,

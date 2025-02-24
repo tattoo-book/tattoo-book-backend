@@ -107,3 +107,11 @@ CREATE TABLE IF NOT EXISTS public.jobs(
 
 
 
+create table tattoos_likes(
+	id serial not null primary key,
+	tattoo_id integer not null,
+	user_id integer not null,
+	
+	constraint fk_tattoos foreign key (tattoo_id) references tattoos(id),
+	constraint fk_user foreign key (user_id) references users(id)
+);
