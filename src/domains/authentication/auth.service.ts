@@ -16,7 +16,8 @@ export class AuthService {
   async signIn({ email, password: pass }: SignInDTO) {
     const user = await this.userRepository.findOne({ where: { email: email } });
     if (!user) throw new NotFoundException('Email não cadastrado.');
-    if (user.password !== pass) throw new UnauthorizedException('Senha incorreta.');
+    // if (await bcrypt.compare(pass, user.password)) throw new UnauthorizedException('Senha incorreta.');
+    if (pass != user.password) throw new UnauthorizedException('Senha incorreta.');
 
     const payload = { id: user.id, name: user.name };
     const token = this.jwtService.sign(payload);

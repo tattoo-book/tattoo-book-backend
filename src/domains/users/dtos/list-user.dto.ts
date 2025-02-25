@@ -2,7 +2,7 @@ import { CommonSchema } from '@architecture/schemas/CommomSchema';
 import { ApiProperty } from '@nestjs/swagger';
 import { JoiSchema, JoiSchemaOptions } from 'nestjs-joi';
 import { FindOptionsOrder, FindOptionsSelect, FindOptionsWhere } from 'typeorm';
-import { UsersEntity } from '../entities/user.entity';
+import { UsersEntity } from '../../../core/entities/user.entity';
 import { UserSchema } from '../schemas/user.schema';
 
 @JoiSchemaOptions({ allowUnknown: false })

@@ -33,6 +33,8 @@ export class TattooSchema {
     tattooArtistId: this.tattooArtistId,
   });
 
+  static includes = Joi.array().items(Joi.string());
+
   static select = Joi.object({
     id: Joi.boolean(),
     title: Joi.boolean(),

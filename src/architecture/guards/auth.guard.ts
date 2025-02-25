@@ -22,7 +22,9 @@ export class AuthGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
 
-    if (!token) throw ExceptionDTO.Unauthorized('Token not found', 'Token inválido');
+    if (!token) {
+      throw ExceptionDTO.Unauthorized('Token not found', 'Token inválido');
+    }
 
     try {
       const payload = await this.jwtService.verifyAsync(token, { secret: process.env.JWT_SECRET });

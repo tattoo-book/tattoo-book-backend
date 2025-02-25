@@ -15,4 +15,8 @@ export class CreateUserDTO {
   @JoiSchema(UserSchema.password.required())
   @ApiProperty({ description: 'Senha do usuário', type: 'string', required: true })
   password: string;
+
+  @JoiSchema(UserSchema.artist.required())
+  @ApiProperty({ description: 'Define se o usuário é tatuador', type: 'string', required: true })
+  artist: boolean;
 }

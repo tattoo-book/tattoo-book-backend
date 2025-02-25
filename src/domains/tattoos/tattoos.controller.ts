@@ -14,16 +14,14 @@ import {
   Post,
   Query,
   Req,
-  UploadedFile,
   UseGuards,
-  UseInterceptors,
   UsePipes,
 } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
 import { ListTattoosDTO } from '@tattoos/dtos/list-tattoo.dto';
 import { UpdateTatttooDTO } from '@tattoos/dtos/update-tattoo.dto';
 import { TattooService } from '@tattoos/tattoo.service';
 import { JoiPipe } from 'nestjs-joi';
+import { CreateTattooDTO } from './dtos/create-tattoo.dto';
 
 @Controller('tattoos')
 @UseGuards(AuthGuard)
@@ -34,11 +32,10 @@ export class TattooController {
 
   @Post()
   @UsePipes(new JoiPipe())
-  @UseInterceptors(FileInterceptor('image'))
-  async createJob(@Req() req: RequestDTO, @UploadedFile() file: Express.Multer.File) {
+  async create(@Req() req: RequestDTO, @Body(JoiPipe) body: CreateTattooDTO) {
     try {
-      await this.tattooService.create(file, req.user.id);
-      return ResponseDTO.OK('Success on create tattoo', null);
+      const tattoo = await this.tattooService.create(body, req.user.id);
+      return ResponseDTO.OK('Success on create tattoo', { id: tattoo.id });
     } catch (error) {
       const desc = ErrorHandler.execute(TattooController.logger, 'Failed on create tattoo', error);
       throw new ExceptionDTO(error.status, 'Failed on create tattoo', desc);
@@ -46,9 +43,9 @@ export class TattooController {
   }
 
   @Get()
-  async find(@Query(JoiPipe) query: ListTattoosDTO) {
+  async find(@Req() req: RequestDTO, @Query(JoiPipe) query: ListTattoosDTO) {
     try {
-      const tattoos = await this.tattooService.find(query);
+      const tattoos = await this.tattooService.find(query, req.user.id);
       return ResponseDTO.OK('Success on find all tattoos', tattoos);
     } catch (error) {
       const desc = ErrorHandler.execute(TattooController.logger, 'Failed on find all tattoos', error);
@@ -64,6 +61,28 @@ export class TattooController {
     } catch (error) {
       const desc = ErrorHandler.execute(TattooController.logger, `Failed on find tattoo with id ${id}`, error);
       throw new ExceptionDTO(error.status, `Failed on find tattoo with id ${id}`, desc);
+    }
+  }
+
+  @Post(':id/like')
+  async like(@Req() req: RequestDTO, @Param('id') id: string) {
+    try {
+      await this.tattooService.like(+id, req.user.id);
+      return ResponseDTO.OK(`Success on like tattoo with id ${id}`, null);
+    } catch (error) {
+      const desc = ErrorHandler.execute(TattooController.logger, `Failed on like tattoo with id ${id}`, error);
+      throw new ExceptionDTO(error.status, `Failed on like tattoo with id ${id}`, desc);
+    }
+  }
+
+  @Delete(':id/unlike')
+  async unlike(@Req() req: RequestDTO, @Param('id') id: string) {
+    try {
+      await this.tattooService.unlike(+id, req.user.id);
+      return ResponseDTO.OK(`Success on unlike tattoo with id ${id}`, null);
+    } catch (error) {
+      const desc = ErrorHandler.execute(TattooController.logger, `Failed on unlike tattoo with id ${id}`, error);
+      throw new ExceptionDTO(error.status, `Failed on unlike tattoo with id ${id}`, desc);
     }
   }
 

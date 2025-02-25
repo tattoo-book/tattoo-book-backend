@@ -1,4 +1,4 @@
-import { TattooArtistsEntity } from '@tattoo-artist/entities/tattoo-artist.entity';
+import { TattooArtistsEntity } from 'src/core/entities/tattoo-artist.entity';
 import {
   Column,
   CreateDateColumn,
@@ -6,9 +6,11 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { TattoosLikesEntity } from './tattoos-likes';
 
 @Entity('tattoos')
 export class TattoosEntity {
@@ -39,7 +41,11 @@ export class TattoosEntity {
   @Column()
   popularity: number;
 
-  @ManyToOne(() => TattooArtistsEntity, (tattooArtist) => tattooArtist.jobs, { onDelete: 'CASCADE' })
+  @OneToMany(() => TattoosLikesEntity, (TattoosLikesEntity) => TattoosLikesEntity.tattoo)
+  @JoinColumn({ name: 'id' })
+  likes: TattoosLikesEntity[];
+
+  @ManyToOne(() => TattooArtistsEntity, (tattooArtist) => tattooArtist.tattoos, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'tattoo_artist_id' })
   tattooArtist: TattooArtistsEntity;
 
