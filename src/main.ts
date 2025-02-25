@@ -6,7 +6,7 @@ import { Swagger } from './architecture/swagger/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors();
+  app.enableCors({ origin: '*' });
   app.useGlobalInterceptors(new LoggingInterceptor());
   Swagger.setup(app);
   Swagger.setAlternativeRoutes(app);

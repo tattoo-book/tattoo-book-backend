@@ -38,7 +38,7 @@ export class UsersEntity {
   @DeleteDateColumn({ name: 'deleted_at', type: 'timestamp', nullable: true })
   deletedAt: Date;
 
-  @OneToOne(() => TattooArtistsEntity, (TattoArtist) => TattoArtist.user)
+  @OneToOne(() => TattooArtistsEntity, (TattoArtist) => TattoArtist.user, { cascade: ['insert'] })
   tattooArtist: TattooArtistsEntity;
 
   @OneToMany(() => StudiosEntity, (Studios) => Studios.owner)

@@ -4,6 +4,7 @@ export class UserSchema {
   static firstName = CommonSchema.text;
   static email = CommonSchema.email;
   static password = CommonSchema.password;
+  static artist = Joi.boolean();
 
   static order = Joi.object({
     email: CommonSchema.order,

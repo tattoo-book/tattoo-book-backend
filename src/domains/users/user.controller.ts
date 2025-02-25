@@ -45,6 +45,7 @@ export class UsersController {
       const user = await this.usersService.create(createUserDto);
       return ResponseDTO.OK('Success on create user', user);
     } catch (error) {
+      console.log('Error');
       const errorDescription = ErrorHandler.execute(UsersController.logger, 'Failed on create user', error);
       throw new ExceptionDTO(error.status, 'Failed on create user', errorDescription);
     }

@@ -87,7 +87,10 @@ export class TattooService {
   async update(id: number, userId: number, updateTattooDTO: UpdateTatttooDTO) {
     const tattoo = await this.tattooRepository.findOneBy({ id });
     if (!tattoo) throw new NotFoundException(`Tattoo with id ${id} not found`);
-    if (tattoo.tattooArtistId !== userId) throw new UnauthorizedException('Apenas o dono pode editar essa tatuagem');
+
+    const tattooArtist = await this.tattooArtist.findOne({ where: { userId } });
+    if (tattoo.tattooArtistId !== tattooArtist.id)
+      throw new UnauthorizedException('Apenas o dono pode editar essa tatuagem');
 
     const tattooUpdated = this.tattooRepository.merge(tattoo, updateTattooDTO);
     const saved = await this.tattooRepository.save(tattooUpdated);
