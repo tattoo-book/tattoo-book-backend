@@ -4,14 +4,21 @@ import { ListTattoosDTO } from '@tattoos/dtos/list-tattoo.dto';
 import { UpdateTatttooDTO } from '@tattoos/dtos/update-tattoo.dto';
 import { TattooLikeRepository } from 'src/core/repositories/tattoo-likes.repository';
 import { TattoosRepository } from 'src/core/repositories/tattoos.repository';
+import EmailPublisher from '../email/EmailPublisher';
+import { EmailSubscribe } from '../email/EmailSubscribe';
 
 @Injectable()
 export class TattooService {
+  private subscriber: EmailSubscribe;
+
   constructor(
     private readonly tattooRepository: TattoosRepository,
     private tattooLikeRepository: TattooLikeRepository,
     private tattooArtist: TattooArtistsRepository,
-  ) {}
+  ) {
+    this.subscriber = new EmailSubscribe();
+    EmailPublisher.Subscribe(this.subscriber);
+  }
 
   async create(createTattooDTO: any, userId: number) {
     const tattooArtist = await this.tattooArtist.findOne({ where: { userId } });
@@ -26,7 +33,9 @@ export class TattooService {
       searchValues: createTattooDTO.description + createTattooDTO.title,
     });
 
-    return await this.tattooRepository.save(tattooEntity);
+    const userSaved = await this.tattooRepository.save(tattooEntity);
+    EmailPublisher.Notify(this.subscriber.id, `Tatuador ${tattooArtist.name} acabou de adicionar uma tatuagem`);
+    return userSaved;
   }
 
   async find(query: ListTattoosDTO, userId: number) {
@@ -81,7 +90,9 @@ export class TattooService {
     if (tattoo.tattooArtistId !== userId) throw new UnauthorizedException('Apenas o dono pode editar essa tatuagem');
 
     const tattooUpdated = this.tattooRepository.merge(tattoo, updateTattooDTO);
-    return await this.tattooRepository.save(tattooUpdated);
+    const saved = await this.tattooRepository.save(tattooUpdated);
+    EmailPublisher.Notify(this.subscriber.id, `Tatuador ${tattoo.tattooArtistId} acabou de atualizar uma tatuagem`);
+    return saved;
   }
 
   async delete(id: number) {

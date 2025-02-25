@@ -32,10 +32,10 @@ export class TattooController {
 
   @Post()
   @UsePipes(new JoiPipe())
-  async createJob(@Req() req: RequestDTO, @Body(JoiPipe) body: CreateTattooDTO) {
+  async create(@Req() req: RequestDTO, @Body(JoiPipe) body: CreateTattooDTO) {
     try {
-      await this.tattooService.create(body, req.user.id);
-      return ResponseDTO.OK('Success on create tattoo', null);
+      const tattoo = await this.tattooService.create(body, req.user.id);
+      return ResponseDTO.OK('Success on create tattoo', { id: tattoo.id });
     } catch (error) {
       const desc = ErrorHandler.execute(TattooController.logger, 'Failed on create tattoo', error);
       throw new ExceptionDTO(error.status, 'Failed on create tattoo', desc);
