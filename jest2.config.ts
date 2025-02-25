@@ -2,6 +2,7 @@ import { pathsToModuleNameMapper } from 'ts-jest';
 
 export default {
   preset: 'ts-jest',
+  verbose: true,
   moduleFileExtensions: ['js', 'json', 'ts'],
   moduleNameMapper: pathsToModuleNameMapper(
     {

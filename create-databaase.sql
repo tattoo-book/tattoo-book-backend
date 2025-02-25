@@ -115,3 +115,25 @@ create table tattoos_likes(
 	constraint fk_tattoos foreign key (tattoo_id) references tattoos(id),
 	constraint fk_user foreign key (user_id) references users(id)
 );
+
+CREATE OR REPLACE FUNCTION update_likes()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF TG_OP = 'INSERT' THEN
+        UPDATE tattoos SET popularity = popularity + 1 WHERE id = NEW.tattoo_id;
+    ELSIF TG_OP = 'DELETE' THEN
+        UPDATE tattoos SET popularity = popularity - 1 WHERE id = OLD.tattoo_id;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER tattoos_likes_insert_trigger
+AFTER INSERT ON tattoos_likes
+FOR EACH ROW
+EXECUTE FUNCTION update_likes();
+
+CREATE TRIGGER tattoos_likes_delete_trigger
+BEFORE DELETE ON tattoos_likes
+FOR EACH ROW
+EXECUTE FUNCTION update_likes();

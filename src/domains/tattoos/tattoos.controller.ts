@@ -14,16 +14,14 @@ import {
   Post,
   Query,
   Req,
-  UploadedFile,
   UseGuards,
-  UseInterceptors,
   UsePipes,
 } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
 import { ListTattoosDTO } from '@tattoos/dtos/list-tattoo.dto';
 import { UpdateTatttooDTO } from '@tattoos/dtos/update-tattoo.dto';
 import { TattooService } from '@tattoos/tattoo.service';
 import { JoiPipe } from 'nestjs-joi';
+import { CreateTattooDTO } from './dtos/create-tattoo.dto';
 
 @Controller('tattoos')
 @UseGuards(AuthGuard)
@@ -34,10 +32,9 @@ export class TattooController {
 
   @Post()
   @UsePipes(new JoiPipe())
-  @UseInterceptors(FileInterceptor('image'))
-  async createJob(@Req() req: RequestDTO, @UploadedFile() file: Express.Multer.File) {
+  async createJob(@Req() req: RequestDTO, @Body(JoiPipe) body: CreateTattooDTO) {
     try {
-      await this.tattooService.create(file, req.user.id);
+      await this.tattooService.create(body, req.user.id);
       return ResponseDTO.OK('Success on create tattoo', null);
     } catch (error) {
       const desc = ErrorHandler.execute(TattooController.logger, 'Failed on create tattoo', error);

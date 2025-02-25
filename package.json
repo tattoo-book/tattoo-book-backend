@@ -19,7 +19,8 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "jest --config ./jest.config.ts",
+    "test": "jest",
+    "test2": "jest --config ./jest.config.ts",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
@@ -73,6 +74,7 @@
   },
   "jest": {
     "preset": "ts-jest",
+    "verbose": true,
     "moduleFileExtensions": [
       "js",
       "json",
@@ -86,7 +88,30 @@
     "collectCoverageFrom": [
       "**/*.(t|j)s"
     ],
+    "paths": {
+      "@architecture/*": [
+        "src/architecture/*"
+      ],
+      "@authentication/*": [
+        "src/domains/authentication/*"
+      ],
+      "@studios/*": [
+        "src/domains/studios/*"
+      ],
+      "@tattoo-artist/*": [
+        "src/domains/tattoo-artist/*"
+      ],
+      "@tattoos/*": [
+        "src/domains/tattoos/*"
+      ],
+      "@users/*": [
+        "src/domains/users/*"
+      ]
+    },
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "globals": {
+      "__DEV__": true
+    }
   }
 }

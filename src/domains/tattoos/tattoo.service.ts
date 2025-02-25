@@ -1,4 +1,5 @@
 import { Injectable, InternalServerErrorException, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { TattooArtistsRepository } from '@tattoo-artist/repositories/tattoo-artist.repository';
 import { ListTattoosDTO } from '@tattoos/dtos/list-tattoo.dto';
 import { UpdateTatttooDTO } from '@tattoos/dtos/update-tattoo.dto';
 import { TattooLikeRepository } from 'src/core/repositories/tattoo-likes.repository';
@@ -9,15 +10,20 @@ export class TattooService {
   constructor(
     private readonly tattooRepository: TattoosRepository,
     private tattooLikeRepository: TattooLikeRepository,
+    private tattooArtist: TattooArtistsRepository,
   ) {}
 
-  async create(file: Express.Multer.File, tattooArtistId: number) {
-    const imageExtension = file.mimetype.split('/')[1];
+  async create(createTattooDTO: any, userId: number) {
+    const tattooArtist = await this.tattooArtist.findOne({ where: { userId } });
     const tattooEntity = this.tattooRepository.create({
-      image: file.buffer,
-      imageExtension,
-      imageName: file.originalname,
-      tattooArtistId,
+      title: createTattooDTO.title,
+      description: createTattooDTO.description,
+      imageLink: createTattooDTO.imageLink,
+      tattooArtistId: tattooArtist.id,
+      image: createTattooDTO.imageLink,
+      imageName: createTattooDTO.title,
+      imageExtension: '.png',
+      searchValues: createTattooDTO.description + createTattooDTO.title,
     });
 
     return await this.tattooRepository.save(tattooEntity);
@@ -31,7 +37,6 @@ export class TattooService {
       const likedTattooIds = userLikes.map((like) => like.tattooId);
       return tattoos.map((tattoo) => ({ ...tattoo, liked: likedTattooIds.includes(tattoo.id), likes: undefined }));
     }
-
     return tattoos;
   }
 
