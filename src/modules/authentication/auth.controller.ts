@@ -10,8 +10,8 @@ import { SignInDTO } from 'src/modules/authentication/dtos/SignInDTO';
 
 @Controller('auth')
 export class AuthController {
-  static logger = new Logger('AuthController');
-  constructor(private authService: AuthService) {}
+  static readonly logger = new Logger('AuthController');
+  constructor(private readonly authService: AuthService) {}
 
   @JWT(false)
   @Post('sign-in')

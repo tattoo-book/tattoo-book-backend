@@ -1,4 +1,5 @@
 import { ConflictException, Injectable } from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
 import { TattooLikeRepository } from 'src/core/repositories/tattoo-likes.repository';
 import { TattoosRepository } from 'src/core/repositories/tattoos.repository';
 import { TattooArtistsRepository } from 'src/modules/tattoo-artist/repositories/tattoo-artist.repository';
@@ -12,17 +13,16 @@ import { In } from 'typeorm';
 export class UsersService {
   constructor(
     private readonly userRepository: UserRepository,
-    private tattooLikeRepository: TattooLikeRepository,
-    private tattooArtistRepository: TattooArtistsRepository,
-    private tattooRepository: TattoosRepository,
+    private readonly tattooLikeRepository: TattooLikeRepository,
+    private readonly tattooArtistRepository: TattooArtistsRepository,
+    private readonly tattooRepository: TattoosRepository,
   ) {}
 
   async create(createUserDto: CreateUserDTO) {
     const userExist = await this.userRepository.findOne({ where: { email: createUserDto.email } });
     if (userExist) throw new ConflictException('Email já cadastrado');
 
-    // const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
-    // createUserDto.password = hashedPassword;
+    createUserDto.password = await bcrypt.hash(createUserDto.password, 10);
     const user = this.userRepository.create(createUserDto);
     const artist = this.tattooArtistRepository.create({ name: user.name });
     return await this.userRepository.save({ ...user, tattooArtist: artist });

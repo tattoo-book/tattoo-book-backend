@@ -78,6 +78,9 @@ CREATE TABLE tattoos (
 );
 
 
+ALTER TABLE users ADD COLUMN roles integer;
+ALTER TABLE users ADD CONSTRAINT roles FOREIGN KEY (roles) REFERENCES roles.roles(id)
+
 --- Add new column and configure old lines ---
 ALTER TABLE public.tattoo_artists ADD COLUMN schedulings JSONB;
 UPDATE tattoo_artists 

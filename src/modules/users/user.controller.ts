@@ -4,20 +4,7 @@ import { ResponseDTO } from '@architecture/dtos/ResponseDTO';
 import { ExceptionDTO } from '@architecture/dtos/ResponseErrorDTO';
 import { AuthGuard } from '@architecture/guards/auth.guard';
 import { ErrorHandler } from '@architecture/handlers/error.handler';
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Logger,
-  Param,
-  Patch,
-  Post,
-  Query,
-  Req,
-  UseGuards,
-  UsePipes,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Logger, Param, Patch, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JoiPipe } from 'nestjs-joi';
 import { CreateUserDTO } from 'src/modules/users/dtos/create-user.dto';
@@ -28,24 +15,22 @@ import { UsersService } from 'src/modules/users/users.service';
 @Controller('users')
 @ApiTags('Usuários')
 export class UsersController {
-  static logger = new Logger('UsersController');
+  static readonly logger = new Logger('UsersController');
 
-  constructor(private usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) {}
 
   @Post()
   @JWT(false)
-  @UsePipes(new JoiPipe())
   @ApiBody({ type: () => CreateUserDTO })
   @ApiOperation({ summary: 'Criação de usuário', description: 'Cria um novo usuario padrão no sistema' })
   @ApiResponse({ status: 200, description: 'Sucesso ao criar usuário' })
   @ApiResponse({ status: 409, description: 'Email já cadastrado' })
   @ApiResponse({ status: 500, description: 'Erro interno' })
-  async create(@Body() createUserDto: CreateUserDTO) {
+  async create(@Body(JoiPipe) createUserDto: CreateUserDTO) {
     try {
       const user = await this.usersService.create(createUserDto);
       return ResponseDTO.OK('Success on create user', user);
     } catch (error) {
-      console.log('Error');
       const errorDescription = ErrorHandler.execute(UsersController.logger, 'Failed on create user', error);
       throw new ExceptionDTO(error.status, 'Failed on create user', errorDescription);
     }
