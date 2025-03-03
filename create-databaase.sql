@@ -60,10 +60,25 @@ CREATE TABLE IF NOT EXISTS public.studios (
 );
 
 
+CREATE TABLE tattoos (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    tattoo_artist_id INTEGER NOT NULL,
+    image_name VARCHAR(255) NOT NULL,
+    image_extension VARCHAR(255) NOT NULL,
+    image_link VARCHAR(255) NOT NULL,
+    search_values TEXT NOT NULL,
+    popularity INTEGER NOT NULL,
+    image BYTEA NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL,
+    deleted_at TIMESTAMP NULL,
+    CONSTRAINT fk_tattoo_artist FOREIGN KEY (tattoo_artist_id) REFERENCES tattoo_artists(id) ON DELETE CASCADE
+);
 
 
-
-
+--- Add new column and configure old lines ---
 ALTER TABLE public.tattoo_artists ADD COLUMN schedulings JSONB;
 UPDATE tattoo_artists 
 SET schedulings = '{
@@ -86,26 +101,6 @@ SET DEFAULT '{
     "friday": [],
     "saturday": []
 }'::JSONB;
-
-
-
-
-CREATE TABLE IF NOT EXISTS public.jobs(
-	id SERIAL NOT NULL,
-	tattoo_artist_id INTEGER NOT NULL,	
-	image BYTEA NOT NULL,
-	
-	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP,
-    deleted_at TIMESTAMP,
-    
-   	CONSTRAINT pk_jobs PRIMARY KEY (id),
-   	CONSTRAINT fk_tattoo_artist FOREIGN KEY (tattoo_artist_id) REFERENCES public.tattoo_artists(id)
-);
-
-
-
-
 
 create table tattoos_likes(
 	id serial not null primary key,
