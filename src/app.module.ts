@@ -9,12 +9,12 @@ import { TattooArtistsEntity } from 'src/core/entities/tattoo-artist.entity';
 import { TattoosLikesEntity } from 'src/core/entities/tattoos-likes';
 import { AppController } from './app.controller';
 import { AuthGuard } from './architecture/guards/auth.guard';
-import { AuthModule } from './domains/authentication/auth.module';
-import { StudiosModule } from './domains/studios/studios.module';
-import { TattooArtistModule } from './domains/tattoo-artist/tattoo-artist.module';
-import { TattoosModule } from './domains/tattoos/tattoos.module';
-import { UserModule } from './domains/users/user.module';
-import { DatabaseModule } from './infra/database/database.module';
+import { DatabaseModule } from './external/database/database.module';
+import { AuthModule } from './modules/authentication/auth.module';
+import { StudiosModule } from './modules/studios/studios.module';
+import { TattooArtistModule } from './modules/tattoo-artist/tattoo-artist.module';
+import { TattoosModule } from './modules/tattoos/tattoos.module';
+import { UserModule } from './modules/users/user.module';
 
 @Module({
   imports: [
