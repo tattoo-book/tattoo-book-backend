@@ -1,22 +1,22 @@
 import * as Joi from 'joi';
 
 export class TattooSchema {
-  static id = Joi.number().integer().positive();
-  static tattooArtistId = Joi.number().integer().positive();
-  static title = Joi.string().max(50);
-  static description = Joi.string().max(200);
-  static imageName = Joi.string().max(255);
-  static imageLink = Joi.string().uri();
-  static orderValuesValid = Joi.string().valid('asc', 'desc');
+  static readonly id = Joi.number().integer().positive();
+  static readonly tattooArtistId = Joi.number().integer().positive();
+  static readonly title = Joi.string().max(50);
+  static readonly description = Joi.string().max(200);
+  static readonly imageName = Joi.string().max(255);
+  static readonly imageLink = Joi.string().uri();
+  static readonly orderValuesValid = Joi.string().valid('asc', 'desc');
 
-  static pageSize = Joi.number().integer().positive();
+  static readonly pageSize = Joi.number().integer().positive();
 
-  static order = Joi.object({
+  static readonly order = Joi.object({
     id: this.orderValuesValid,
     popularity: this.orderValuesValid,
   });
 
-  static filter = Joi.object({
+  static readonly filter = Joi.object({
     id: this.id,
     title: Joi.string(),
     description: Joi.string(),
@@ -24,7 +24,7 @@ export class TattooSchema {
     tattooArtistId: this.tattooArtistId,
   });
 
-  static search = Joi.object({
+  static readonly search = Joi.object({
     id: this.id,
     title: Joi.string(),
     description: Joi.string(),
@@ -33,9 +33,9 @@ export class TattooSchema {
     tattooArtistId: this.tattooArtistId,
   });
 
-  static includes = Joi.array().items(Joi.string());
+  static readonly includes = Joi.array().items(Joi.string());
 
-  static select = Joi.object({
+  static readonly select = Joi.object({
     id: Joi.boolean(),
     title: Joi.boolean(),
     description: Joi.boolean(),
