@@ -135,3 +135,6 @@ CREATE TRIGGER tattoos_likes_delete_trigger
 BEFORE DELETE ON tattoos_likes
 FOR EACH ROW
 EXECUTE FUNCTION update_likes();
+
+ALTER TABLE users DROP CONSTRAINT users_name_key;
+ALTER TABLE tattoos ALTER COLUMN popularity SET DEFAULT 0;
