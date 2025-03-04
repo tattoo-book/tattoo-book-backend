@@ -1,4 +1,3 @@
-import { TattooArtistsEntity } from 'src/core/entities/tattoo-artist.entity';
 import {
   Column,
   CreateDateColumn,
@@ -10,6 +9,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { TattooArtistsEntity } from './tattoo-artist.entity';
 import { TattoosLikesEntity } from './tattoos-likes';
 
 @Entity('tattoos')

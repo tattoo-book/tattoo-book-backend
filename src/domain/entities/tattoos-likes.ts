@@ -1,6 +1,6 @@
-import { UsersEntity } from 'src/core/entities/user.entity';
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { TattoosEntity } from './tattoos.entity';
+import { UsersEntity } from './user.entity';
 
 @Entity('tattoos_likes')
 export class TattoosLikesEntity {

@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { JoiSchema, JoiSchemaOptions } from 'nestjs-joi';
-import { TattoosEntity } from 'src/core/entities/tattoos.entity';
+import { TattoosEntity } from 'src/domain/entities/tattoos.entity';
 import { TattooSchema } from 'src/modules/tattoos/schemas/tattoo.schema';
 import { FindOptionsOrder, FindOptionsSelect, FindOptionsWhere } from 'typeorm';
 

@@ -1,7 +1,7 @@
 import { CommonSchema } from '@architecture/schemas/CommomSchema';
 import { ApiProperty } from '@nestjs/swagger';
 import { JoiSchema, JoiSchemaOptions } from 'nestjs-joi';
-import { StudiosEntity } from 'src/core/entities/studios.entitty';
+import { StudiosEntity } from 'src/domain/entities/studios.entitty';
 import { StudiosSchema } from 'src/modules/studios/schemas/studios.schema';
 import { FindOptionsOrder, FindOptionsSelect, FindOptionsWhere } from 'typeorm';
 

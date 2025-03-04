@@ -1,6 +1,6 @@
 import { ConflictException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
-import { TattooLikeRepository } from 'src/core/repositories/tattoo-likes.repository';
-import { TattoosRepository } from 'src/core/repositories/tattoos.repository';
+import { TattooLikeRepository } from 'src/domain/repositories/tattoo-likes.repository';
+import { TattoosRepository } from 'src/domain/repositories/tattoos.repository';
 import { TattooArtistsRepository } from 'src/modules/tattoo-artist/repositories/tattoo-artist.repository';
 import { ListTattoosDTO } from 'src/modules/tattoos/dtos/list-tattoo.dto';
 import { UpdateTatttooDTO } from 'src/modules/tattoos/dtos/update-tattoo.dto';

@@ -1,7 +1,7 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { TattooLikeRepository } from 'src/core/repositories/tattoo-likes.repository';
-import { TattoosRepository } from 'src/core/repositories/tattoos.repository';
+import { TattooLikeRepository } from 'src/domain/repositories/tattoo-likes.repository';
+import { TattoosRepository } from 'src/domain/repositories/tattoos.repository';
 import { TattooArtistsRepository } from 'src/modules/tattoo-artist/repositories/tattoo-artist.repository';
 import { CreateUserDTO } from 'src/modules/users/dtos/create-user.dto';
 import { ListUserDTO } from 'src/modules/users/dtos/list-user.dto';
