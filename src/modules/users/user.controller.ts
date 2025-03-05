@@ -29,6 +29,7 @@ export class UsersController {
   async create(@Body(JoiPipe) createUserDto: CreateUserDTO) {
     try {
       const user = await this.usersService.create(createUserDto);
+      this.usersService.sendWellcomeMessage(user);
       return ResponseDTO.OK('Success on create user', user);
     } catch (error) {
       const errorDescription = ErrorHandler.execute(UsersController.logger, 'Failed on create user', error);

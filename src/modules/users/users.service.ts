@@ -1,7 +1,10 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Inject, Injectable, Logger } from '@nestjs/common';
+import { ClientProxy } from '@nestjs/microservices';
 import * as bcrypt from 'bcrypt';
+import { UsersEntity } from 'src/domain/entities/user.entity';
 import { TattooLikeRepository } from 'src/domain/repositories/tattoo-likes.repository';
 import { TattoosRepository } from 'src/domain/repositories/tattoos.repository';
+import { RabbitmqModule } from 'src/external/rabbitmq/rabbitmq.module';
 import { TattooArtistsRepository } from 'src/modules/tattoo-artist/repositories/tattoo-artist.repository';
 import { CreateUserDTO } from 'src/modules/users/dtos/create-user.dto';
 import { ListUserDTO } from 'src/modules/users/dtos/list-user.dto';
@@ -11,14 +14,24 @@ import { In } from 'typeorm';
 
 @Injectable()
 export class UsersService {
+  private static readonly logger = new Logger('UsersService');
+
   constructor(
     private readonly userRepository: UserRepository,
     private readonly tattooLikeRepository: TattooLikeRepository,
     private readonly tattooArtistRepository: TattooArtistsRepository,
     private readonly tattooRepository: TattoosRepository,
+    @Inject(RabbitmqModule.clients.email) private readonly emailBroker: ClientProxy,
   ) {}
 
-  async create(createUserDto: CreateUserDTO) {
+  public sendWellcomeMessage(user: UsersEntity) {
+    this.emailBroker.send('wellcome', { message: `Bem vindo ao tattoo book ${user.name}` }).subscribe({
+      complete: () => UsersService.logger.log('Success on send wellcome message'),
+      error: (err) => UsersService.logger.error(`Failed on send wellcome message, error: ${err}`),
+    });
+  }
+
+  public async create(createUserDto: CreateUserDTO) {
     const userExist = await this.userRepository.findOne({ where: { email: createUserDto.email } });
     if (userExist) throw new ConflictException('Email já cadastrado');
 
@@ -28,12 +41,12 @@ export class UsersService {
     return await this.userRepository.save({ ...user, tattooArtist: artist });
   }
 
-  async find(query: ListUserDTO) {
+  public async find(query: ListUserDTO) {
     const users = await this.userRepository.findMany(query);
     return users.map((user) => user.toModel());
   }
 
-  async findOne(id: number) {
+  public async findOne(id: number) {
     const user = await this.userRepository.findOne({
       relations: { tattooArtist: { tattoos: true } },
       where: { id },
@@ -57,13 +70,13 @@ export class UsersService {
     };
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
+  public async update(id: number, updateUserDto: UpdateUserDto) {
     const user = await this.userRepository.findOneOrFail({ where: { id } });
     this.userRepository.merge(user, updateUserDto);
     return await this.userRepository.save(user);
   }
 
-  async delete(id: number) {
+  public async delete(id: number) {
     const user = await this.userRepository.findOneOrFail({ where: { id } });
     return await this.userRepository.softRemove(user);
   }

@@ -10,7 +10,9 @@ import { StudiosEntity } from './domain/entities/studios.entitty';
 import { TattooArtistsEntity } from './domain/entities/tattoo-artist.entity';
 import { TattoosLikesEntity } from './domain/entities/tattoos-likes';
 import { DatabaseModule } from './external/database/database.module';
+import { RabbitmqModule } from './external/rabbitmq/rabbitmq.module';
 import { AuthModule } from './modules/authentication/auth.module';
+import { EmailModule } from './modules/email/email.module';
 import { StudiosModule } from './modules/studios/studios.module';
 import { TattooArtistModule } from './modules/tattoo-artist/tattoo-artist.module';
 import { TattoosModule } from './modules/tattoos/tattoos.module';
@@ -27,6 +29,8 @@ import { UserModule } from './modules/users/user.module';
     AuthModule,
     TattooArtistModule,
     StudiosModule,
+    RabbitmqModule,
+    EmailModule,
   ],
   controllers: [AppController],
   providers: [{ provide: APP_GUARD, useClass: AuthGuard }],
