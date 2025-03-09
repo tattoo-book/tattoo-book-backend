@@ -6,17 +6,17 @@ import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AuthGuard } from './architecture/guards/auth.guard';
-import { StudiosEntity } from './domain/entities/studios.entitty';
-import { TattooArtistsEntity } from './domain/entities/tattoo-artist.entity';
-import { TattoosLikesEntity } from './domain/entities/tattoos-likes';
+import { AuthModule } from './domains/authentication/auth.module';
+import { EmailModule } from './domains/email/email.module';
+import { StudiosModule } from './domains/studios/studios.module';
+import { TattooArtistModule } from './domains/tattoo-artist/tattoo-artist.module';
+import { TattoosModule } from './domains/tattoos/tattoos.module';
+import { UserModule } from './domains/users/user.module';
 import { DatabaseModule } from './external/database/database.module';
 import { RabbitmqModule } from './external/rabbitmq/rabbitmq.module';
-import { AuthModule } from './modules/authentication/auth.module';
-import { EmailModule } from './modules/email/email.module';
-import { StudiosModule } from './modules/studios/studios.module';
-import { TattooArtistModule } from './modules/tattoo-artist/tattoo-artist.module';
-import { TattoosModule } from './modules/tattoos/tattoos.module';
-import { UserModule } from './modules/users/user.module';
+import { StudiosEntity } from './shared/entities/studios.entitty';
+import { TattooArtistsEntity } from './shared/entities/tattoo-artist.entity';
+import { TattoosLikesEntity } from './shared/entities/tattoos-likes';
 
 @Module({
   imports: [
