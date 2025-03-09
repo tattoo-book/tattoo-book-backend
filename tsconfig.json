@@ -23,7 +23,9 @@
       "@studios/*": ["src/domains/studios/*"],
       "@tattoo-artist/*": ["src/domains/tattoo-artist/*"],
       "@tattoos/*": ["src/domains/tattoos/*"],
-      "@users/*": ["src/domains/users/*"]
+      "@users/*": ["src/domains/users/*"],
+      "@tattoo-book-architecture": ["libs/tattoo-book-architecture/src"],
+      "@tattoo-book-architecture/*": ["libs/tattoo-book-architecture/src/*"]
     }
   }
 }

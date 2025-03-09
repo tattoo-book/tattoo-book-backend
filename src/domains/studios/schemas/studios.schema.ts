@@ -1,5 +1,5 @@
+import { CommonSchema } from '@tattoo-book-architecture/schemas';
 import * as Joi from 'joi';
-import { CommonSchema } from 'tattoo-book-architecture/libs/tattoo-book/src';
 
 export class StudiosSchema {
   static readonly studioName = Joi.string().min(1);

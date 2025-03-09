@@ -1,11 +1,12 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiParam, ApiResponse } from '@nestjs/swagger';
+import { RequestDTO, ResponseDTO } from '@tattoo-book-architecture/dtos';
+import { AuthGuard } from '@tattoo-book-architecture/guards';
 import { JoiPipe } from 'nestjs-joi';
 import { CreateStudioDTO } from 'src/domains/studios/dtos/create-studio.dto';
 import { ListStudiosDTO } from 'src/domains/studios/dtos/list-studio.dto';
 import { UpdateStudioDTO } from 'src/domains/studios/dtos/update-studio.dto';
 import { StudiosService } from 'src/domains/studios/studios.service';
-import { AuthGuard, RequestDTO, ResponseDTO } from 'tattoo-book-architecture/libs/tattoo-book/src';
 
 @Controller('studios')
 @UseGuards(AuthGuard)

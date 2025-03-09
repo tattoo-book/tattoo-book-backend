@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
+import { LoggingInterceptor } from '@tattoo-book-architecture/interceptors';
+import { Swagger } from '@tattoo-book-architecture/swagger';
 import 'module-alias/register';
-import { LoggingInterceptor, Swagger } from 'tattoo-book-architecture/libs/tattoo-book/src';
 import { AppModule } from './app.module';
 import { RabbitmqModule } from './external/rabbitmq/rabbitmq.module';
 

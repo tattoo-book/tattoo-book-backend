@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule } from '@nestjs/microservices';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { BaseRepository } from '@tattoo-book-architecture/repositories';
 import { UsersController } from 'src/domains/users/user.controller';
 import { UsersService } from 'src/domains/users/users.service';
 import { RabbitmqModule } from 'src/external/rabbitmq/rabbitmq.module';
@@ -12,7 +13,6 @@ import { TattooArtistsRepository } from 'src/shared/repositories/tattoo-artist.r
 import { TattooLikeRepository } from 'src/shared/repositories/tattoo-likes.repository';
 import { TattoosRepository } from 'src/shared/repositories/tattoos.repository';
 import { UserRepository } from 'src/shared/repositories/user.repository';
-import { BaseRepository } from 'tattoo-book-architecture/libs/tattoo-book/src';
 import { SendWellcomeEmailUseCase } from './use-cases/users-send-email.service';
 
 @Module({

@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { CommonSchema } from '@tattoo-book-architecture/schemas';
 import { JoiSchema, JoiSchemaOptions } from 'nestjs-joi';
 import { UsersEntity } from 'src/shared/entities/user.entity';
-import { CommonSchema } from 'tattoo-book-architecture/libs/tattoo-book/src';
 import { FindOptionsOrder, FindOptionsSelect, FindOptionsWhere } from 'typeorm';
 import { UserSchema } from '../schemas/user.schema';
 

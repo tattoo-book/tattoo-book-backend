@@ -1,5 +1,5 @@
+import { CommonSchema } from '@tattoo-book-architecture/schemas';
 import * as Joi from 'joi';
-import { CommonSchema } from 'tattoo-book-architecture/libs/tattoo-book/src';
 export class UserSchema {
   static readonly firstName = CommonSchema.text;
   static readonly email = CommonSchema.email;

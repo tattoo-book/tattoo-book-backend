@@ -1,7 +1,8 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { JWT } from '@tattoo-book-architecture/decorators';
+import { ResponseDTO } from '@tattoo-book-architecture/dtos';
 import { JoiPipe } from 'nestjs-joi';
-import { JWT, ResponseDTO } from 'tattoo-book-architecture/libs/tattoo-book/src';
 import { AuthService } from './auth.service';
 import { SignInDTO } from './dtos/SignInDTO';
 

@@ -13,7 +13,7 @@
     "docker-connect-network-container": "docker network connect tattoo-book-network tattoo-book-database; docker network connect tattoo-book-network tattoo-book-backend",
     "docker-create-network": "docker network create tattoo-book-network",
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"libs/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
@@ -52,7 +52,6 @@
     "pg": "^8.13.1",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
-    "tattoo-book-architecture": "file:.yalc/tattoo-book-architecture",
     "typeorm": "^0.3.20"
   },
   "devDependencies": {
@@ -124,6 +123,13 @@
     "testEnvironment": "node",
     "globals": {
       "__DEV__": true
+    },
+    "roots": [
+      "<rootDir>/src/",
+      "<rootDir>/libs/"
+    ],
+    "moduleNameMapper": {
+      "^@tattoo-book-architecture(|/.*)$": "<rootDir>/libs/tattoo-book-architecture/src/$1"
     }
   }
 }

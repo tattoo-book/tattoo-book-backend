@@ -1,12 +1,14 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { JWT } from '@tattoo-book-architecture/decorators';
+import { RequestDTO, ResponseDTO } from '@tattoo-book-architecture/dtos';
+import { AuthGuard } from '@tattoo-book-architecture/guards';
 import { JoiPipe } from 'nestjs-joi';
 import { CreateUserDTO } from 'src/domains/users/dtos/create-user.dto';
 import { ListUserDTO } from 'src/domains/users/dtos/list-user.dto';
 import { UpdateUserDto } from 'src/domains/users/dtos/update-user.dto';
 import { UsersService } from 'src/domains/users/users.service';
 import { UsersEntity } from 'src/shared/entities/user.entity';
-import { AuthGuard, JWT, RequestDTO, ResponseDTO } from 'tattoo-book-architecture/libs/tattoo-book/src';
 import { SendWellcomeEmailUseCase } from './use-cases/users-send-email.service';
 
 @Controller('users')
