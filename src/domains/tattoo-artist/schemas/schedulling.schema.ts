@@ -1,15 +1,15 @@
 import * as Joi from 'joi';
 
 export class SchedulingSchema {
-  static timePattern = /^([01]\d|2[0-3]):([0-5]\d)$/;
-  static start = Joi.string().pattern(SchedulingSchema.timePattern);
-  static end = Joi.string().pattern(SchedulingSchema.timePattern);
-  static schedulingTimesDefault = Joi.object({
+  static readonly timePattern = /^([01]\d|2[0-3]):([0-5]\d)$/;
+  static readonly start = Joi.string().pattern(SchedulingSchema.timePattern);
+  static readonly end = Joi.string().pattern(SchedulingSchema.timePattern);
+  static readonly schedulingTimesDefault = Joi.object({
     start: SchedulingSchema.start.required(),
     end: SchedulingSchema.end.required(),
   });
 
-  static schedulingTimes = SchedulingSchema.schedulingTimesDefault.custom((value, helpers) => {
+  static readonly schedulingTimes = SchedulingSchema.schedulingTimesDefault.custom((value, helpers) => {
     const startTime = value.start;
     const endTime = value.end;
 
@@ -19,5 +19,5 @@ export class SchedulingSchema {
     if (startDate >= endDate) return helpers.error('any.invalid', { message: 'Start time must be less than end time' });
     return value;
   });
-  static daysWeek = Joi.array().items(SchedulingSchema.schedulingTimes);
+  static readonly daysWeek = Joi.array().items(SchedulingSchema.schedulingTimes);
 }

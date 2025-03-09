@@ -1,6 +1,6 @@
-import { SchedulingSchema } from '@architecture/services/tattoo-book/schemas/schedulings/SchedulingSchema';
+import { SchedulingSchema } from '@tattoo-artist/schemas/schedulling.schema';
 import { JoiSchema, JoiSchemaOptions } from 'nestjs-joi';
-import { SchedulingTimes } from './SchedulingTimes';
+import { SchedulingTimes } from './scheduling-times.dto';
 
 @JoiSchemaOptions({ allowUnknown: false })
 export class SchedulingDTO {

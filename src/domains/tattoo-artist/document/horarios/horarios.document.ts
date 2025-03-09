@@ -1,5 +1,5 @@
-import { SchedulingDTO } from '@architecture/dtos/schedulings/SchedulingDTO';
 import { BadRequestException } from '@nestjs/common';
+import { SchedulingDTO } from '@tattoo-artist/dtos/scheduling.dto';
 import { HorariosTXT } from './horarios.txt';
 import { HorariosXLSX } from './horarios.xlsx';
 

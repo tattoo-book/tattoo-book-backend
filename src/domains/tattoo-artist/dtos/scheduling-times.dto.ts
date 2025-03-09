@@ -1,4 +1,4 @@
-import { SchedulingSchema } from '@architecture/services/tattoo-book/schemas/schedulings/SchedulingSchema';
+import { SchedulingSchema } from '@tattoo-artist/schemas/schedulling.schema';
 import { JoiSchema } from 'nestjs-joi';
 
 export class SchedulingTimes {

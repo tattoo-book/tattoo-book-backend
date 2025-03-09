@@ -1,4 +1,4 @@
-import { SchedulingDTO } from '@architecture/dtos/schedulings/SchedulingDTO';
+import { SchedulingDTO } from '@tattoo-artist/dtos/scheduling.dto';
 import {
   Column,
   CreateDateColumn,

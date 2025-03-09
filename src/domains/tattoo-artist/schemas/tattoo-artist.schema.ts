@@ -1,5 +1,5 @@
-import { SchedulingSchema } from '@architecture/services/tattoo-book/schemas/schedulings/SchedulingSchema';
 import * as Joi from 'joi';
+import { SchedulingSchema } from './schedulling.schema';
 
 export class TattooArtistsSchema {
   static readonly artistName = Joi.string().min(1);

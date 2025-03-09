@@ -1,9 +1,9 @@
-import { SchedulingDTO } from '@architecture/dtos/schedulings/SchedulingDTO';
-import { SchedulingTimes } from '@architecture/dtos/schedulings/SchedulingTimes';
+import { SchedulingTimes } from '@tattoo-artist/dtos/scheduling-times.dto';
+import { SchedulingDTO } from '@tattoo-artist/dtos/scheduling.dto';
 import { DocumentTXT } from '../document.txt';
 
 export class HorariosTXT extends DocumentTXT {
-  private schedulings: SchedulingDTO;
+  private readonly schedulings: SchedulingDTO;
 
   constructor(schedulings: SchedulingDTO) {
     super();

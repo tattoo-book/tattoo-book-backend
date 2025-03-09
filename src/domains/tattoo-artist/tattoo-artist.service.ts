@@ -2,9 +2,9 @@ import { RolesEnum } from '@architecture/services/tattoo-book/enums/roles.enum';
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTattooArtistDTO } from 'src/domains/tattoo-artist/dtos/CreateTattooArtistDTO';
 import { UpdateTattooArtistDTO } from 'src/domains/tattoo-artist/dtos/update.tattoo.artist';
-import { TattooArtistsRepository } from 'src/domains/tattoo-artist/repositories/tattoo-artist.repository';
 import { TattooArtistsEntity } from 'src/shared/entities/tattoo-artist.entity';
 import { UsersEntity } from 'src/shared/entities/user.entity';
+import { TattooArtistsRepository } from 'src/shared/repositories/tattoo-artist.repository';
 import { DataSource } from 'typeorm';
 import { HorariosDocument, HorariosFileType } from './document/horarios/horarios.document';
 

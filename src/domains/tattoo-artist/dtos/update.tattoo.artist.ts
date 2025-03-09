@@ -1,6 +1,6 @@
-import { SchedulingDTO } from '@architecture/dtos/schedulings/SchedulingDTO';
 import { JoiSchema, JoiSchemaOptions } from 'nestjs-joi';
-import { TattooArtistsSchema } from '../schemas/TattooArtistsSchema';
+import { TattooArtistsSchema } from '../schemas/tattoo-artist.schema';
+import { SchedulingDTO } from './scheduling.dto';
 
 @JoiSchemaOptions({ allowUnknown: false })
 export class UpdateTattooArtistDTO {
