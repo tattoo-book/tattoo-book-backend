@@ -1,4 +1,4 @@
-import { RolesEnum } from '@architecture/enums/roles.enum';
+import { RolesEnum } from '@architecture/services/tattoo-book/enums/roles.enum';
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTattooArtistDTO } from 'src/domains/tattoo-artist/dtos/CreateTattooArtistDTO';
 import { UpdateTattooArtistDTO } from 'src/domains/tattoo-artist/dtos/update.tattoo.artist';
@@ -12,7 +12,7 @@ import { HorariosDocument, HorariosFileType } from './document/horarios/horarios
 export class TattooArtistService {
   constructor(
     private readonly tattooArtistsRepository: TattooArtistsRepository,
-    private datasource: DataSource,
+    private readonly datasource: DataSource,
   ) {}
 
   async create(createTattooArtistDTO: CreateTattooArtistDTO, userID: number) {

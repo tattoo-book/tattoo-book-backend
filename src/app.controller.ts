@@ -1,6 +1,6 @@
 import { JWT } from '@architecture/decorators/jwt';
 import { Controller, Get } from '@nestjs/common';
-import { ResponseDTO } from './architecture/dtos/ResponseDTO';
+import { ResponseDTO } from './architecture/dtos/response.dto';
 
 @Controller()
 export class AppController {

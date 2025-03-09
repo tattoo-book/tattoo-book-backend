@@ -1,24 +1,25 @@
 import { JWT } from '@architecture/decorators/jwt';
-import { RequestDTO } from '@architecture/dtos/RequestDTO';
-import { ResponseDTO } from '@architecture/dtos/ResponseDTO';
-import { ExceptionDTO } from '@architecture/dtos/ResponseErrorDTO';
+import { RequestDTO } from '@architecture/dtos/request.dto';
+import { ResponseDTO } from '@architecture/dtos/response.dto';
 import { AuthGuard } from '@architecture/guards/auth.guard';
-import { ErrorHandler } from '@architecture/handlers/error.handler';
-import { Body, Controller, Delete, Get, Logger, Param, Patch, Post, Query, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JoiPipe } from 'nestjs-joi';
 import { CreateUserDTO } from 'src/domains/users/dtos/create-user.dto';
 import { ListUserDTO } from 'src/domains/users/dtos/list-user.dto';
 import { UpdateUserDto } from 'src/domains/users/dtos/update-user.dto';
 import { UsersService } from 'src/domains/users/users.service';
+import { UsersEntity } from 'src/shared/entities/user.entity';
+import { SendWellcomeEmailUseCase } from './use-cases/users-send-email.service';
 
 @Controller('users')
 @ApiTags('Usuários')
 @ApiBearerAuth()
 export class UsersController {
-  static readonly logger = new Logger('UsersController');
-
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly usersSendEmailService: SendWellcomeEmailUseCase,
+  ) {}
 
   @Post()
   @JWT(false)
@@ -27,15 +28,10 @@ export class UsersController {
   @ApiResponse({ status: 200, description: 'Sucesso ao criar usuário' })
   @ApiResponse({ status: 409, description: 'Email já cadastrado' })
   @ApiResponse({ status: 500, description: 'Erro interno' })
-  async create(@Body(JoiPipe) createUserDto: CreateUserDTO) {
-    try {
-      const user = await this.usersService.create(createUserDto);
-      this.usersService.sendWellcomeMessage(user);
-      return ResponseDTO.OK('Success on create user', user);
-    } catch (error) {
-      const errorDescription = ErrorHandler.execute(UsersController.logger, 'Failed on create user', error);
-      throw new ExceptionDTO(error.status, 'Failed on create user', errorDescription);
-    }
+  async create(@Body(JoiPipe) createUserDto: CreateUserDTO): Promise<ResponseDTO<UsersEntity>> {
+    const user = await this.usersService.create(createUserDto);
+    this.usersSendEmailService.execute(user);
+    return ResponseDTO.OK('Success on create user', user);
   }
 
   @Get()
@@ -43,14 +39,9 @@ export class UsersController {
   @ApiOperation({ summary: 'Listagem de usuários', description: 'Listagem de usuário, ordenação e seleção' })
   @ApiResponse({ status: 200, description: 'Sucesso ao listar usuários' })
   @ApiResponse({ status: 500, description: 'Erro interno' })
-  async findAll(@Query(JoiPipe) query: ListUserDTO) {
-    try {
-      const users = await this.usersService.find(query);
-      return ResponseDTO.OK('Success on find all user', users);
-    } catch (error) {
-      const errorDescription = ErrorHandler.execute(UsersController.logger, 'Failed on find all user', error);
-      throw new ExceptionDTO(error.status, 'Failed on find all user', errorDescription);
-    }
+  async findAll(@Query(JoiPipe) query: ListUserDTO): Promise<ResponseDTO<UsersEntity[]>> {
+    const users = await this.usersService.find(query);
+    return ResponseDTO.OK('Success on find all user', users);
   }
 
   @Get('me')
@@ -58,14 +49,9 @@ export class UsersController {
   @ApiResponse({ status: 200, description: 'Sucesso ao listar informações de perfil' })
   @ApiResponse({ status: 500, description: 'Erro interno' })
   @UseGuards(AuthGuard)
-  async getInfoMe(@Req() req: RequestDTO) {
-    try {
-      const users = await this.usersService.findOne(req.user.id);
-      return ResponseDTO.OK(`Success on find user with id ${req.user.id}`, users);
-    } catch (error) {
-      const errorDescription = ErrorHandler.execute(UsersController.logger, `Failed on find user`, error);
-      throw new ExceptionDTO(error.status, `Failed on find user`, errorDescription);
-    }
+  async getInfoMe(@Req() req: RequestDTO): Promise<ResponseDTO<Partial<UsersEntity>>> {
+    const users = await this.usersService.findOne(req.user.id);
+    return ResponseDTO.OK(`Success on find user with id ${req.user.id}`, users);
   }
 
   @Get(':id')
@@ -73,14 +59,9 @@ export class UsersController {
   @ApiOperation({ summary: 'Listagem de usuário', description: 'Lista usuário individualmente' })
   @ApiResponse({ status: 200, description: 'Sucesso ao buscar usuário' })
   @ApiResponse({ status: 500, description: 'Erro interno' })
-  async findOne(@Param('id') id: string) {
-    try {
-      const users = await this.usersService.findOne(+id);
-      return ResponseDTO.OK(`Success on find user with id ${id}`, users);
-    } catch (error) {
-      const errorDescription = ErrorHandler.execute(UsersController.logger, `Failed on find user`, error);
-      throw new ExceptionDTO(error.status, `Failed on find user`, errorDescription);
-    }
+  async findOne(@Param('id') id: string): Promise<ResponseDTO<Partial<UsersEntity>>> {
+    const users = await this.usersService.findOne(+id);
+    return ResponseDTO.OK(`Success on find user with id ${id}`, users);
   }
 
   @Patch(':id')
@@ -89,13 +70,8 @@ export class UsersController {
   @ApiResponse({ status: 200, description: 'Sucesso ao atualizar usuário' })
   @ApiResponse({ status: 500, description: 'Erro interno' })
   async update(@Param('id') id: string, @Body(JoiPipe) updateUserDto: UpdateUserDto) {
-    try {
-      const user = await this.usersService.update(+id, updateUserDto);
-      return ResponseDTO.OK(`Success on update user with id ${id}`, { id: +id, ...updateUserDto });
-    } catch (error) {
-      const errorDescription = ErrorHandler.execute(UsersController.logger, `Failed on update`, error);
-      throw new ExceptionDTO(error.status, `Failed on update`, errorDescription);
-    }
+    await this.usersService.update(+id, updateUserDto);
+    return ResponseDTO.OK(`Success on update user with id ${id}`, { id: +id, ...updateUserDto });
   }
 
   @Delete(':id')
@@ -104,12 +80,7 @@ export class UsersController {
   @ApiResponse({ status: 200, description: 'Sucesso ao deletar usuário' })
   @ApiResponse({ status: 500, description: 'Erro interno' })
   async delete(@Param('id') id: string) {
-    try {
-      const user = await this.usersService.delete(+id);
-      return ResponseDTO.OK(`Success on delete user with id ${id}`, user);
-    } catch (error) {
-      const errorDescription = ErrorHandler.execute(UsersController.logger, `Failed on delete`, error);
-      throw new ExceptionDTO(error.status, `Failed on delete`, errorDescription);
-    }
+    const user = await this.usersService.delete(+id);
+    return ResponseDTO.OK(`Success on delete user with id ${id}`, user);
   }
 }

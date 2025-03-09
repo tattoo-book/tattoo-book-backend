@@ -13,6 +13,7 @@ import { TattoosEntity } from 'src/shared/entities/tattoos.entity';
 import { UsersEntity } from 'src/shared/entities/user.entity';
 import { TattooLikeRepository } from 'src/shared/repositories/tattoo-likes.repository';
 import { TattoosRepository } from 'src/shared/repositories/tattoos.repository';
+import { SendWellcomeEmailUseCase } from './use-cases/users-send-email.service';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { TattoosRepository } from 'src/shared/repositories/tattoos.repository';
   controllers: [UsersController],
   providers: [
     UsersService,
+    SendWellcomeEmailUseCase,
     UserRepository,
     BaseRepository,
     TattooLikeRepository,
