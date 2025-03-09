@@ -1,8 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import 'module-alias/register';
+import { LoggingInterceptor, Swagger } from 'tattoo-book-architecture/libs/tattoo-book/src';
 import { AppModule } from './app.module';
-import { LoggingInterceptor } from './architecture/interceptors/logging.interceptor';
-import { Swagger } from './architecture/swagger/swagger';
 import { RabbitmqModule } from './external/rabbitmq/rabbitmq.module';
 
 async function bootstrap() {

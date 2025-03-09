@@ -1,12 +1,10 @@
-import { RequestDTO } from '@architecture/dtos/request.dto';
-import { ResponseDTO } from '@architecture/dtos/response.dto';
-import { AuthGuard } from '@architecture/guards/auth.guard';
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger';
 import { JoiPipe } from 'nestjs-joi';
 import { ListTattoosDTO } from 'src/domains/tattoos/dtos/list-tattoo.dto';
 import { UpdateTatttooDTO } from 'src/domains/tattoos/dtos/update-tattoo.dto';
 import { TattooService } from 'src/domains/tattoos/tattoo.service';
+import { AuthGuard, RequestDTO, ResponseDTO } from 'tattoo-book-architecture/libs/tattoo-book/src';
 import { CreateTattooDTO } from './dtos/create-tattoo.dto';
 
 @Controller('tattoos')

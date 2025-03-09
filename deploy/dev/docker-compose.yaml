@@ -1,7 +1,7 @@
 services:
   app:
     build:
-      context: .
+      context: ../../
       dockerfile: ./deploy/dev/Dockerfile
     container_name: tattoo-book-backend
     env_file: .env

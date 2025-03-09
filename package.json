@@ -52,6 +52,7 @@
     "pg": "^8.13.1",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
+    "tattoo-book-architecture": "file:.yalc/tattoo-book-architecture",
     "typeorm": "^0.3.20"
   },
   "devDependencies": {
@@ -111,6 +112,12 @@
       ],
       "@users/*": [
         "src/domains/users/*"
+      ],
+      "@shared/*": [
+        "src/shared/*"
+      ],
+      "@external/*": [
+        "src/external/*"
       ]
     },
     "coverageDirectory": "../coverage",

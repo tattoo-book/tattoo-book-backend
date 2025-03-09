@@ -1,0 +1,10 @@
+{
+  "version": "v1",
+  "packages": {
+    "tattoo-book-architecture": {
+      "version": "0.0.1",
+      "signature": "b70abccc78155a567186327cee4d8054",
+      "file": true
+    }
+  }
+}

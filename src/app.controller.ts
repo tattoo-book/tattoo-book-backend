@@ -1,6 +1,5 @@
-import { JWT } from '@architecture/decorators/jwt';
 import { Controller, Get } from '@nestjs/common';
-import { ResponseDTO } from './architecture/dtos/response.dto';
+import { JWT, ResponseDTO } from 'tattoo-book-architecture/libs/tattoo-book/src';
 
 @Controller()
 export class AppController {

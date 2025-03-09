@@ -1,10 +1,9 @@
-import { JWT } from '@architecture/decorators/jwt';
-import { ResponseDTO } from '@architecture/dtos/response.dto';
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { JoiPipe } from 'nestjs-joi';
-import { AuthService } from 'src/domains/authentication/auth.service';
-import { SignInDTO } from 'src/domains/authentication/dtos/SignInDTO';
+import { JWT, ResponseDTO } from 'tattoo-book-architecture/libs/tattoo-book/src';
+import { AuthService } from './auth.service';
+import { SignInDTO } from './dtos/SignInDTO';
 
 @Controller('auth')
 export class AuthController {

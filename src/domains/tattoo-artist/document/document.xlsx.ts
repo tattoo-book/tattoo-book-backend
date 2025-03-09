@@ -2,7 +2,7 @@ import { StreamableFile } from '@nestjs/common';
 import { Workbook, Worksheet } from 'exceljs';
 
 export class DocumentXLSX {
-  private workbook: Workbook;
+  private readonly workbook: Workbook;
 
   constructor() {
     this.workbook = new Workbook();

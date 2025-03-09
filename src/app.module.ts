@@ -1,11 +1,10 @@
-import { JwtConfig } from '@architecture/configurations/jwt.config';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthGuard, JwtConfig } from 'tattoo-book-architecture/libs/tattoo-book/src';
 import { AppController } from './app.controller';
-import { AuthGuard } from './architecture/guards/auth.guard';
 import { AuthModule } from './domains/authentication/auth.module';
 import { EmailModule } from './domains/email/email.module';
 import { StudiosModule } from './domains/studios/studios.module';

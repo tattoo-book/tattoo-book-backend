@@ -1,6 +1,6 @@
-import { CommonSchema } from '@architecture/schemas/CommomSchema';
+import { CommonSchema } from 'tattoo-book-architecture/libs/tattoo-book/src';
 
 export class AuthSchema {
-  static email = CommonSchema.email;
-  static password = CommonSchema.password;
+  static readonly email = CommonSchema.email;
+  static readonly password = CommonSchema.password;
 }

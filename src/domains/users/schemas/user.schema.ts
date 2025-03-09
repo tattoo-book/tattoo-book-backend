@@ -1,20 +1,20 @@
 import * as Joi from 'joi';
-import { CommonSchema } from '../../../architecture/schemas/CommomSchema';
+import { CommonSchema } from 'tattoo-book-architecture/libs/tattoo-book/src';
 export class UserSchema {
-  static firstName = CommonSchema.text;
-  static email = CommonSchema.email;
-  static password = CommonSchema.password;
-  static artist = Joi.boolean();
+  static readonly firstName = CommonSchema.text;
+  static readonly email = CommonSchema.email;
+  static readonly password = CommonSchema.password;
+  static readonly artist = Joi.boolean();
 
-  static order = Joi.object({
+  static readonly order = Joi.object({
     email: CommonSchema.order,
     createdAt: CommonSchema.order,
   });
 
-  static filter = Joi.object({
+  static readonly filter = Joi.object({
     name: Joi.string(),
     email: Joi.string(),
   });
 
-  static select = Joi.object({});
+  static readonly select = Joi.object({});
 }

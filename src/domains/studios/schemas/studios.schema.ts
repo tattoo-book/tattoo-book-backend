@@ -1,18 +1,18 @@
-import { CommonSchema } from '@architecture/schemas/CommomSchema';
 import * as Joi from 'joi';
+import { CommonSchema } from 'tattoo-book-architecture/libs/tattoo-book/src';
 
 export class StudiosSchema {
-  static studioName = Joi.string().min(1);
+  static readonly studioName = Joi.string().min(1);
 
-  static order = Joi.object({
+  static readonly order = Joi.object({
     name: CommonSchema.order,
     createdAt: CommonSchema.order,
   });
 
-  static filter = Joi.object({
+  static readonly filter = Joi.object({
     id: Joi.number().positive(),
     name: Joi.string(),
   });
 
-  static select = Joi.object({});
+  static readonly select = Joi.object({});
 }
