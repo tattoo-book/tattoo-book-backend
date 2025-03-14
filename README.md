@@ -1,6 +1,5 @@
 ![logo](./static/images/tattoo-book.png)
 
-
 <div align="center">
 
 ![GitHub Repo stars](https://img.shields.io/github/stars/tattoo-book/tattoo-book-backend?style=social)
@@ -9,7 +8,6 @@
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/tattoo-book/tattoo-book-backend?style=for-the-badge)
 ![GitHub issues](https://img.shields.io/github/issues/tattoo-book/tattoo-book-backend?style=for-the-badge)
-
 
 ![Node.js](https://img.shields.io/badge/Node.js-22.14.0-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16.5-blue?style=for-the-badge)
@@ -20,8 +18,8 @@
 </div>
 
 ## Sobre
-Tattoo book é um projeto realizado na disciplina Engenharia de Software da graduação e foi desenvolvido para facilitar a divulgação dos trabalhos de tatuadores, facilitar para os clientes encontrarem ideias e profissionais.
 
+Tattoo book é um projeto realizado na disciplina Engenharia de Software da graduação e foi desenvolvido para facilitar a divulgação dos trabalhos de tatuadores, facilitar para os clientes encontrarem ideias e profissionais.
 
 ## Sumario
 
@@ -38,6 +36,7 @@ Tattoo book é um projeto realizado na disciplina Engenharia de Software da grad
 - Docker (Caso utilize o docker compose)
 
 ## Orgnização dos diretorios
+
 ```bash
 ├──📂 deploy # Arquivo para deploy do projeto
 |   ├──📂 dev # Para executar local
