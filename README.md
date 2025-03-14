@@ -37,6 +37,29 @@ Tattoo book é um projeto realizado na disciplina Engenharia de Software da grad
 - Yarn
 - Docker (Caso utilize o docker compose)
 
+## Orgnização dos diretorios
+```bash
+├──📂 deploy # Arquivo para deploy do projeto
+|   ├──📂 dev # Para executar local
+|   └──📂 prd # Para deploy em produção
+├──📂 libs # Arquivos para serem exportados como pacote npm
+├──📂 src # Diretório com o codigo fonte
+|  ├──📂 domains # Diretorio com os módulos da aplicação
+|  |   ├──📂 authentication
+|  |   ├──📂 email
+|  |   ├──📂 studios
+|  |   ├──📂 tattoo-artist
+|  |   ├──📂 tattoos
+|  |   └──📂 users
+|  ├──📂 shared
+|  |   ├──📂 entities     # Entidades do banco
+|  |   └──📂 repositories # Repositorios das entidades
+|  └──📂 external # Diretorio para comunicação com servidores externos
+|      ├──📂 database # Comunicação com o banco de dados
+|      └──📂 rabbitmq # Integração com o RabbitMQ
+└── README.md
+```
+
 ## Como executar
 
 Antes de executar a aplicação, crie um arquivo `.env` com as credenciais da aplicação. O arquivo `.env.example` tem exemplo de todas as variaveis necessárias para a execução.
