@@ -19,6 +19,10 @@
 
 </div>
 
+## Sobre
+Tattoo book é um projeto realizado na disciplina Engenharia de Software da graduação e foi desenvolvido para facilitar a divulgação dos trabalhos de tatuadores, facilitar para os clientes encontrarem ideias e profissionais.
+
+
 ## Sumario
 
 - [Dependencias](#dependencias)
