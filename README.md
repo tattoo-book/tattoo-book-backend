@@ -1,42 +1,28 @@
 ![logo](./static/images/tattoo-book.png)
 
-<div style="display: flex; flex-direction: column; align-items: center;">
-  <div style="display: flex; gap:20px;">
+
+<div align="center">
 
 ![GitHub Repo stars](https://img.shields.io/github/stars/tattoo-book/tattoo-book-backend?style=social)
-
 ![GitHub forks](https://img.shields.io/github/forks/tattoo-book/tattoo-book-backend?style=social)
-
 ![GitHub forks](https://img.shields.io/github/commit-activity/w/tattoo-book/tattoo-book-backend?style=social)
 
-  </div>
-  <div style="display: flex; gap:20px;">
-
 ![GitHub last commit](https://img.shields.io/github/last-commit/tattoo-book/tattoo-book-backend?style=for-the-badge)
-
 ![GitHub issues](https://img.shields.io/github/issues/tattoo-book/tattoo-book-backend?style=for-the-badge)
 
-  </div>
-
-  <div style="display: flex; gap:20px;">
 
 ![Node.js](https://img.shields.io/badge/Node.js-22.14.0-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
-
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16.5-blue?style=for-the-badge)
-
 ![Docker Compose](https://img.shields.io/badge/Docker%20Compose-2.20.3-2496ED?style=for-the-badge)
-
 ![Docker](https://img.shields.io/badge/Docker-28.0.1-2496ED?style=for-the-badge)
-
 ![Yarn](https://img.shields.io/badge/Yarn-1.22.22-2C8EBB?style=for-the-badge&logo=yarn&logoColor=white)
 
-  </div>
 </div>
 
 ## Sumario
 
 - [Dependencias](#dependencias)
-- [Rotas Disponiveis](#rotas-disponiveis)
+- [Rotas Disponiveis](#rotas)
 - [Como executar](#como-executar)
   - [Com docker compose](#usando-docker-compose)
   - [Manualmente](#executando-manualmente)
