@@ -1,9 +1,8 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { TattooArtistsEntity, UsersEntity } from '@tattoo-book-architecture';
 import { RolesEnum } from '@tattoo-book-architecture/enums';
 import { CreateTattooArtistDTO } from 'src/domains/tattoo-artist/dtos/CreateTattooArtistDTO';
 import { UpdateTattooArtistDTO } from 'src/domains/tattoo-artist/dtos/update.tattoo.artist';
-import { TattooArtistsEntity } from 'src/shared/entities/tattoo-artist.entity';
-import { UsersEntity } from 'src/shared/entities/user.entity';
 import { TattooArtistsRepository } from 'src/shared/repositories/tattoo-artist.repository';
 import { DataSource } from 'typeorm';
 import { HorariosDocument, HorariosFileType } from './document/horarios/horarios.document';

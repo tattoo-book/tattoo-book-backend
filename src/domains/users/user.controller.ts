@@ -8,7 +8,6 @@ import { CreateUserDTO } from 'src/domains/users/dtos/create-user.dto';
 import { ListUserDTO } from 'src/domains/users/dtos/list-user.dto';
 import { UpdateUserDto } from 'src/domains/users/dtos/update-user.dto';
 import { UsersService } from 'src/domains/users/users.service';
-import { UsersEntity } from 'src/shared/entities/user.entity';
 import { SendWellComeEmailUseCase } from './use-cases/users-send-email.service';
 
 @Controller('users')
@@ -27,7 +26,7 @@ export class UsersController {
   @ApiResponse({ status: 200, description: 'Sucesso ao criar usuário' })
   @ApiResponse({ status: 409, description: 'Email já cadastrado' })
   @ApiResponse({ status: 500, description: 'Erro interno' })
-  async create(@Body(JoiPipe) createUserDto: CreateUserDTO): Promise<ResponseDTO<UsersEntity>> {
+  async create(@Body(JoiPipe) createUserDto: CreateUserDTO) {
     const user = await this.usersService.create(createUserDto);
     this.usersSendEmailService.execute(user);
     return ResponseDTO.OK('Success on create user', user);
@@ -38,7 +37,7 @@ export class UsersController {
   @ApiOperation({ summary: 'Listagem de usuários', description: 'Listagem de usuário, ordenação e seleção' })
   @ApiResponse({ status: 200, description: 'Sucesso ao listar usuários' })
   @ApiResponse({ status: 500, description: 'Erro interno' })
-  async findAll(@Query(JoiPipe) query: ListUserDTO): Promise<ResponseDTO<UsersEntity[]>> {
+  async findAll(@Query(JoiPipe) query: ListUserDTO) {
     const users = await this.usersService.find(query);
     return ResponseDTO.OK('Success on find all user', users);
   }
@@ -48,7 +47,7 @@ export class UsersController {
   @ApiResponse({ status: 200, description: 'Sucesso ao listar informações de perfil' })
   @ApiResponse({ status: 500, description: 'Erro interno' })
   @UseGuards(AuthGuard)
-  async getInfoMe(@Req() req: RequestDTO): Promise<ResponseDTO<Partial<UsersEntity>>> {
+  async getInfoMe(@Req() req: RequestDTO) {
     const users = await this.usersService.findOne(req.user.id);
     return ResponseDTO.OK(`Success on find user with id ${req.user.id}`, users);
   }
@@ -58,7 +57,7 @@ export class UsersController {
   @ApiOperation({ summary: 'Listagem de usuário', description: 'Lista usuário individualmente' })
   @ApiResponse({ status: 200, description: 'Sucesso ao buscar usuário' })
   @ApiResponse({ status: 500, description: 'Erro interno' })
-  async findOne(@Param('id') id: string): Promise<ResponseDTO<Partial<UsersEntity>>> {
+  async findOne(@Param('id') id: string) {
     const users = await this.usersService.findOne(+id);
     return ResponseDTO.OK(`Success on find user with id ${id}`, users);
   }

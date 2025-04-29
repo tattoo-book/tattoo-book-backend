@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { StudiosEntity } from '@tattoo-book-architecture';
 import { CommonSchema } from '@tattoo-book-architecture/schemas';
 import { JoiSchema, JoiSchemaOptions } from 'nestjs-joi';
 import { StudiosSchema } from 'src/domains/studios/schemas/studios.schema';
-import { StudiosEntity } from 'src/shared/entities/studios.entitty';
 import { FindOptionsOrder, FindOptionsSelect, FindOptionsWhere } from 'typeorm';
 
 @JoiSchemaOptions({ allowUnknown: false })

@@ -1,17 +1,11 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { TattooService } from 'src/domains/tattoos/tattoo.service';
 import { TattooController } from 'src/domains/tattoos/tattoos.controller';
-import { TattooArtistsEntity } from 'src/shared/entities/tattoo-artist.entity';
-import { TattoosLikesEntity } from 'src/shared/entities/tattoos-likes';
-import { TattoosEntity } from 'src/shared/entities/tattoos.entity';
-import { TattooArtistsRepository } from 'src/shared/repositories/tattoo-artist.repository';
-import { TattooLikeRepository } from 'src/shared/repositories/tattoo-likes.repository';
-import { TattoosRepository } from 'src/shared/repositories/tattoos.repository';
+import { DatabaseModule } from 'src/external/database/database.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([TattoosEntity, TattoosLikesEntity, TattooArtistsEntity])],
+  imports: [DatabaseModule],
   controllers: [TattooController],
-  providers: [TattooService, TattoosRepository, TattooLikeRepository, TattooArtistsRepository],
+  providers: [TattooService],
 })
 export class TattoosModule {}

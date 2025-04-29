@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { TattoosLikesEntity } from '@tattoo-book-architecture';
 import { BaseRepository } from '@tattoo-book-architecture/repositories';
 import { Repository } from 'typeorm';
-import { TattoosLikesEntity } from '../entities/tattoos-likes';
 
 @Injectable()
 export class TattooLikeRepository extends BaseRepository<TattoosLikesEntity> {

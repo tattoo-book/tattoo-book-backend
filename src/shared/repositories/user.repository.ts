@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { UsersEntity } from '@tattoo-book-architecture';
 import { BaseRepository } from '@tattoo-book-architecture/repositories';
-import { UsersEntity } from 'src/shared/entities/user.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()

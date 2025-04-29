@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { UsersEntity } from '@tattoo-book-architecture';
 import { EmailQueue } from 'src/external/rabbitmq/email-client';
-import { UsersEntity } from 'src/shared/entities/user.entity';
 
 @Injectable()
 export class SendWellComeEmailUseCase {
