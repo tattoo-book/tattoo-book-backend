@@ -1,34 +1,13 @@
 import { Module } from '@nestjs/common';
-import { ClientsModule } from '@nestjs/microservices';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { BaseRepository } from '@tattoo-book-architecture/repositories';
 import { UsersController } from 'src/domains/users/user.controller';
-import { UsersService } from 'src/domains/users/users.service';
-import { RabbitmqModule } from 'src/external/rabbitmq/rabbitmq.module';
-import { TattooArtistsEntity } from 'src/shared/entities/tattoo-artist.entity';
-import { TattoosLikesEntity } from 'src/shared/entities/tattoos-likes';
-import { TattoosEntity } from 'src/shared/entities/tattoos.entity';
-import { UsersEntity } from 'src/shared/entities/user.entity';
-import { TattooArtistsRepository } from 'src/shared/repositories/tattoo-artist.repository';
-import { TattooLikeRepository } from 'src/shared/repositories/tattoo-likes.repository';
-import { TattoosRepository } from 'src/shared/repositories/tattoos.repository';
-import { UserRepository } from 'src/shared/repositories/user.repository';
-import { SendWellcomeEmailUseCase } from './use-cases/users-send-email.service';
+import { DatabaseModule } from 'src/external/database/database.module';
+import { RabbitMQModule } from 'src/external/rabbitmq/rabbitmq.module';
+import { SendWellComeEmailUseCase } from './use-cases/users-send-email.service';
+import { UsersService } from './users.service';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([UsersEntity, TattoosLikesEntity, TattoosEntity, TattooArtistsEntity, TattoosLikesEntity]),
-    ClientsModule.register([RabbitmqModule.registerEmailClient()]),
-  ],
+  imports: [DatabaseModule, RabbitMQModule],
   controllers: [UsersController],
-  providers: [
-    UsersService,
-    SendWellcomeEmailUseCase,
-    UserRepository,
-    BaseRepository,
-    TattooLikeRepository,
-    TattooArtistsRepository,
-    TattoosRepository,
-  ],
+  providers: [UsersService, SendWellComeEmailUseCase],
 })
 export class UserModule {}

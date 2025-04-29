@@ -1,8 +1,35 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
+import {
+  BaseRepository,
+  StudiosEntity,
+  TattooArtistsEntity,
+  TattoosEntity,
+  TattoosLikesEntity,
+  UsersEntity,
+} from '@tattoo-book-architecture';
+import { TattooArtistsRepository } from 'src/shared/repositories/tattoo-artist.repository';
+import { TattooLikeRepository } from 'src/shared/repositories/tattoo-likes.repository';
+import { TattoosRepository } from 'src/shared/repositories/tattoos.repository';
+import { UserRepository } from 'src/shared/repositories/user.repository';
 
-@Module({ imports: [ConfigModule.forRoot(), TypeOrmModule.forRoot(DatabaseModule.connect())] })
+@Module({
+  imports: [
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRoot(DatabaseModule.connect()),
+    TypeOrmModule.forFeature([
+      UsersEntity,
+      StudiosEntity,
+      TattoosLikesEntity,
+      TattoosEntity,
+      TattooArtistsEntity,
+      TattoosLikesEntity,
+    ]),
+  ],
+  providers: [UserRepository, BaseRepository, TattooLikeRepository, TattooArtistsRepository, TattoosRepository],
+  exports: [UserRepository, BaseRepository, TattooLikeRepository, TattooArtistsRepository, TattoosRepository],
+})
 export class DatabaseModule {
   static connect(): TypeOrmModuleOptions {
     return {

@@ -9,7 +9,7 @@ import { ListUserDTO } from 'src/domains/users/dtos/list-user.dto';
 import { UpdateUserDto } from 'src/domains/users/dtos/update-user.dto';
 import { UsersService } from 'src/domains/users/users.service';
 import { UsersEntity } from 'src/shared/entities/user.entity';
-import { SendWellcomeEmailUseCase } from './use-cases/users-send-email.service';
+import { SendWellComeEmailUseCase } from './use-cases/users-send-email.service';
 
 @Controller('users')
 @ApiTags('Usuários')
@@ -17,7 +17,7 @@ import { SendWellcomeEmailUseCase } from './use-cases/users-send-email.service';
 export class UsersController {
   constructor(
     private readonly usersService: UsersService,
-    private readonly usersSendEmailService: SendWellcomeEmailUseCase,
+    private readonly usersSendEmailService: SendWellComeEmailUseCase,
   ) {}
 
   @Post()

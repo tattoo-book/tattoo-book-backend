@@ -13,7 +13,7 @@ export class Swagger {
     return SwaggerModule.createDocument(app, config);
   }
 
-  static setup(app) {
+  static configure(app) {
     SwaggerModule.setup('api', app, this.documentFactory(app));
   }
 

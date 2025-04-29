@@ -3,7 +3,7 @@ import { LoggingInterceptor } from '@tattoo-book-architecture/interceptors';
 import { Swagger } from '@tattoo-book-architecture/swagger';
 import 'module-alias/register';
 import { AppModule } from './app.module';
-import { RabbitmqModule } from './external/rabbitmq/rabbitmq.module';
+import { RabbitMQConfig } from './external/rabbitmq/rabbitmq.config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -11,13 +11,11 @@ async function bootstrap() {
   app.enableCors({ origin: '*' });
   app.useGlobalInterceptors(new LoggingInterceptor());
 
-  app.connectMicroservice(RabbitmqModule.connectTattooQueue());
-  app.connectMicroservice(RabbitmqModule.connectEmailQueue());
-  app.startAllMicroservices();
-
-  Swagger.setup(app);
+  RabbitMQConfig.consumers(app);
+  Swagger.configure(app);
   Swagger.setAlternativeRoutes(app);
 
-  await app.listen(process.env.PORT ?? 3000);
+  app.startAllMicroservices();
+  await app.listen(process.env.PORT ?? 3001);
 }
 bootstrap();
