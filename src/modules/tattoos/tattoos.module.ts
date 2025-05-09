@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { TattooService } from 'src/domains/tattoos/tattoo.service';
-import { TattooController } from 'src/domains/tattoos/tattoos.controller';
 import { TattooBookDatabaseModule } from 'src/external/database/database.module';
+import { TattooService } from 'src/modules/tattoos/tattoo.service';
+import { TattooController } from 'src/modules/tattoos/tattoos.controller';
 
 @Module({
   imports: [TattooBookDatabaseModule],

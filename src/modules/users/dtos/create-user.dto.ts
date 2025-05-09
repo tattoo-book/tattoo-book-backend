@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { JoiSchema, JoiSchemaOptions } from 'nestjs-joi';
-import { UserSchema } from 'src/domains/users/schemas/user.schema';
+import { UserSchema } from 'src/modules/users/schemas/user.schema';
 
 @JoiSchemaOptions({ allowUnknown: false })
 export class CreateUserDTO {

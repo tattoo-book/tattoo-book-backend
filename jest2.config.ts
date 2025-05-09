@@ -7,11 +7,11 @@ export default {
   moduleNameMapper: pathsToModuleNameMapper(
     {
       '@architecture/*': ['src/architecture/*'],
-      '@authentication/*': ['src/domains/authentication/*'],
-      '@studios/*': ['src/domains/studios/*'],
-      '@tattoo-artist/*': ['src/domains/tattoo-artist/*'],
-      '@tattoos/*': ['src/domains/tattoos/*'],
-      '@users/*': ['src/domains/users/*'],
+      '@authentication/*': ['src/modules/authentication/*'],
+      '@studios/*': ['src/modules/studios/*'],
+      '@tattoo-artist/*': ['src/modules/tattoo-artist/*'],
+      '@tattoos/*': ['src/modules/tattoos/*'],
+      '@users/*': ['src/modules/users/*'],
     },
     { prefix: '<rootDir>' },
   ),

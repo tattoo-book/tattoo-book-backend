@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { JoiSchema, JoiSchemaOptions } from 'nestjs-joi';
-import { TattooSchema } from 'src/domains/tattoos/schemas/tattoo.schema';
+import { TattooSchema } from 'src/modules/tattoos/schemas/tattoo.schema';
 
 @JoiSchemaOptions({ allowUnknown: false })
 export class CreateTattooDTO {

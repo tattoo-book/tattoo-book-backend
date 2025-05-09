@@ -3,10 +3,10 @@ import { ApiBearerAuth, ApiParam, ApiResponse } from '@nestjs/swagger';
 import { RequestDTO, ResponseDTO } from '@tattoo-book-architecture/dtos';
 import { AuthGuard } from '@tattoo-book-architecture/guards';
 import { JoiPipe } from 'nestjs-joi';
-import { CreateStudioDTO } from 'src/domains/studios/dtos/create-studio.dto';
-import { ListStudiosDTO } from 'src/domains/studios/dtos/list-studio.dto';
-import { UpdateStudioDTO } from 'src/domains/studios/dtos/update-studio.dto';
-import { StudiosService } from 'src/domains/studios/studios.service';
+import { CreateStudioDTO } from 'src/modules/studios/dtos/create-studio.dto';
+import { ListStudiosDTO } from 'src/modules/studios/dtos/list-studio.dto';
+import { UpdateStudioDTO } from 'src/modules/studios/dtos/update-studio.dto';
+import { StudiosService } from 'src/modules/studios/studios.service';
 
 @Controller('studios')
 @UseGuards(AuthGuard)

@@ -3,9 +3,9 @@ import { ApiBearerAuth, ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger';
 import { RequestDTO, ResponseDTO } from '@tattoo-book-architecture/dtos';
 import { AuthGuard } from '@tattoo-book-architecture/guards';
 import { JoiPipe } from 'nestjs-joi';
-import { CreateTattooArtistDTO } from 'src/domains/tattoo-artist/dtos/CreateTattooArtistDTO';
-import { UpdateTattooArtistDTO } from 'src/domains/tattoo-artist/dtos/update.tattoo.artist';
-import { TattooArtistService } from 'src/domains/tattoo-artist/tattoo-artist.service';
+import { CreateTattooArtistDTO } from 'src/modules/tattoo-artist/dtos/CreateTattooArtistDTO';
+import { UpdateTattooArtistDTO } from 'src/modules/tattoo-artist/dtos/update.tattoo.artist';
+import { TattooArtistService } from 'src/modules/tattoo-artist/tattoo-artist.service';
 import { HorariosFileType } from './document/horarios/horarios.document';
 
 @Controller('tattoo-artists')

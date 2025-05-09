@@ -98,19 +98,19 @@
         "src/architecture/*"
       ],
       "@authentication/*": [
-        "src/domains/authentication/*"
+        "src/modules/authentication/*"
       ],
       "@studios/*": [
-        "src/domains/studios/*"
+        "src/modules/studios/*"
       ],
       "@tattoo-artist/*": [
-        "src/domains/tattoo-artist/*"
+        "src/modules/tattoo-artist/*"
       ],
       "@tattoos/*": [
-        "src/domains/tattoos/*"
+        "src/modules/tattoos/*"
       ],
       "@users/*": [
-        "src/domains/users/*"
+        "src/modules/users/*"
       ],
       "@shared/*": [
         "src/shared/*"

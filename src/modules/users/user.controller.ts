@@ -5,10 +5,10 @@ import { RequestDTO, ResponseDTO } from '@tattoo-book-architecture/dtos';
 import { AuthGuard } from '@tattoo-book-architecture/guards';
 import { JoiPipe } from 'nestjs-joi';
 import { Documentation } from 'src/common/documentation/documentation';
-import { CreateUserDTO } from 'src/domains/users/dtos/create-user.dto';
-import { ListUserDTO } from 'src/domains/users/dtos/list-user.dto';
-import { UpdateUserDto } from 'src/domains/users/dtos/update-user.dto';
-import { UsersService } from 'src/domains/users/users.service';
+import { CreateUserDTO } from 'src/modules/users/dtos/create-user.dto';
+import { ListUserDTO } from 'src/modules/users/dtos/list-user.dto';
+import { UpdateUserDto } from 'src/modules/users/dtos/update-user.dto';
+import { UsersService } from 'src/modules/users/users.service';
 import { CreateUserDoc } from './documentation/create-user.doc';
 import { SendWellComeEmailUseCase } from './use-cases/users-send-email.service';
 
