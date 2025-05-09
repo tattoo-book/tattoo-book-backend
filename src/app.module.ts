@@ -12,10 +12,11 @@ import { StudiosModule } from './modules/studios/studios.module';
 import { TattooArtistModule } from './modules/tattoo-artist/tattoo-artist.module';
 import { TattoosModule } from './modules/tattoos/tattoos.module';
 import { UserModule } from './modules/users/user.module';
+import { Envs } from './shared/envs/envs';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({ validationSchema: Envs.validationSchema }),
     JwtModule.register(JwtConfig.register()),
     TattooBookDatabaseModule,
     UserModule,
