@@ -11,13 +11,13 @@ import { StudiosModule } from './domains/studios/studios.module';
 import { TattooArtistModule } from './domains/tattoo-artist/tattoo-artist.module';
 import { TattoosModule } from './domains/tattoos/tattoos.module';
 import { UserModule } from './domains/users/user.module';
-import { DatabaseModule } from './external/database/database.module';
+import { TattooBookDatabaseModule } from './external/database/database.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     JwtModule.register(JwtConfig.register()),
-    DatabaseModule,
+    TattooBookDatabaseModule,
     UserModule,
     TattoosModule,
     AuthModule,

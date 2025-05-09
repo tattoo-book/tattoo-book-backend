@@ -4,10 +4,12 @@ import { JWT } from '@tattoo-book-architecture/decorators';
 import { RequestDTO, ResponseDTO } from '@tattoo-book-architecture/dtos';
 import { AuthGuard } from '@tattoo-book-architecture/guards';
 import { JoiPipe } from 'nestjs-joi';
+import { Documentation } from 'src/common/documentation/documentation';
 import { CreateUserDTO } from 'src/domains/users/dtos/create-user.dto';
 import { ListUserDTO } from 'src/domains/users/dtos/list-user.dto';
 import { UpdateUserDto } from 'src/domains/users/dtos/update-user.dto';
 import { UsersService } from 'src/domains/users/users.service';
+import { CreateUserDoc } from './documentation/create-user.doc';
 import { SendWellComeEmailUseCase } from './use-cases/users-send-email.service';
 
 @Controller('users')
@@ -21,11 +23,7 @@ export class UsersController {
 
   @Post()
   @JWT(false)
-  @ApiBody({ type: () => CreateUserDTO })
-  @ApiOperation({ summary: 'Criação de usuário', description: 'Cria um novo usuario padrão no sistema' })
-  @ApiResponse({ status: 200, description: 'Sucesso ao criar usuário' })
-  @ApiResponse({ status: 409, description: 'Email já cadastrado' })
-  @ApiResponse({ status: 500, description: 'Erro interno' })
+  @Documentation(CreateUserDoc)
   async create(@Body(JoiPipe) createUserDto: CreateUserDTO) {
     const user = await this.usersService.create(createUserDto);
     this.usersSendEmailService.execute(user);
