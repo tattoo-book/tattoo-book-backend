@@ -4,15 +4,15 @@ import { APP_GUARD } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtConfig } from '@tattoo-book-architecture/configurations';
 import { AuthGuard } from '@tattoo-book-architecture/guards';
+import { Envs } from './@core/envs/envs';
 import { AppController } from './app.controller';
+import { AuthModule } from './domains/authentication/auth.module';
+import { EmailModule } from './domains/email/email.module';
+import { StudiosModule } from './domains/studios/studios.module';
+import { TattooArtistModule } from './domains/tattoo-artist/tattoo-artist.module';
+import { TattoosModule } from './domains/tattoos/tattoos.module';
+import { UserModule } from './domains/users/user.module';
 import { TattooBookDatabaseModule } from './external/database/database.module';
-import { AuthModule } from './modules/authentication/auth.module';
-import { EmailModule } from './modules/email/email.module';
-import { StudiosModule } from './modules/studios/studios.module';
-import { TattooArtistModule } from './modules/tattoo-artist/tattoo-artist.module';
-import { TattoosModule } from './modules/tattoos/tattoos.module';
-import { UserModule } from './modules/users/user.module';
-import { Envs } from './shared/envs/envs';
 
 @Module({
   imports: [

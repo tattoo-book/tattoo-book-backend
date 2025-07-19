@@ -9,10 +9,10 @@ import {
   TattoosLikesEntity,
   UsersEntity,
 } from '@tattoo-book-architecture';
-import { TattooArtistsRepository } from 'src/shared/repositories/tattoo-artist.repository';
-import { TattooLikeRepository } from 'src/shared/repositories/tattoo-likes.repository';
-import { TattoosRepository } from 'src/shared/repositories/tattoos.repository';
-import { UserRepository } from 'src/shared/repositories/user.repository';
+import { TattooArtistsRepository } from 'src/@core/repositories/tattoo-artist.repository';
+import { TattooLikeRepository } from 'src/@core/repositories/tattoo-likes.repository';
+import { TattoosRepository } from 'src/@core/repositories/tattoos.repository';
+import { UserRepository } from 'src/@core/repositories/user.repository';
 
 @Module({
   imports: [
