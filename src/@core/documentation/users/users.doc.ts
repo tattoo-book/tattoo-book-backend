@@ -1,10 +1,10 @@
 import { CreateUserDTO } from '@domains/users/dtos/create-user.dto';
-import { ListUserDTO } from '@domains/users/dtos/list-user.dto';
-import { UpdateUserDto } from '@domains/users/dtos/update-user.dto';
+import { QueryParamsPaginated } from '@domains/users/dtos/list-user.dto';
+import { UpdateUserDTO } from '@domains/users/dtos/update-user.dto';
 import { applyDecorators } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
 
-export class UsersDoc {
+export abstract class UsersDoc {
   static create = applyDecorators(
     ApiBody({ type: () => CreateUserDTO }),
     ApiOperation({ summary: 'Criação de usuário', description: 'Cria um novo usuário padrão no sistema' }),
@@ -14,7 +14,7 @@ export class UsersDoc {
   );
 
   static findAll = applyDecorators(
-    ApiBody({ type: () => ListUserDTO }),
+    ApiBody({ type: () => QueryParamsPaginated }),
     ApiOperation({ summary: 'Listagem de usuários', description: 'Listagem de usuário, ordenação e seleção' }),
     ApiResponse({ status: 200, description: 'Sucesso ao listar usuários' }),
     ApiResponse({ status: 500, description: 'Erro interno' }),
@@ -34,7 +34,7 @@ export class UsersDoc {
   );
 
   static update = applyDecorators(
-    ApiBody({ description: 'Campos do usuário que serão modificados', type: UpdateUserDto }),
+    ApiBody({ description: 'Campos do usuário que serão modificados', type: UpdateUserDTO }),
     ApiOperation({ summary: 'Atualizar de usuário', description: 'Atualiza determinados campos de um usuário' }),
     ApiResponse({ status: 200, description: 'Sucesso ao atualizar usuário' }),
     ApiResponse({ status: 500, description: 'Erro interno' }),

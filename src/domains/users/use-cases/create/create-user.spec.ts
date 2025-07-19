@@ -35,7 +35,7 @@ describe(CreateUserUseCase.name, () => {
   });
 
   it('should create user with success ', async () => {
-    // Mocks DTOs
+    // Mock DTOs
     const userDTO: CreateUserDTO = {
       name: 'Testerton',
       email: 'testerson@email.com',
@@ -43,7 +43,7 @@ describe(CreateUserUseCase.name, () => {
       artist: false,
     };
 
-    // Mocks repositories
+    // Mock repositories
     mockUserRepository.create.mockReturnValue(userDTO);
     mockUserRepository.save.mockReturnValue(userDTO);
 
