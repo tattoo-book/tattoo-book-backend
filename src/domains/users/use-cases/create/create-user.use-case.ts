@@ -1,14 +1,16 @@
+import { TattooArtistsRepository } from '@core/repositories/tattoo-artist.repository';
+import { UserRepository } from '@core/repositories/user.repository';
+import { CreateUserDTO } from '@domains/users/dtos/create-user.dto';
+import { EmailQueue } from '@external/rabbitmq/email-client';
 import { ConflictException, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { TattooArtistsRepository } from 'src/@core/repositories/tattoo-artist.repository';
-import { UserRepository } from 'src/@core/repositories/user.repository';
-import { CreateUserDTO } from '../../dtos/create-user.dto';
 
 @Injectable()
 export class CreateUserUseCase {
   constructor(
     private readonly userRepository: UserRepository,
     private readonly tattooArtistRepository: TattooArtistsRepository,
+    private readonly emailBroker: EmailQueue,
   ) {}
 
   public async execute(createUserDto: CreateUserDTO) {
@@ -21,6 +23,8 @@ export class CreateUserUseCase {
       console.log(createUserDto);
       user.tattooArtist = this.tattooArtistRepository.create({ name: user.name });
     }
-    return await this.userRepository.save(user);
+    const userCreated = await this.userRepository.save(user);
+    this.emailBroker.send('wellcome', { message: `Bem vindo ao tattoo book ${userCreated.name}` });
+    return userCreated;
   }
 }

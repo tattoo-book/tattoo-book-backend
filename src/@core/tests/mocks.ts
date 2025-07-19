@@ -8,3 +8,7 @@ export const mockRepository = {
   merge: jest.fn(),
   softRemove: jest.fn(),
 };
+
+export const mockClientQueue = {
+  send: jest.fn(),
+};

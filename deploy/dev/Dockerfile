@@ -6,7 +6,8 @@ COPY package*.json ./
 
 RUN yarn
 
-COPY . .
+COPY src ./src
+COPY libs ./libs
 
 EXPOSE 3000
 
