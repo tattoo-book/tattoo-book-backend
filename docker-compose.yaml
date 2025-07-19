@@ -1,23 +1,35 @@
-version: "3.9"
-
 services:
-  postgres:
-    image: postgres
-    container_name: tattoo-book-database
-    restart: always
+  tattoo-book:
+    build:
+      context: .
+      dockerfile: ./deploy/dev/Dockerfile
+    container_name: tattoo-book-backend
     env_file: .env
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
     network_mode: host
+    restart: 'no'
+    volumes:
+      - .:/usr/src/app
+    deploy:
+      resources:
+        limits:
+          memory: 200M
+  # tattoo-book-database:
+  #   image: postgres
+  #   container_name: tattoo-book-database
+  #   restart: always
+  #   env_file: .env
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   network_mode: host
 
-  rabbitmq:
-    image: rabbitmq:3-management
-    container_name: tattoo-book-rabbitmq
-    restart: always
-    env_file: .env
-    volumes:
-      - rabbitmq_data:/var/lib/rabbitmq
-    network_mode: host
+  # tattoo-book-rabbitmq:
+  #   image: rabbitmq:3-management
+  #   container_name: tattoo-book-rabbitmq
+  #   restart: always
+  #   env_file: .env
+  #   volumes:
+  #     - rabbitmq_data:/var/lib/rabbitmq
+  #   network_mode: host
 
 volumes:
   postgres_data:

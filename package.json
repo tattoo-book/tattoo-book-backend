@@ -8,9 +8,9 @@
   "scripts": {
     "dev": "dotenv -- nest start --watch",
     "build": "nest build",
-    "docker-build": "docker build -t tattoo-book-backend:1.0 .",
-    "docker-run": "docker run -d --env-file=.env --name tattoo-book-backend -p 3000:3000   tattoo-book-backend:1.0",
-    "docker-run-database": "docker run -d --env-file=.env --name tattoo-book-database --hostname tattoo-book-database -p 5432:5432 postgres",
+    "docker-build": "docker build -t tattoo-book-backend --file ./deploy/dev/Dockerfile .",
+    "docker-run": "docker run -d --rm --env-file .env --name tattoo-book-backend  --network host tattoo-book-backend",
+    "docker-run-database": "docker run -d  --env-file=.env --name tattoo-book-database --hostname tattoo-book-database -p 5432:5432 postgres",
     "docker-connect-network-container": "docker network connect tattoo-book-network tattoo-book-database; docker network connect tattoo-book-network tattoo-book-backend",
     "docker-create-network": "docker network create tattoo-book-network",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"libs/**/*.ts\"",

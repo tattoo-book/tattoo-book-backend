@@ -102,3 +102,16 @@ $ yarn dev
 | POST   | /studios            | Criar um novo estudios     |
 | GET    | /studios            | Listar todos os estudios   |
 | GET    | /studios/:id        | Listar um estudios pelo id |
+
+## Commands to help
+
+```bash
+  # Build image using dev Dockerfile
+  docker build -t tattoo-book-backend --file ./deploy/dev/Dockerfile .
+
+  # Run container
+  docker run -d --rm --env-file .env --name tattoo-book-backend  --network host tattoo-book-backend
+
+  # Create Postgres database
+  docker run -d  --env-file .env --name tattoo-book-database --hostname tattoo-book-database -p 5432:5432 postgres
+```

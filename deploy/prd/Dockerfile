@@ -1,13 +1,9 @@
-FROM node:22-alpine
+FROM node:lts-alpine
 
-WORKDIR /usr/src/app
+WORKDIR /usr/app
 
-COPY package*.json ./
+COPY package.json .
+COPY dist ./dist
+COPY node_modules ./node_modules
 
-RUN yarn
-
-COPY . .
-
-EXPOSE 3000
-
-CMD ["yarn", "start:prod"]
+CMD ["node", "dist/main"]
