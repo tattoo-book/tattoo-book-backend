@@ -1,19 +1,19 @@
-import { FindManyUsersUseCase } from '@domains/users/use-cases/find-many/find-many-users.use-case';
+import { Documentation } from '@core/documentation/documentation';
+import { UsersDoc } from '@core/documentation/users/users.doc';
+import { QueryParamsPaginated } from '@core/dtos/query-params-paginated';
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query, Req } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JWT } from '@tattoo-book-architecture/decorators';
 import { RequestDTO, ResponseDTO } from '@tattoo-book-architecture/dtos';
 import { UsersEntity } from '@tattoo-book-architecture/entities';
 import { JoiPipe } from 'nestjs-joi';
-import { Documentation } from 'src/@core/documentation/documentation';
-import { UsersDoc } from 'src/@core/documentation/users/users.doc';
-import { CreateUserDTO } from 'src/domains/users/dtos/create-user.dto';
-import { QueryParamsPaginated } from 'src/domains/users/dtos/list-user.dto';
-import { UpdateUserDTO } from 'src/domains/users/dtos/update-user.dto';
-import { CreateUserUseCase } from './use-cases/create/create-user.use-case';
-import { DeleteUserUseCase } from './use-cases/delete/delete.use-case';
-import { FindOneUserUseCase } from './use-cases/findOne/find-one.use-case';
-import { UpdateUserUseCase } from './use-cases/update/update.use-case';
+import { CreateUserDTO } from './dtos/create-user.dto';
+import { UpdateUserDTO } from './dtos/update-user.dto';
+import { CreateUserUseCase } from './use-cases/CRUD/create/create-user.use-case';
+import { DeleteUserUseCase } from './use-cases/CRUD/delete/delete.use-case';
+import { FindManyUsersUseCase } from './use-cases/CRUD/find-many/find-many-users.use-case';
+import { FindOneUserUseCase } from './use-cases/CRUD/findOne/find-one.use-case';
+import { UpdateUserUseCase } from './use-cases/CRUD/update/update.use-case';
 
 @Controller('users')
 @ApiTags('Usuários')

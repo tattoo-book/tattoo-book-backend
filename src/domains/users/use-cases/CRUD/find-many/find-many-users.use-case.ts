@@ -1,5 +1,5 @@
+import { QueryParamsPaginated } from '@core/dtos/query-params-paginated';
 import { UserRepository } from '@core/repositories/user.repository';
-import { QueryParamsPaginated } from '@domains/users/dtos/list-user.dto';
 import { Injectable } from '@nestjs/common';
 import { UsersEntity } from '@tattoo-book-architecture/entities';
 

@@ -1,5 +1,5 @@
+import { QueryParamsPaginated } from '@core/dtos/query-params-paginated';
 import { CreateUserDTO } from '@domains/users/dtos/create-user.dto';
-import { QueryParamsPaginated } from '@domains/users/dtos/list-user.dto';
 import { UpdateUserDTO } from '@domains/users/dtos/update-user.dto';
 import { applyDecorators } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
