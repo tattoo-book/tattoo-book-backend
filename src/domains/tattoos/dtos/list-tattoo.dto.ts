@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { TattoosEntity } from '@tattoo-book-architecture';
+import { TattoosEntity } from '@tattoo-book-architecture/entities';
 import { JoiSchema, JoiSchemaOptions } from 'nestjs-joi';
-import { TattooSchema } from 'src/domains/tattoos/schemas/tattoo.schema';
 import { FindOptionsOrder, FindOptionsSelect, FindOptionsWhere } from 'typeorm';
+import { TattooSchema } from '../schemas/tattoo.schema';
 
 @JoiSchemaOptions({ allowUnknown: false })
 export class ListTattoosDTO {

@@ -17,14 +17,11 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
+    "esModuleInterop": true,
     "paths": {
-      "@architecture/*": ["src/architecture/*"],
-      "@authentication/*": ["src/domains/authentication/*"],
-      "@studios/*": ["src/domains/studios/*"],
-      "@tattoo-artist/*": ["src/domains/tattoo-artist/*"],
-      "@tattoos/*": ["src/domains/tattoos/*"],
-      "@users/*": ["src/domains/users/*"],
-      "@tattoo-book-architecture": ["libs/tattoo-book-architecture/src"],
+      "@external/*": ["src/external/*"],
+      "@core/*": ["src/@core/*"],
+      "@domains/*": ["src/domains/*"],
       "@tattoo-book-architecture/*": ["libs/tattoo-book-architecture/src/*"]
     }
   }

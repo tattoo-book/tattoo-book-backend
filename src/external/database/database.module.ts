@@ -1,19 +1,28 @@
+import { StudiosRepository } from '@core/repositories/studios.repositories';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import {
-  BaseRepository,
   StudiosEntity,
   TattooArtistsEntity,
   TattoosEntity,
   TattoosLikesEntity,
   UsersEntity,
-} from '@tattoo-book-architecture';
+} from '@tattoo-book-architecture/entities';
+import { BaseRepository } from '@tattoo-book-architecture/repositories';
 import { TattooArtistsRepository } from 'src/@core/repositories/tattoo-artist.repository';
 import { TattooLikeRepository } from 'src/@core/repositories/tattoo-likes.repository';
 import { TattoosRepository } from 'src/@core/repositories/tattoos.repository';
 import { UserRepository } from 'src/@core/repositories/user.repository';
 
+const repositories = [
+  UserRepository,
+  BaseRepository,
+  TattooLikeRepository,
+  TattooArtistsRepository,
+  TattoosRepository,
+  StudiosRepository,
+];
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -37,7 +46,7 @@ import { UserRepository } from 'src/@core/repositories/user.repository';
       TattoosLikesEntity,
     ]),
   ],
-  providers: [UserRepository, BaseRepository, TattooLikeRepository, TattooArtistsRepository, TattoosRepository],
-  exports: [UserRepository, BaseRepository, TattooLikeRepository, TattooArtistsRepository, TattoosRepository],
+  providers: repositories,
+  exports: repositories,
 })
 export class TattooBookDatabaseModule {}

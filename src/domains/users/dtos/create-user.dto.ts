@@ -18,5 +18,5 @@ export class CreateUserDTO {
 
   @JoiSchema(UserSchema.artist.optional())
   @ApiProperty({ description: 'Define se o usuário é tatuador', type: 'string', required: true })
-  artist: boolean;
+  artist?: boolean;
 }

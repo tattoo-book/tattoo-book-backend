@@ -1,24 +1,24 @@
+import { TattooArtistsRepository } from '@core/repositories/tattoo-artist.repository';
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
-import { TattooArtistsEntity, UsersEntity } from '@tattoo-book-architecture';
+import { TattooArtistsEntity, UsersEntity } from '@tattoo-book-architecture/entities';
 import { RolesEnum } from '@tattoo-book-architecture/enums';
-import { TattooArtistsRepository } from 'src/@core/repositories/tattoo-artist.repository';
-import { CreateTattooArtistDTO } from 'src/domains/tattoo-artist/dtos/CreateTattooArtistDTO';
-import { UpdateTattooArtistDTO } from 'src/domains/tattoo-artist/dtos/update.tattoo.artist';
 import { DataSource } from 'typeorm';
-import { HorariosDocument, HorariosFileType } from './document/horarios/horarios.document';
+import { HoursFileType, ScheduleDocument } from './document/horarios/horarios.document';
+import { CreateTattooArtistDTO } from './dtos/CreateTattooArtistDTO';
+import { UpdateTattooArtistDTO } from './dtos/update.tattoo.artist';
 
 @Injectable()
 export class TattooArtistService {
   constructor(
     private readonly tattooArtistsRepository: TattooArtistsRepository,
-    private readonly datasource: DataSource,
+    private readonly dataSource: DataSource,
   ) {}
 
   async create(createTattooArtistDTO: CreateTattooArtistDTO, userID: number) {
     const userIsTattooArtist = await this.tattooArtistsRepository.findOne({ where: { userId: userID } });
     if (userIsTattooArtist) throw new ConflictException('User is tattoo artist');
 
-    const result = await this.datasource.transaction(async (manager) => {
+    const result = await this.dataSource.transaction(async (manager) => {
       const user = await manager.findOne(UsersEntity, { where: { id: userID } });
       user.setRoles([...user.roles, RolesEnum.TATTOO_ARTIST]);
 
@@ -30,9 +30,9 @@ export class TattooArtistService {
     return result;
   }
 
-  async download(type: HorariosFileType) {
-    const schedulings = await this.tattooArtistsRepository.findOne({ where: { id: 2 } });
-    const document = HorariosDocument.create(type, schedulings.schedulings);
+  async download(type: HoursFileType) {
+    const scheduling = await this.tattooArtistsRepository.findOne({ where: { id: 2 } });
+    const document = ScheduleDocument.create(type, scheduling.schedulings);
     return document.build().export();
   }
 

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { StudiosEntity } from '@tattoo-book-architecture';
+import { StudiosEntity } from '@tattoo-book-architecture/entities';
 import { CommonSchema } from '@tattoo-book-architecture/schemas';
 import { JoiSchema, JoiSchemaOptions } from 'nestjs-joi';
 import { StudiosSchema } from 'src/domains/studios/schemas/studios.schema';

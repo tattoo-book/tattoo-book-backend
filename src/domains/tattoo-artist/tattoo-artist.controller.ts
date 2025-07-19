@@ -6,7 +6,7 @@ import { JoiPipe } from 'nestjs-joi';
 import { CreateTattooArtistDTO } from 'src/domains/tattoo-artist/dtos/CreateTattooArtistDTO';
 import { UpdateTattooArtistDTO } from 'src/domains/tattoo-artist/dtos/update.tattoo.artist';
 import { TattooArtistService } from 'src/domains/tattoo-artist/tattoo-artist.service';
-import { HorariosFileType } from './document/horarios/horarios.document';
+import { HoursFileType } from './document/horarios/horarios.document';
 
 @Controller('tattoo-artists')
 @UseGuards(AuthGuard)
@@ -35,7 +35,7 @@ export class TattooArtistsController {
   @ApiParam({ name: 'typw', description: 'Tipo de arquivo que vai ser exportado' })
   @ApiResponse({ status: 200, description: 'Sucess ao exportar horários' })
   @ApiResponse({ status: 500, description: 'Internal server error' })
-  async download(@Param('type') type: HorariosFileType) {
+  async download(@Param('type') type: HoursFileType) {
     return await this.tattooArtistService.download(type);
   }
 

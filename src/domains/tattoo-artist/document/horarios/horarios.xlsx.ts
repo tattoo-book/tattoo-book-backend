@@ -2,7 +2,7 @@ import { SchedulingTimes } from 'src/domains/tattoo-artist/dtos/scheduling-times
 import { SchedulingDTO } from 'src/domains/tattoo-artist/dtos/scheduling.dto';
 import { DocumentXLSX } from '../document.xlsx';
 
-export class HorariosXLSX extends DocumentXLSX {
+export class HoursXLSX extends DocumentXLSX {
   private readonly schedulings: SchedulingDTO;
 
   constructor(schedulings: SchedulingDTO) {

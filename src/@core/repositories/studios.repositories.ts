@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { StudiosEntity } from '@tattoo-book-architecture';
+import { StudiosEntity } from '@tattoo-book-architecture/entities';
 import { BaseRepository } from '@tattoo-book-architecture/repositories';
 import { Repository } from 'typeorm';
 

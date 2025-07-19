@@ -1,10 +1,7 @@
-import { ConflictException, Injectable } from '@nestjs/common';
-import * as bcrypt from 'bcrypt';
-import { TattooArtistsRepository } from 'src/@core/repositories/tattoo-artist.repository';
+import { Injectable } from '@nestjs/common';
 import { TattooLikeRepository } from 'src/@core/repositories/tattoo-likes.repository';
 import { TattoosRepository } from 'src/@core/repositories/tattoos.repository';
 import { UserRepository } from 'src/@core/repositories/user.repository';
-import { CreateUserDTO } from 'src/domains/users/dtos/create-user.dto';
 import { ListUserDTO } from 'src/domains/users/dtos/list-user.dto';
 import { UpdateUserDto } from 'src/domains/users/dtos/update-user.dto';
 import { In } from 'typeorm';
@@ -14,19 +11,8 @@ export class UsersService {
   constructor(
     private readonly userRepository: UserRepository,
     private readonly tattooLikeRepository: TattooLikeRepository,
-    private readonly tattooArtistRepository: TattooArtistsRepository,
     private readonly tattooRepository: TattoosRepository,
   ) {}
-
-  public async create(createUserDto: CreateUserDTO) {
-    const userExist = await this.userRepository.findOne({ where: { email: createUserDto.email } });
-    if (userExist) throw new ConflictException('Email já cadastrado');
-
-    createUserDto.password = await bcrypt.hash(createUserDto.password, 10);
-    const user = this.userRepository.create(createUserDto);
-    if (createUserDto.artist) user.tattooArtist = this.tattooArtistRepository.create({ name: user.name });
-    return await this.userRepository.save(user);
-  }
 
   public async find(query: ListUserDTO) {
     const users = await this.userRepository.findMany(query);

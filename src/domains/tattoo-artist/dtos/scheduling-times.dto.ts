@@ -1,5 +1,5 @@
 import { JoiSchema } from 'nestjs-joi';
-import { SchedulingSchema } from 'src/domains/tattoo-artist/schemas/schedulling.schema';
+import { SchedulingSchema } from '../schemas/schedulling.schema';
 
 export class SchedulingTimes {
   @JoiSchema(SchedulingSchema.start.required())

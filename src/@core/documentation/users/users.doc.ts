@@ -1,13 +1,13 @@
+import { CreateUserDTO } from '@domains/users/dtos/create-user.dto';
+import { ListUserDTO } from '@domains/users/dtos/list-user.dto';
+import { UpdateUserDto } from '@domains/users/dtos/update-user.dto';
 import { applyDecorators } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
-import { ListUserDTO } from '@users/dtos/list-user.dto';
-import { UpdateUserDto } from '@users/dtos/update-user.dto';
-import { CreateUserDTO } from 'src/domains/users/dtos/create-user.dto';
 
 export class UsersDoc {
   static create = applyDecorators(
     ApiBody({ type: () => CreateUserDTO }),
-    ApiOperation({ summary: 'Criação de usuário', description: 'Cria um novo usuario padrão no sistema' }),
+    ApiOperation({ summary: 'Criação de usuário', description: 'Cria um novo usuário padrão no sistema' }),
     ApiResponse({ status: 200, description: 'Sucesso ao criar usuário' }),
     ApiResponse({ status: 409, description: 'Email já cadastrado' }),
     ApiResponse({ status: 500, description: 'Erro interno' }),

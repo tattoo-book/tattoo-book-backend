@@ -2,8 +2,8 @@ import { Injectable, Logger, NotFoundException, UnauthorizedException } from '@n
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { UserRepository } from 'src/@core/repositories/user.repository';
-import { SignInDTO } from 'src/domains/authentication/dtos/SignInDTO';
-import { SignInResponseDTO } from 'src/domains/authentication/dtos/SignInResponseDTO';
+import { SignInDTO } from './dtos/SignInDTO';
+import { SignInResponseDTO } from './dtos/SignInResponseDTO';
 
 @Injectable()
 export class AuthService {

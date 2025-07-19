@@ -6,7 +6,7 @@ import { JwtConfig } from '@tattoo-book-architecture/configurations';
 import { AuthGuard } from '@tattoo-book-architecture/guards';
 import { Envs } from './@core/envs/envs';
 import { AppController } from './app.controller';
-import { AuthModule } from './domains/authentication/auth.module';
+import { AuthModule } from './domains/auth/auth.module';
 import { EmailModule } from './domains/email/email.module';
 import { StudiosModule } from './domains/studios/studios.module';
 import { TattooArtistModule } from './domains/tattoo-artist/tattoo-artist.module';

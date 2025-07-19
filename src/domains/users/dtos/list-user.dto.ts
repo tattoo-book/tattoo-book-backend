@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { UsersEntity } from '@tattoo-book-architecture';
+import { UsersEntity } from '@tattoo-book-architecture/entities';
 import { CommonSchema } from '@tattoo-book-architecture/schemas';
 import { JoiSchema, JoiSchemaOptions } from 'nestjs-joi';
 import { FindOptionsOrder, FindOptionsSelect, FindOptionsWhere } from 'typeorm';

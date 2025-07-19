@@ -9,6 +9,7 @@ import { CreateUserDTO } from 'src/domains/users/dtos/create-user.dto';
 import { ListUserDTO } from 'src/domains/users/dtos/list-user.dto';
 import { UpdateUserDto } from 'src/domains/users/dtos/update-user.dto';
 import { UsersService } from 'src/domains/users/users.service';
+import { CreateUserUseCase } from './use-cases/create/create-user.use-case';
 import { SendWellComeEmailUseCase } from './use-cases/users-send-email.service';
 
 @Controller('users')
@@ -18,13 +19,14 @@ export class UsersController {
   constructor(
     private readonly usersService: UsersService,
     private readonly usersSendEmailService: SendWellComeEmailUseCase,
+    private readonly createUserUseCase: CreateUserUseCase,
   ) {}
 
   @Post()
   @JWT(false)
   @Documentation(UsersDoc.create)
   async create(@Body(JoiPipe) createUserDto: CreateUserDTO) {
-    const user = await this.usersService.create(createUserDto);
+    const user = await this.createUserUseCase.execute(createUserDto);
     this.usersSendEmailService.execute(user);
     return ResponseDTO.OK('Success on create user', user);
   }
