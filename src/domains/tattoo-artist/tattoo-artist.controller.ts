@@ -1,72 +1,71 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger';
+import { Documentation } from '@core/documentation/documentation';
+import { TattooArtistDoc } from '@core/documentation/tattoo-artist.doc';
+import { QueryParamsPaginated } from '@core/dtos/query-params-paginated';
+import { FindManyTattoosUseCase } from '@domains/tattoos/use-cases/CRUD/find-many/find-many.use-case';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { RequestDTO, ResponseDTO } from '@tattoo-book-architecture/dtos';
+import { TattooArtistsEntity } from '@tattoo-book-architecture/entities';
 import { AuthGuard } from '@tattoo-book-architecture/guards';
 import { JoiPipe } from 'nestjs-joi';
-import { CreateTattooArtistDTO } from 'src/domains/tattoo-artist/dtos/CreateTattooArtistDTO';
-import { UpdateTattooArtistDTO } from 'src/domains/tattoo-artist/dtos/update.tattoo.artist';
-import { TattooArtistService } from 'src/domains/tattoo-artist/tattoo-artist.service';
 import { HoursFileType } from './document/horarios/horarios.document';
+import { CreateTattooArtistDTO } from './dtos/CreateTattooArtistDTO';
+import { UpdateTattooArtistDTO } from './dtos/update.tattoo.artist';
+import { CreateTattooArtistUseCase } from './use-cases/CRUD/create/create.use-case';
+import { DeleteTattooArtistUseCase } from './use-cases/CRUD/delete/delete.usecase';
+import { FindOneTattooArtistUseCase } from './use-cases/CRUD/find-one/find-one.use-case';
+import { UpdateTattooArtistUseCase } from './use-cases/CRUD/update/update.use-case';
+import { DownloadTattooArtistScheduleUseCase } from './use-cases/download/tattoo-artist.service';
 
 @Controller('tattoo-artists')
 @UseGuards(AuthGuard)
-@ApiBearerAuth()
 export class TattooArtistsController {
-  constructor(private readonly tattooArtistService: TattooArtistService) {}
+  constructor(
+    private readonly createTattooArtistUseCase: CreateTattooArtistUseCase,
+    private readonly updateTattooArtistUseCase: UpdateTattooArtistUseCase,
+    private readonly findManyTattoosUseCase: FindManyTattoosUseCase,
+    private readonly findOneTattooArtistUseCase: FindOneTattooArtistUseCase,
+    private readonly deleteTattooArtistUseCase: DeleteTattooArtistUseCase,
+    private readonly downloadTattooArtistScheduleUseCase: DownloadTattooArtistScheduleUseCase,
+  ) {}
 
   @Post()
-  @ApiBody({ description: 'Dados de criação do tatuador', type: () => CreateTattooArtistDTO })
-  @ApiResponse({ status: 200, description: 'Sucesso ao criar tatuador' })
-  @ApiResponse({ status: 500, description: 'Internal server error' })
+  @Documentation(TattooArtistDoc.create)
   async create(@Req() req: RequestDTO, @Body(JoiPipe) createTattooArtistDTO: CreateTattooArtistDTO) {
-    const tattooArtist = await this.tattooArtistService.create(createTattooArtistDTO, req.user.id);
+    const tattooArtist = await this.createTattooArtistUseCase.execute(createTattooArtistDTO, req.user.id);
     return ResponseDTO.OK('Success on create tattoo artist', tattooArtist);
   }
 
   @Get()
-  @ApiResponse({ status: 200, description: 'Sucess ao listar tatuadores' })
-  @ApiResponse({ status: 500, description: 'Internal server error' })
-  async find() {
-    const tattooArtists = await this.tattooArtistService.find();
+  @Documentation(TattooArtistDoc.find)
+  async find(@Req() req: RequestDTO, @Query() query: QueryParamsPaginated<TattooArtistsEntity>) {
+    const tattooArtists = await this.findManyTattoosUseCase.execute(query, req.user.id);
     return ResponseDTO.OK('Success on find all tattoo artist', tattooArtists);
   }
 
   @Get('download/:type')
-  @ApiParam({ name: 'typw', description: 'Tipo de arquivo que vai ser exportado' })
-  @ApiResponse({ status: 200, description: 'Sucess ao exportar horários' })
-  @ApiResponse({ status: 500, description: 'Internal server error' })
+  @Documentation(TattooArtistDoc.download)
   async download(@Param('type') type: HoursFileType) {
-    return await this.tattooArtistService.download(type);
+    return await this.downloadTattooArtistScheduleUseCase.execute(type);
   }
 
   @Get(':id')
-  @ApiParam({ name: 'id', description: 'ID do tatuador' })
-  @ApiResponse({ status: 200, description: 'Sucess ao listar tatuador' })
-  @ApiResponse({ status: 500, description: 'Internal server error' })
+  @Documentation(TattooArtistDoc.findOne)
   async findOne(@Param('id') id: string) {
-    const tattooArtist = await this.tattooArtistService.findOne(+id);
+    const tattooArtist = await this.findOneTattooArtistUseCase.execute(+id);
     return ResponseDTO.OK(`Success on find tattoo artist with id ${id}`, tattooArtist);
   }
 
   @Patch(':id')
-  @ApiParam({ name: 'id', description: 'ID do tatuador que vai ser atualizado' })
-  @ApiBody({ description: 'Dados de atualização do tatuador', type: () => UpdateTattooArtistDTO })
-  @ApiResponse({ status: 200, description: 'Sucess ao atualizar tatuador' })
-  @ApiResponse({ status: 404, description: 'Tatuador não encontrada' })
-  @ApiResponse({ status: 409, description: 'Apenas o proprio tatuador pode atualizar seus atributos' })
-  @ApiResponse({ status: 500, description: 'Internal server error' })
+  @Documentation(TattooArtistDoc.update)
   async update(@Param('id') id: string, @Body(JoiPipe) updateTattooArtistDTO: UpdateTattooArtistDTO) {
-    const tattooArtist = await this.tattooArtistService.update(+id, updateTattooArtistDTO);
+    const tattooArtist = await this.updateTattooArtistUseCase.execute(+id, updateTattooArtistDTO);
     return ResponseDTO.OK(`Success on update tattoo artist with id ${id}`, tattooArtist);
   }
 
   @Delete(':id')
-  @ApiParam({ name: 'id', description: 'ID do tatuador' })
-  @ApiResponse({ status: 200, description: 'Sucess ao atualizar tatuador' })
-  @ApiResponse({ status: 404, description: 'Tatuador não encontrada' })
-  @ApiResponse({ status: 500, description: 'Internal server error' })
+  @Documentation(TattooArtistDoc.delete)
   async delete(@Param('id') id: string) {
-    const tattooArtist = await this.tattooArtistService.delete(+id);
+    const tattooArtist = await this.deleteTattooArtistUseCase.execute(+id);
     return ResponseDTO.OK(`Success on delete tattoo artist with id ${id}`, tattooArtist);
   }
 }

@@ -1,7 +1,8 @@
+import { QueryParamsPaginated } from '@core/dtos/query-params-paginated';
 import { TattooLikeRepository } from '@core/repositories/tattoo-likes.repository';
 import { TattoosRepository } from '@core/repositories/tattoos.repository';
-import { ListTattoosDTO } from '@domains/tattoos/dtos/list-tattoo.dto';
 import { Injectable } from '@nestjs/common';
+import { TattooArtistsEntity } from '@tattoo-book-architecture/entities';
 
 @Injectable()
 export class FindManyTattoosUseCase {
@@ -10,7 +11,7 @@ export class FindManyTattoosUseCase {
     private readonly tattooLikeRepository: TattooLikeRepository,
   ) {}
 
-  async execute(query: ListTattoosDTO, userId: number) {
+  async execute(query: QueryParamsPaginated<TattooArtistsEntity>, userId: number) {
     const tattoos = await this.tattooRepository.findMany(query);
 
     if (query.includes?.includes('likes')) {

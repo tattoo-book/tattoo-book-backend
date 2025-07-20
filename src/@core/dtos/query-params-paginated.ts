@@ -13,6 +13,9 @@ export class QueryParamsPaginated<T> {
   @ApiProperty({ description: 'Colunas que serão selecionadas', required: false })
   select?: FindOptionsSelect<T>;
 
+  @ApiProperty({ description: 'Relacionamentos a serem selecionados', required: false })
+  includes: string[];
+
   @ApiProperty({ description: 'Número da página', required: false })
   page?: number;
 
