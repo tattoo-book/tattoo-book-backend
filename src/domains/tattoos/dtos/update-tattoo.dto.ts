@@ -3,7 +3,7 @@ import { JoiSchema, JoiSchemaOptions } from 'nestjs-joi';
 import { TattooSchema } from 'src/domains/tattoos/schemas/tattoo.schema';
 
 @JoiSchemaOptions({ allowUnknown: false })
-export class UpdateTatttooDTO {
+export class UpdateTattooDTO {
   @JoiSchema(TattooSchema.title.optional())
   @ApiProperty({ description: 'Titulo da tatuagem', required: false, type: 'string' })
   title?: string;

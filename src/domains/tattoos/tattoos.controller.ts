@@ -1,82 +1,79 @@
+import { Documentation } from '@core/documentation/documentation';
+import { TattooDoc } from '@core/documentation/tattoos.doc';
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query, Req, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger';
 import { RequestDTO, ResponseDTO } from '@tattoo-book-architecture/dtos';
 import { AuthGuard } from '@tattoo-book-architecture/guards';
 import { JoiPipe } from 'nestjs-joi';
 import { ListTattoosDTO } from 'src/domains/tattoos/dtos/list-tattoo.dto';
-import { UpdateTatttooDTO } from 'src/domains/tattoos/dtos/update-tattoo.dto';
-import { TattooService } from 'src/domains/tattoos/tattoo.service';
+import { UpdateTattooDTO } from 'src/domains/tattoos/dtos/update-tattoo.dto';
 import { CreateTattooDTO } from './dtos/create-tattoo.dto';
+import { CreateTattooUseCase } from './use-cases/CRUD/create/create-tattoo.use-case';
+import { DeleteTattooUseCase } from './use-cases/CRUD/delete/delete.use-case';
+import { FindManyTattoosUseCase } from './use-cases/CRUD/find-many/find-many.use-case';
+import { FindOneTattooUseCase } from './use-cases/CRUD/find-one/find-onse.use-case';
+import { UpdateTattooUseCase } from './use-cases/CRUD/update/update-tattoo.use-case';
+import { LikeTattooUseCase } from './use-cases/like/like.use-case';
+import { UnlikeTattooUseCase } from './use-cases/unlike/unlike.use-case';
 
 @Controller('tattoos')
 @UseGuards(AuthGuard)
-@ApiBearerAuth()
 export class TattooController {
-  constructor(private readonly tattooService: TattooService) {}
+  constructor(
+    private readonly createTattooUseCase: CreateTattooUseCase,
+    private readonly updateTattooUseCase: UpdateTattooUseCase,
+    private readonly findManyTattoosUseCase: FindManyTattoosUseCase,
+    private readonly findOneTattooUseCase: FindOneTattooUseCase,
+    private readonly deleteTattooUseCase: DeleteTattooUseCase,
+    private readonly likeTattooUseCase: LikeTattooUseCase,
+    private readonly unlikeTattooUseCase: UnlikeTattooUseCase,
+  ) {}
 
   @Post()
-  @ApiBody({ type: () => CreateTattooDTO })
-  @ApiResponse({ status: 200, description: 'Sucesso ao criar tatuagem' })
-  @ApiResponse({ status: 500, description: 'Internal server error' })
+  @Documentation(TattooDoc.create)
   async create(@Req() req: RequestDTO, @Body(JoiPipe) body: CreateTattooDTO) {
-    const tattoo = await this.tattooService.create(body, req.user.id);
+    const tattoo = await this.createTattooUseCase.execute(body, req.user.id);
     return ResponseDTO.OK('Success on create tattoo', { id: tattoo.id });
   }
 
   @Get()
-  @ApiResponse({ status: 200, description: 'Sucesso ao listar tatuagens' })
-  @ApiResponse({ status: 500, description: 'Internal server error' })
+  @Documentation(TattooDoc.find)
   async find(@Req() req: RequestDTO, @Query(JoiPipe) query: ListTattoosDTO) {
-    const tattoos = await this.tattooService.find(query, req.user.id);
+    const tattoos = await this.findManyTattoosUseCase.execute(query, req.user.id);
     return ResponseDTO.OK('Success on find all tattoos', tattoos);
   }
 
   @Get(':id')
-  @ApiResponse({ status: 200, description: 'Sucesso ao listar tatuagem' })
-  @ApiResponse({ status: 500, description: 'Internal server error' })
+  @Documentation(TattooDoc.findOne)
   async findOne(@Param('id') id: string) {
-    const tattoo = await this.tattooService.findOne(+id);
+    const tattoo = await this.findOneTattooUseCase.execute(+id);
     return ResponseDTO.OK(`Success on find tattoo with id ${id}`, tattoo);
   }
 
   @Post(':id/like')
-  @ApiParam({ name: 'id', description: 'ID da tatuagem que vai ser curtida' })
-  @ApiResponse({ status: 200, description: 'Sucesso ao curtir tatuagem' })
-  @ApiResponse({ status: 409, description: 'Tatuagem já foi curtida pelo usuário' })
-  @ApiResponse({ status: 500, description: 'Internal server error' })
+  @Documentation(TattooDoc.like)
   async like(@Req() req: RequestDTO, @Param('id') id: string) {
-    await this.tattooService.like(+id, req.user.id);
+    await this.likeTattooUseCase.execute(+id, req.user.id);
     return ResponseDTO.OK(`Success on like tattoo with id ${id}`, null);
   }
 
   @Delete(':id/unlike')
-  @ApiParam({ name: 'id', description: 'ID da tatuagem que vai ser descurtida' })
-  @ApiResponse({ status: 200, description: 'Sucesso ao descurtir tatuagem' })
-  @ApiResponse({ status: 409, description: 'Tatuagem já foi curtida pelo usuário' })
-  @ApiResponse({ status: 500, description: 'Internal server error' })
+  @Documentation(TattooDoc.unlike)
   async unlike(@Req() req: RequestDTO, @Param('id') id: string) {
-    await this.tattooService.unlike(+id, req.user.id);
+    await this.unlikeTattooUseCase.execute(+id, req.user.id);
     return ResponseDTO.OK(`Success on unlike tattoo with id ${id}`, null);
   }
 
   @Patch(':id')
-  @ApiBody({ type: () => UpdateTatttooDTO })
-  @ApiResponse({ status: 200, description: 'Sucesso ao atualizar tatuagem' })
-  @ApiResponse({ status: 409, description: 'Apenas o dono pode atualizar a tatuagem' })
-  @ApiResponse({ status: 404, description: 'Tatuagem não encontrada' })
-  @ApiResponse({ status: 500, description: 'Internal server error' })
-  async update(@Req() req: RequestDTO, @Param('id') id: string, @Body(JoiPipe) updateTattooDTO: UpdateTatttooDTO) {
-    const tattoo = await this.tattooService.update(+id, req.user.id, updateTattooDTO);
+  @Documentation(TattooDoc.update)
+  async update(@Req() req: RequestDTO, @Param('id') id: string, @Body(JoiPipe) updateTattooDTO: UpdateTattooDTO) {
+    const tattoo = await this.updateTattooUseCase.execute(+id, req.user.id, updateTattooDTO);
     return ResponseDTO.OK(`Success on update tattoo with id ${id}`, tattoo);
   }
 
   @Delete(':id')
-  @ApiResponse({ status: 200, description: 'Sucesso ao deletar tatuagem' })
-  @ApiResponse({ status: 409, description: 'Apenas o dono pode deletar a tatuagem' })
-  @ApiResponse({ status: 404, description: 'Tatuagem não encontrada' })
-  @ApiResponse({ status: 500, description: 'Internal server error' })
+  @Documentation(TattooDoc.delete)
   async delete(@Param('id') id: string) {
-    await this.tattooService.delete(+id);
+    await this.deleteTattooUseCase.execute(+id);
     return ResponseDTO.OK(`Success on delete tattoo with id ${id}`, null);
   }
 }

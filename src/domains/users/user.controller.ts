@@ -1,5 +1,5 @@
 import { Documentation } from '@core/documentation/documentation';
-import { UsersDoc } from '@core/documentation/users/users.doc';
+import { UsersDoc } from '@core/documentation/users.doc';
 import { QueryParamsPaginated } from '@core/dtos/query-params-paginated';
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query, Req } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
