@@ -8,7 +8,7 @@ import { TattooArtistsEntity } from '@tattoo-book-architecture/entities';
 import { AuthGuard } from '@tattoo-book-architecture/guards';
 import { JoiPipe } from 'nestjs-joi';
 import { HoursFileType } from './document/horarios/horarios.document';
-import { CreateTattooArtistDTO } from './dtos/CreateTattooArtistDTO';
+import { CreateTattooArtistDTO } from './dtos/create-tattoo-artist.dto';
 import { UpdateTattooArtistDTO } from './dtos/update.tattoo.artist';
 import { CreateTattooArtistUseCase } from './use-cases/CRUD/create/create.use-case';
 import { DeleteTattooArtistUseCase } from './use-cases/CRUD/delete/delete.usecase';

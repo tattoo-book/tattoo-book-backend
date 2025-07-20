@@ -2,7 +2,7 @@ import { TattooArtistsRepository } from '@core/repositories/tattoo-artist.reposi
 import { UserRepository } from '@core/repositories/user.repository';
 import { mockClientQueue, mockRepository } from '@core/tests/mocks';
 import { CreateUserDTO } from '@domains/users/dtos/create-user.dto';
-import { EmailQueue } from '@external/rabbitmq/email-client';
+import { EmailQueue } from '@external/tattoo-book-emails/tattoo=book-emails.client';
 import { ConflictException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { CreateUserUseCase } from './create-user.use-case';

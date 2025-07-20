@@ -1,11 +1,10 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
 import { ClientsModule } from '@nestjs/microservices';
-import { EmailQueue } from './email-client';
+import { EmailQueue } from '../tattoo-book-emails/tattoo=book-emails.client';
 import { RabbitMQConfig } from './rabbitmq.config';
 
 @Module({
-  imports: [ConfigModule.forRoot(), ClientsModule.register(RabbitMQConfig.clients())],
+  imports: [ClientsModule.register(RabbitMQConfig.registerClients())],
   providers: [EmailQueue],
   exports: [EmailQueue],
 })

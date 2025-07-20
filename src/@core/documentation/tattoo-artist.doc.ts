@@ -1,4 +1,4 @@
-import { CreateTattooArtistDTO } from '@domains/tattoo-artist/dtos/CreateTattooArtistDTO';
+import { CreateTattooArtistDTO } from '@domains/tattoo-artist/dtos/create-tattoo-artist.dto';
 import { UpdateTattooArtistDTO } from '@domains/tattoo-artist/dtos/update.tattoo.artist';
 import { applyDecorators } from '@nestjs/common';
 import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger';

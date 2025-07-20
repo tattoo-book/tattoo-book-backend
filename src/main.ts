@@ -11,7 +11,7 @@ async function bootstrap() {
   app.enableCors({ origin: '*' });
   app.useGlobalInterceptors(new LoggingInterceptor());
 
-  RabbitMQConfig.consumers(app);
+  RabbitMQConfig.connectConsumers(app);
   Swagger.configure(app);
   Swagger.setAlternativeRoutes(app);
 

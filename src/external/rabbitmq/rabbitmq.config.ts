@@ -1,15 +1,43 @@
-import { INestApplication } from '@nestjs/common';
-import { QueueClientConfig } from './queue-client.config';
-import { QueueConfig } from './queue.config';
+import { ClientProviderOptions, MicroserviceOptions, Transport } from '@nestjs/microservices';
 
 export class RabbitMQConfig {
   static readonly url = `amqp://${process.env.RMQ_USER}:${process.env.RMQ_PASSWORD}@${process.env.RMQ_HOST}:${process.env.RMQ_PORT}`;
 
-  static consumers(app: INestApplication<any>) {
-    QueueConfig.queues.forEach((queue) => app.connectMicroservice(QueueConfig.default(queue, this.url)));
+  static consumersList = [process.env.RMQ_TATTOOS_QUEUE as string, process.env.RMQ_EMAILS_QUEUE as string];
+  static clientsList = [process.env.RMQ_TATTOOS_QUEUE as string, process.env.RMQ_EMAILS_QUEUE as string];
+
+  static registerClients() {
+    return this.clientsList.map((client) => this.clients(client));
   }
 
-  static clients() {
-    return QueueClientConfig.queueClients.map((queue) => QueueClientConfig.default(queue, this.url));
+  static connectConsumers(app: any) {
+    this.consumersList.forEach((cons) => app.connectMicroservice(this.consumers(cons)));
+  }
+
+  static clients(queue: string): ClientProviderOptions {
+    return {
+      name: queue,
+      transport: Transport.RMQ,
+      options: {
+        urls: [RabbitMQConfig.url],
+        queue: queue,
+        queueOptions: {
+          durable: false,
+        },
+      },
+    };
+  }
+
+  static consumers(queue: string): MicroserviceOptions {
+    return {
+      transport: Transport.RMQ,
+      options: {
+        urls: [RabbitMQConfig.url],
+        queue: queue,
+        queueOptions: {
+          durable: false,
+        },
+      },
+    };
   }
 }

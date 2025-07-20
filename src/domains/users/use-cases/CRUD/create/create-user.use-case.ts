@@ -1,7 +1,7 @@
 import { TattooArtistsRepository } from '@core/repositories/tattoo-artist.repository';
 import { UserRepository } from '@core/repositories/user.repository';
 import { CreateUserDTO } from '@domains/users/dtos/create-user.dto';
-import { EmailQueue } from '@external/rabbitmq/email-client';
+import { EmailQueue } from '@external/tattoo-book-emails/tattoo=book-emails.client';
 import { ConflictException, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 

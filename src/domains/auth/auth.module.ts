@@ -1,13 +1,11 @@
-import { UserRepository } from '@core/repositories/user.repository';
+import { TattooBookDatabaseModule } from '@external/database/database.module';
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersEntity } from '@tattoo-book-architecture/entities';
 import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
+import { SignInUseCase } from './use-cases/sign-in/sign-in.use-case';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UsersEntity])],
+  imports: [TattooBookDatabaseModule],
   controllers: [AuthController],
-  providers: [UserRepository, AuthService],
+  providers: [SignInUseCase],
 })
 export class AuthModule {}

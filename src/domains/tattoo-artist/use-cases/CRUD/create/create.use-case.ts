@@ -1,5 +1,5 @@
 import { TattooArtistsRepository } from '@core/repositories/tattoo-artist.repository';
-import { CreateTattooArtistDTO } from '@domains/tattoo-artist/dtos/CreateTattooArtistDTO';
+import { CreateTattooArtistDTO } from '@domains/tattoo-artist/dtos/create-tattoo-artist.dto';
 import { ConflictException, Injectable } from '@nestjs/common';
 import { TattooArtistsEntity, UsersEntity } from '@tattoo-book-architecture/entities';
 import { RolesEnum } from '@tattoo-book-architecture/enums';
